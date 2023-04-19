@@ -18,13 +18,15 @@ public class Board {
     private int noOfPlayer;
 
 
-    /*public void makePisti() throws IOException {
+    public void makePisti() throws IOException {
+        boolean isSameValue = false;
+        int countPistiIndex = 0;
         Character chr;
         chr = point.bReader.readLine().charAt(3);
         if(board.size() == 1 && chr.equals("+") && board) {
 
         }
-    }*/
+    }
 
     public void howManyPlayers() {
         while(noOfPlayer != 2 && noOfPlayer != 4) {
@@ -53,6 +55,14 @@ public class Board {
 
        }
     }
+    public int getSameCardIndex() {
+        int counter = 0;
+        for (int i = 0;i<hPlayer.getHand().size();i++) {
+            if(hPlayer.getHand().get(i) == getTopCard())
+        }
+    }
+
+
 
 
 }
