@@ -1,9 +1,12 @@
 import java.io.*;
 
 public class Point {
-    File points = new File("points.txt");
-    BufferedReader bReader = new BufferedReader(new FileReader(points));
-
     public Point() throws FileNotFoundException {
+        this.points = new File("points.txt");
+        this.bReader = new BufferedReader(new FileReader(points));
     }
+    File points;
+    BufferedReader bReader;
+
+
 }

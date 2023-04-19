@@ -7,7 +7,9 @@ public class Deck {
     ArrayList<String> face = new ArrayList<>();
     ArrayList<String> deck = new ArrayList<>();
 
+
     public Deck(){}
+
 
     private void createSuit(){
         suit.add("♠");
@@ -49,6 +51,7 @@ public class Deck {
         ArrayList<String> temporary = new ArrayList<>();
         System.out.println("Please choose where you want to cut: ");
         int cutSite = sc.nextInt();
+
         for(int i=0;i<cutSite;i++){
             temporary.add(deck.get(i));
             deck.remove(0);
@@ -68,9 +71,6 @@ public class Deck {
     //Show the deck
     public void displayDeck(){
         createDeck();
-        for(int i=0;i<52;i++){
-            System.out.println(deck.get(i));
-        }
         cutDeck();
         shuffleDeck();
     }
