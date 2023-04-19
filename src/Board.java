@@ -74,24 +74,36 @@ public class Board {
                    System.out.println("Which bot do you want to play?");
                    System.out.println("'Novice', 'Regular', 'Expert'");
                    String s = sc.nextLine();
-                   if(s.toUpperCase().equals("NOVİCE")){
+                   if(s.equalsIgnoreCase("NOVİCE")){
                        System.out.println("Novice bot has selected!");
                        for(int i=0;i<deck.deck.size();i++){
-
+                           hPlayer.getHand().add(deck.deck.get(i));
+                           deck.deck.remove(i);
+                           nPlayer.getHand().add(deck.deck.get(i));
+                           deck.deck.remove(i);
                        }
-                   }else if(s.toUpperCase().equals("REGULAR")){
+                   }else if(s.equalsIgnoreCase("REGULAR")){
                        System.out.println("Regular bot has selected!");
+                       for(int i=0;i<deck.deck.size();i++){
+                           hPlayer.getHand().add(deck.deck.get(i));
+                           deck.deck.remove(i);
+                           rPlayer.getHand().add(deck.deck.get(i));
+                           deck.deck.remove(i);
+                       }
 
-                   }else if(s.toUpperCase().equals("EXPERT")){
+                   }else if(s.equalsIgnoreCase("EXPERT")){
                        System.out.println("Expert bot has selected!");
+                       for(int i=0;i<deck.deck.size();i++){
+                           hPlayer.getHand().add(deck.deck.get(i));
+                           deck.deck.remove(i);
+                           ePlayer.getHand().add(deck.deck.get(i));
+                           deck.deck.remove(i);
+                       }
 
                    }
                }
 
            }
-
-
-
        }
     }
 
