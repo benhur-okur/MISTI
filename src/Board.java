@@ -28,12 +28,12 @@ public class Board {
         int countPistiIndex = 0;
         Character chr;
         chr = point.bReader.readLine().charAt(3);
-        if(board.size() == 1 && chr.equals("+") && matchingValue) {
-            getCardForRegularB();
-        } else if(chr.equals("+") && matchingValue) {
-            getCardForRegularB();
+        if(board.size() == 1 && chr.equals('+') ) {
+            board.add(String.valueOf(getCardForRegularB()));
+        } else if(chr.equals('+') ) {
+            board.add(String.valueOf(getCardForRegularB()));
         } else {
-            
+            board.add(String.valueOf(getCardForRegularB()));
         }
     }
 
@@ -52,7 +52,7 @@ public class Board {
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
-        if (askingUser.toUpperCase().equals("YES")) {
+        if (askingUser.equalsIgnoreCase("YES")) {
             isHuman = true;
         } else {
             isHuman = false;
@@ -95,15 +95,15 @@ public class Board {
        }
     }
 
-    public Deck getCardForRegularB() {
+    public Character getCardForRegularB() {
         matchingValue = false;
         for (int i = 0;i<rPlayer.getHand().size();i++) {
-            if(rPlayer.getHand().get(i).equals(getTopCard())) {
+            if(rPlayer.getHand().get(i).charAt(1) == (getTopCard().charAt(1))) {
                 matchingValue = true;
-                return rPlayer.getHand().get(i);
+                return rPlayer.getHand().get(i).charAt(1);
             }
         }
-        return rPlayer.getHand().get(ran.nextInt(4));
+        return rPlayer.getHand().get(ran.nextInt(4)).charAt(1);
     }
 
     public String getTopCard(){
