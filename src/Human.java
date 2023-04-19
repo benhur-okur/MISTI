@@ -4,7 +4,7 @@ public class Human extends Player{
     public Human() {
     }
 
-    public Human(String name, String type, String point, ArrayList<Deck> hand, ArrayList<Board> earned, int numOfPlayers) {
+    public Human(String name, String type, String point, ArrayList<String> hand, ArrayList<Board> earned, int numOfPlayers) {
         super(name, type, point, hand, earned, numOfPlayers);
     }
 

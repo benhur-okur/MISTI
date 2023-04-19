@@ -5,7 +5,7 @@ public abstract class Player {
     public Player() {
     }
 
-    public Player(String name, String type, String point, ArrayList<Deck> hand, ArrayList<Board> earned, int numOfPlayers) {
+    public Player(String name, String type, String point, ArrayList<String> hand, ArrayList<Board> earned, int numOfPlayers) {
         this.name = name;
         this.type = type;
         this.point = point;
@@ -17,7 +17,7 @@ public abstract class Player {
     private String name;
     private String type;
     private String point;
-    private ArrayList<Deck> hand = new ArrayList<>();
+    private ArrayList<String> hand = new ArrayList<>();
     private ArrayList<Board> earned = new ArrayList<>();
     private int NumOfPlayers;
 
@@ -45,11 +45,11 @@ public abstract class Player {
         this.point = point;
     }
 
-    public ArrayList<Deck> getHand() {
+    public ArrayList<String> getHand() {
         return hand;
     }
 
-    public void setHand(ArrayList<Deck> hand) {
+    public void setHand(ArrayList<String> hand) {
         this.hand = hand;
     }
 

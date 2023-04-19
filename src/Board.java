@@ -59,10 +59,31 @@ public class Board {
                    board.add(deck.deck.get(0));
                    deck.deck.remove(0);
                }
+               System.out.println("Cards has dealt to the table");
+               System.out.println("Top card: " + board.get(3));
+           }else if(counter > 4){
+               if(isHuman == true){
+                   System.out.println("Which bot do you want to play?");
+                   System.out.println("'Novice', 'Regular', 'Expert'");
+                   String s = sc.nextLine();
+                   if(s.toUpperCase().equals("NOVİCE")){
+                       System.out.println("Novice bot has selected!");
+                       for(int i=0;i<deck.deck.size();i++){
+
+                       }
+                   }else if(s.toUpperCase().equals("REGULAR")){
+                       System.out.println("Regular bot has selected!");
+
+                   }else if(s.toUpperCase().equals("EXPERT")){
+                       System.out.println("Expert bot has selected!");
+
+                   }
+               }
+
            }
-           System.out.println("Cards has dealt to the table");
-           System.out.println("Top card: " + board.get(3));
-           
+
+
+
        }
     }
 
@@ -72,8 +93,6 @@ public class Board {
             if(hPlayer.getHand().get(i) == getTopCard())
         }
     }
-
-
 
     public String getTopCard(){
         return board.get(board.size()-1);

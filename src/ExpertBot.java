@@ -4,7 +4,7 @@ public class ExpertBot extends Player{
     public ExpertBot() {
     }
 
-    public ExpertBot(String name, String type, String point, ArrayList<Deck> hand, ArrayList<Board> earned, int numOfPlayers) {
+    public ExpertBot(String name, String type, String point, ArrayList<String> hand, ArrayList<Board> earned, int numOfPlayers) {
         super(name, type, point, hand, earned, numOfPlayers);
     }
     @Override

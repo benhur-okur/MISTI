@@ -4,7 +4,7 @@ public class NoviceBot extends Player{
     public NoviceBot() {
     }
 
-    public NoviceBot(String name, String type, String point, ArrayList<Deck> hand, ArrayList<Board> earned, int numOfPlayers) {
+    public NoviceBot(String name, String type, String point, ArrayList<String> hand, ArrayList<Board> earned, int numOfPlayers) {
         super(name, type, point, hand, earned, numOfPlayers);
     }
     @Override
