@@ -1,11 +1,15 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Board {
+    Random ran = new Random();
     Scanner sc = new Scanner(System.in);
     private Point point;
+    private boolean matchingValue = false;
+
     private ArrayList<String> board = new ArrayList<>();
     private boolean isHuman; // we will use this data for dealing the hand for human or not;
     private String askingUser; // in this data we are asking the user whether he or she is playing as a player;
@@ -19,13 +23,17 @@ public class Board {
     private int noOfPlayer;
     private int counter = 0;
 
-    public void makePisti() throws IOException {
+    public void playForRegularB() throws IOException {
         boolean isSameValue = false;
         int countPistiIndex = 0;
         Character chr;
         chr = point.bReader.readLine().charAt(3);
-        if(board.size() == 1 && chr.equals("+") && board) {
-
+        if(board.size() == 1 && chr.equals("+") && matchingValue) {
+            getCardForRegularB();
+        } else if(chr.equals("+") && matchingValue) {
+            getCardForRegularB();
+        } else {
+            
         }
     }
 
@@ -66,11 +74,15 @@ public class Board {
        }
     }
 
-    public int getSameCardIndex() {
-        int counter = 0;
-        for (int i = 0;i<hPlayer.getHand().size();i++) {
-            if(hPlayer.getHand().get(i) == getTopCard())
+    public Deck getCardForRegularB() {
+        matchingValue = false;
+        for (int i = 0;i<rPlayer.getHand().size();i++) {
+            if(rPlayer.getHand().get(i).equals(getTopCard())) {
+                matchingValue = true;
+                return rPlayer.getHand().get(i);
+            }
         }
+        return rPlayer.getHand().get(ran.nextInt(4));
     }
 
 
