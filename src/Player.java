@@ -68,6 +68,7 @@ public abstract class Player {
     public void setNumOfPlayers(int numOfPlayers) {
         NumOfPlayers = numOfPlayers;
     }
+    private String
 
 //    +boolean isEmpty()
 //    +String getPisti();
