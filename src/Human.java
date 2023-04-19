@@ -10,6 +10,9 @@ public class Human extends Player{
 
     @Override
     public boolean isEmpty() {
+        if (getHand().size() == 0) {
+            return true;
+        }
         return false;
     }
 
