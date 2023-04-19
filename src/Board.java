@@ -6,7 +6,15 @@ public class Board {
     Scanner sc = new Scanner(System.in);
     private Point point;
     private ArrayList<String> board = new ArrayList<>();
+    private boolean isHuman; // we will use this data for dealing the hand for human or not;
+    private String askingUser; // in this data we are asking the user whether he or she is playing as a player;
 
+    private Human hPlayer;
+    private NoviceBot nPlayer;
+    private RegularBot rPlayer;
+    private ExpertBot ePlayer;
+    private Deck deck;
+    //private Mod mod;
     private int noOfPlayer;
 
 
@@ -19,12 +27,31 @@ public class Board {
     }*/
 
     public void howManyPlayers() {
-        System.out.println("How many players will be in the board 2 or 4 ?");
-        try {
-            noOfPlayer = sc.nextInt();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        while(noOfPlayer != 2 && noOfPlayer != 4) {
+            System.out.println("How many players will be in the board '2 or 4' ?");
+            try {
+                noOfPlayer = sc.nextInt();
+            } catch (Exception ex) {
+                System.out.println(ex.toString());;
+            }
         }
+        System.out.println("Do you want to be a part of this game as a player? (yes / no) ");
+        try {
+            askingUser = sc.nextLine();
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
+        if (askingUser.toUpperCase().equals("YES")) {
+            isHuman = true;
+        } else {
+            isHuman = false;
+        }
+    }
+
+    public void dealCard(){
+       if(noOfPlayer == 2){
+
+       }
     }
 
 
