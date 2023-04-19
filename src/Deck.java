@@ -51,9 +51,10 @@ public class Deck {
         ArrayList<String> temporary = new ArrayList<>();
         System.out.println("Please choose where you want to cut: ");
         int cutSite = sc.nextInt();
+        System.out.println(deck.get(40));
 
         for(int i=0;i<cutSite;i++){
-            temporary.add(deck.get(i));
+            temporary.add(deck.get(0));
             deck.remove(0);
         }
         for(int i=0;i<temporary.size();i++){
@@ -61,6 +62,7 @@ public class Deck {
         }
         System.out.println(deck);
     }
+
 
     //Deck is shuffling
     private void shuffleDeck(){
@@ -71,6 +73,7 @@ public class Deck {
     //Show the deck
     public void displayDeck(){
         createDeck();
+        System.out.println(deck);
         cutDeck();
         shuffleDeck();
     }
