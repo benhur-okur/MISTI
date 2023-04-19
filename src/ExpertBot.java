@@ -1,2 +1,16 @@
-public class ExpertBot {
+public class ExpertBot extends Player{
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
+
+    @Override
+    public void earn() {
+
+    }
+
+    @Override
+    public void play() {
+
+    }
 }
