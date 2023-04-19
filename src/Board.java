@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Board {
@@ -16,7 +17,7 @@ public class Board {
     private Deck deck;
     //private Mod mod;
     private int noOfPlayer;
-
+    private int counter = 0;
 
     public void makePisti() throws IOException {
         boolean isSameValue = false;
@@ -49,12 +50,22 @@ public class Board {
             isHuman = false;
         }
     }
-
     public void dealCard(){
        if(noOfPlayer == 2){
-
+           //Deal cards on board
+           if(counter < 4) {
+               for(int i=0;i<4;i++){
+                   counter++;
+                   board.add(deck.deck.get(0));
+                   deck.deck.remove(0);
+               }
+           }
+           System.out.println("Cards has dealt to the table");
+           System.out.println("Top card: " + board.get(3));
+           
        }
     }
+
     public int getSameCardIndex() {
         int counter = 0;
         for (int i = 0;i<hPlayer.getHand().size();i++) {
@@ -63,6 +74,10 @@ public class Board {
     }
 
 
+
+    public String getTopCard(){
+        return board.get(board.size()-1);
+    }
 
 
 }
