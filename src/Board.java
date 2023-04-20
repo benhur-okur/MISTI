@@ -64,7 +64,7 @@ public class Board {
             isHuman = false;
         }
     }
-    public void dealCard(){
+    public void dealCard() throws InterruptedException {
         deck.displayDeck();
        if(noOfPlayer == 2){
            //Deal cards on board
@@ -85,22 +85,22 @@ public class Board {
                        System.out.println("Novice bot has selected!");
                        for(int i=0;i<4;i++){
                            hPlayer.getHand().add(deck.deck.get(i));
-                           System.out.println(hPlayer.getHand());
                            deck.deck.remove(i);
                            nPlayer.getHand().add(deck.deck.get(i));
-                           System.out.println(nPlayer.getHand());
                            deck.deck.remove(i);
                        }
                    }else if(s.equalsIgnoreCase("REGULAR")){
                        System.out.println("Regular bot has selected!");
                        for(int i=0;i<4;i++){
                            hPlayer.getHand().add(deck.deck.get(i));
-                           System.out.println(hPlayer.getHand());
                            deck.deck.remove(i);
                            rPlayer.getHand().add(deck.deck.get(i));
-                           System.out.println(rPlayer.getHand());
                            deck.deck.remove(i);
                        }
+                       Thread.sleep(1500);
+                       System.out.println(hPlayer.getHand());
+                       Thread.sleep(1500);
+                       System.out.println(rPlayer.getHand());
 
                    }else if(s.equalsIgnoreCase("EXPERT")){
                        System.out.println("Expert bot has selected!");
@@ -110,15 +110,11 @@ public class Board {
                            ePlayer.getHand().add(deck.deck.get(i));
                            deck.deck.remove(i);
                        }
-
                    }
                }
-
            }
        }
     }
-
-
     public void playForRegularB() throws IOException {
         boolean isSameValue = false;
         int countPistiIndex = 0;
@@ -144,10 +140,10 @@ public class Board {
         }
         return rPlayer.getHand().get(ran.nextInt(4));
     }
-
     public String getTopCard(){
         return board.get(board.size()-1);
     }
 
+    
 
 }
