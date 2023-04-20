@@ -77,5 +77,5 @@ public abstract class Player {
 //    +void play();
     public abstract boolean isEmpty();
     public abstract void earn();
-    public abstract void play();
+    public abstract int play();
 }
