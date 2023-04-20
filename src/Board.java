@@ -10,6 +10,7 @@ public class Board {
     Scanner sc = new Scanner(System.in);
     private Point point = new Point();
     private boolean matchingValue = false;
+    private ArrayList<Character> chosenBotList = new ArrayList<>();
 
     private ArrayList<String> board = new ArrayList<>();
     private boolean isHuman; // we will use this data for dealing the hand for human or not;
@@ -82,6 +83,7 @@ public class Board {
                    System.out.println("'Novice', 'Regular', 'Expert'");
                    String s = sc.nextLine();
                    if(s.equalsIgnoreCase("NOVİCE")){
+                       chosenBotList.add('N'); // bnunu büyük harf kucuk harf sıkıntısı olabilir ileride dikkat!!
                        System.out.println("Novice bot has selected!");
                        for(int i=0;i<4;i++){
                            hPlayer.getHand().add(deck.deck.get(i));
@@ -92,6 +94,7 @@ public class Board {
                            deck.deck.remove(i);
                        }
                    }else if(s.equalsIgnoreCase("REGULAR")){
+                       chosenBotList.add('R');
                        System.out.println("Regular bot has selected!");
                        for(int i=0;i<4;i++){
                            hPlayer.getHand().add(deck.deck.get(i));
@@ -103,6 +106,7 @@ public class Board {
                        }
 
                    }else if(s.equalsIgnoreCase("EXPERT")){
+                       chosenBotList.add('E');
                        System.out.println("Expert bot has selected!");
                        for(int i=0;i<4;i++){
                            hPlayer.getHand().add(deck.deck.get(i));
@@ -112,6 +116,9 @@ public class Board {
                        }
 
                    }
+               } else {
+
+
                }
 
            }
@@ -147,6 +154,35 @@ public class Board {
 
     public String getTopCard(){
         return board.get(board.size()-1);
+    }
+    private void modSelect() throws InterruptedException {
+        int modNo = 0;
+        while(modNo != 1 || modNo != 2) {
+            try {
+                System.out.println("Please select game mod");
+                System.out.println("1 -> SelfMod (this mod just shows hand of human player)");
+                System.out.println("2 -> SpectateMod (this mod shows all hands of player )");
+                modNo = sc.nextInt();
+            }  catch (Exception ex) {
+                System.out.println("Please select valid number you can select 1 ");
+                System.out.println(ex.toString());
+            }
+        }
+        if(!isHuman) {
+            for (int i = 0;i<chosenBotList.size();i++) {
+                Thread.sleep(1500);
+                if (chosenBotList.get(i).equals('N')) {
+                    System.out.println("Novice bot's hand : " + nPlayer.getHand());
+                }
+                else if (chosenBotList.get(i).equals('R')) {
+                    System.out.println("Regular bot's hand : " + rPlayer.getHand());
+                }
+                else if (chosenBotList.get(i).equals('N')) {
+                    System.out.println("Expert bot's hand : " + ePlayer.getHand());
+                }
+            }
+        }
+
     }
 
 

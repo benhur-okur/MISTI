@@ -8,7 +8,6 @@ public class Main {
         board.howManyPlayers();
         board.dealCard();
         board.playForRegularB();
-        System.out.println(board.getBoard().get(4));
 
 
 
