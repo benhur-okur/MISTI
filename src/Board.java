@@ -21,7 +21,7 @@ public class Board {
     //private Mod mod;
     private int noOfPlayer;
     private int counter = 0;
-    private int counter2 = 0;
+
 
     public ArrayList<String> getBoard() {
         return board;
@@ -155,7 +155,6 @@ public class Board {
             board.add(String.valueOf(getCardForRegularB()));
         }
     }
-
     public String getCardForRegularB() { // regular bot'un elinden cıkardıgı kart.
         matchingValue = false;
         for (int i = 0;i<rPlayer.getHand().size();i++) {
@@ -180,7 +179,6 @@ public class Board {
                 System.out.println("Please select valid number you can select 1 ");
                 System.out.println(ex.toString());
             }
-
     }
     public void displayHand() throws InterruptedException {
 
