@@ -6,8 +6,15 @@ public class Main {
 
         Board board = new Board();
         board.howManyPlayers();
-        board.dealCard();
-        board.playForRegularB();
+       // board.playForRegularB();
+
+        board.modSelect();
+        board.getDeck().createDeck();
+        while(board.getDeck().deck.size() != 0) {
+            board.dealCard();
+            board.displayHand();
+            board.getTopCard();
+        }
 
 
 

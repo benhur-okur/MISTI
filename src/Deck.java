@@ -7,6 +7,7 @@ public class Deck {
     ArrayList<String> face = new ArrayList<>();
     ArrayList<String> deck = new ArrayList<>();
 
+    private int counter = 0;
 
     public Deck(){}
 
@@ -35,7 +36,7 @@ public class Deck {
     }
 
     //Deck is creating
-    private void createDeck(){
+    public void createDeck(){
         createSuit();
         createFace();
         for(int i=0;i<4;i++){
@@ -47,7 +48,7 @@ public class Deck {
     }
 
     //Deck is cutting
-    private void cutDeck(){
+    public void cutDeck(){
         ArrayList<String> temporary = new ArrayList<>();
         System.out.println("Please choose where you want to cut: ");
         int cutSite = sc.nextInt();
@@ -65,16 +66,19 @@ public class Deck {
 
 
     //Deck is shuffling
-    private void shuffleDeck(){
+    public void shuffleDeck(){
         Collections.shuffle(deck);
         System.out.println("Deck has just shuffled..");
     }
 
     //Show the deck
     public void displayDeck(){
-        createDeck();
-        cutDeck();
-        shuffleDeck();
+        if(counter < 1){
+            cutDeck();
+            shuffleDeck();
+            counter ++;
+        }
+
     }
 
 }
