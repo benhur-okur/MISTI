@@ -80,7 +80,8 @@ public class Board {
                 System.out.println("Top card: " + board.get(3));
             }
             if (counter >= 4) {
-
+                
+                displayHand();
             }
         }
     }
@@ -196,7 +197,7 @@ public class Board {
         hPlayer.play();
     }
 
-    private void addBot() {
+    public void addBot() {
         int selectedBot;
         int selectedBot2;
         howManyPlayers();

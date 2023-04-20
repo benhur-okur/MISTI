@@ -22,6 +22,6 @@ public class ExpertBot extends Player{
 
     @Override
     public int play() {
-
+        return 0;
     }
 }

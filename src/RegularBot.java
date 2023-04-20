@@ -23,6 +23,6 @@ public class RegularBot extends Player{
 
     @Override
     public int play() {
-
+        return 0;
     }
 }
