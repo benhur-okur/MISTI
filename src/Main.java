@@ -10,6 +10,7 @@ public class Main {
 
         while(board.getDeck().deck.size() != 0){
             board.dealCard();
+            board.humanPlay();
             board.getTopCard();
         }
 

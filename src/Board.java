@@ -22,7 +22,7 @@ public class Board {
     private int noOfPlayer;
     private int mod;
     private int counter = 0;
-
+    private String s;
 
     public ArrayList<String> getBoard() {
         return board;
@@ -82,9 +82,13 @@ public class Board {
             }
             if (counter >= 4) {
                 if (isHuman == true) {
-                    System.out.println("Which bot do you want to play?");
-                    System.out.println("'Novice', 'Regular', 'Expert'");
-                    String s = sc.nextLine();
+                    if(counter < 5){
+                        counter ++;
+                        System.out.println("Which bot do you want to play?");
+                        System.out.println("'Novice', 'Regular', 'Expert'");
+                        s = sc.nextLine();
+                    }
+
                     if (s.equalsIgnoreCase("NOVİCE")) {
                         chosenBotList.add('N'); // bnunu büyük harf kucuk harf sıkıntısı olabilir ileride dikkat!!
                         System.out.println("Novice bot has selected!");
@@ -98,10 +102,6 @@ public class Board {
                                 deck.deck.remove(i);
                             }
                         }
-                            while(hPlayer.getHand().size() > 0){
-                                hPlayer.play();
-                                hPlayer.getHand().remove(hPlayer.selectCard);
-                            }
 
 
                     } else if (s.equalsIgnoreCase("REGULAR")) {
@@ -279,6 +279,14 @@ public class Board {
 
     private void playForHuman() {
         hPlayer.play();
+    }
+
+    public void humanPlay(){
+        while(hPlayer.getHand().size() > 0){
+            hPlayer.play();
+            System.out.println(hPlayer.getHand().get(hPlayer.selectCard));
+            hPlayer.getHand().remove(hPlayer.selectCard);
+        }
     }
 
 
