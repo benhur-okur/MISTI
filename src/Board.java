@@ -193,11 +193,11 @@ public class Board {
         if (!isHuman) {
             for (int i = 0; i < chosenBotList.size(); i++) {
                 Thread.sleep(1500);
-                if (chosenBotList.get(i).equals('N')) {
+                if (chosenBotList.get(i).equals('N')) { //Deal'da seçiyoruz
                     System.out.println("Novice bot's hand : " + nPlayer.getHand());
                 } else if (chosenBotList.get(i).equals('R')) {
                     System.out.println("Regular bot's hand : " + rPlayer.getHand());
-                } else if (chosenBotList.get(i).equals('N')) {
+                } else if (chosenBotList.get(i).equals('E')) {
                     System.out.println("Expert bot's hand : " + ePlayer.getHand());
                 }
             }
@@ -208,7 +208,7 @@ public class Board {
                     System.out.println("Novice bot's hand : " + nPlayer.getHand());
                 } else if (chosenBotList.get(i).equals('R')) {
                     System.out.println("Regular bot's hand : " + rPlayer.getHand());
-                } else if (chosenBotList.get(i).equals('N')) {
+                } else if (chosenBotList.get(i).equals('E')) {
                     System.out.println("Expert bot's hand : " + ePlayer.getHand());
                 }
             }
@@ -219,22 +219,13 @@ public class Board {
                     System.out.println("Novice bot's hand : " + nPlayer.getHand());
                 } else if (chosenBotList.get(i).equals('R')) {
                     System.out.println("Regular bot's hand : " + rPlayer.getHand());
-                } else if (chosenBotList.get(i).equals('N')) {
+                } else if (chosenBotList.get(i).equals('E')) {
                     System.out.println("Expert bot's hand : " + ePlayer.getHand());
                 }
             }
         }
 
     }
-
-    /*private void singleReturnMethods() {
-        if (c < 1) {
-            getDeck().cutDeck();
-            getDeck().shuffleDeck();
-
-        }
-
-    }*/
 
     private void playForNoviceBot() {
         System.out.println("Novice Bot Has Played!");
@@ -245,121 +236,5 @@ public class Board {
         hPlayer.play();
     }
 
-    public void addBot() { // in the below section we can create for loop for adding bot which include noOfPlayer - (isHuman ? 1 : 0).
-        int selectedBot;
-        int selectedBot2;
-        howManyPlayers();
-        switch (noOfPlayer) {
-            case 2:
-                if (isHuman) {
-                    System.out.println("you have to select one bot for opponent");
-                    System.out.println("1 -> NoviceBot\n2 -> RegularBot\n3 -> ExpertBot");
-                    selectedBot = sc.nextInt();
-                    switch (selectedBot) {
-                        case 1 -> chosenBotList.add('N');
-                        case 2 -> chosenBotList.add('R');
-                        case 3 -> chosenBotList.add('E');
-                        default -> System.out.println("you have chosen invalid number");
-                    }
 
-                } else {
-                    System.out.println("you have to select two bots to scramble: ");
-                    System.out.println("Choose:\n1 -> NoviceBot\n2 -> RegularBot\n3 -> ExpertBot");
-                    selectedBot = sc.nextInt();
-                    switch (selectedBot) {
-                        case 1 -> chosenBotList.add('N');
-                        case 2 -> chosenBotList.add('R');
-                        case 3 -> chosenBotList.add('E');
-                        default -> System.out.println("you have chosen invalid number");
-                    }
-                    System.out.println("Choose:\n1 -> NoviceBot\n2 -> RegularBot\n3 -> ExpertBot");
-                    selectedBot2 = sc.nextInt();
-                    switch (selectedBot2) {
-                        case 1 -> chosenBotList.add('N');
-                        case 2 -> chosenBotList.add('R');
-                        case 3 -> chosenBotList.add('E');
-                        default -> System.out.println("you have chosen invalid number");
-                    }
-                    break;
-                }
-            case 4:
-                int sb1;
-                int sb2;
-                int sb3;
-                int sb4;
-                int sb5;
-                int sb6;
-                int sb7;
-
-
-                if (isHuman) {
-                    System.out.println("you have to select two bots to scramble: ");
-                    System.out.println("Choose:\n1 -> NoviceBot\n2 -> RegularBot\n3 -> ExpertBot");
-                    sb1 = sc.nextInt();
-                    switch (sb1) {
-                        case 1 -> chosenBotList.add('N');
-                        case 2 -> chosenBotList.add('R');
-                        case 3 -> chosenBotList.add('E');
-                        default -> System.out.println("you have chosen invalid number");
-                    }
-                    System.out.println("you have to select two bots to scramble: ");
-                    System.out.println("Choose:\n1 -> NoviceBot\n2 -> RegularBot\n3 -> ExpertBot");
-                    sb2 = sc.nextInt();
-                    switch (sb2) {
-                        case 1 -> chosenBotList.add('N');
-                        case 2 -> chosenBotList.add('R');
-                        case 3 -> chosenBotList.add('E');
-                        default -> System.out.println("you have chosen invalid number");
-                    }
-                    System.out.println("you have to select two bots to scramble: ");
-                    System.out.println("Choose:\n1 -> NoviceBot\n2 -> RegularBot\n3 -> ExpertBot");
-                    sb3 = sc.nextInt();
-                    switch (sb3) {
-                        case 1 -> chosenBotList.add('N');
-                        case 2 -> chosenBotList.add('R');
-                        case 3 -> chosenBotList.add('E');
-                        default -> System.out.println("you have chosen invalid number");
-                    }
-                } else {
-                    System.out.println("you have to select two bots to scramble: ");
-                    System.out.println("Choose:\n1 -> NoviceBot\n2 -> RegularBot\n3 -> ExpertBot");
-                    sb4 = sc.nextInt();
-                    switch (sb4) {
-                        case 1 -> chosenBotList.add('N');
-                        case 2 -> chosenBotList.add('R');
-                        case 3 -> chosenBotList.add('E');
-                        default -> System.out.println("you have chosen invalid number");
-                    }
-                    System.out.println("you have to select two bots to scramble: ");
-                    System.out.println("Choose:\n1 -> NoviceBot\n2 -> RegularBot\n3 -> ExpertBot");
-                    sb5 = sc.nextInt();
-                    switch (sb5) {
-                        case 1 -> chosenBotList.add('N');
-                        case 2 -> chosenBotList.add('R');
-                        case 3 -> chosenBotList.add('E');
-                        default -> System.out.println("you have chosen invalid number");
-                    }
-                    System.out.println("you have to select two bots to scramble: ");
-                    System.out.println("Choose:\n1 -> NoviceBot\n2 -> RegularBot\n3 -> ExpertBot");
-                    sb6 = sc.nextInt();
-                    switch (sb6) {
-                        case 1 -> chosenBotList.add('N');
-                        case 2 -> chosenBotList.add('R');
-                        case 3 -> chosenBotList.add('E');
-                        default -> System.out.println("you have chosen invalid number");
-                    }
-                    System.out.println("you have to select two bots to scramble: ");
-                    System.out.println("Choose:\n1 -> NoviceBot\n2 -> RegularBot\n3 -> ExpertBot");
-                    sb7 = sc.nextInt();
-                    switch (sb7) {
-                        case 1 -> chosenBotList.add('N');
-                        case 2 -> chosenBotList.add('R');
-                        case 3 -> chosenBotList.add('E');
-                        default -> System.out.println("you have chosen invalid number");
-
-
-                    }
-                }
-        }
-    }
 }

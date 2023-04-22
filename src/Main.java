@@ -10,7 +10,7 @@ public class Main {
 
         board.modSelect();
         board.getDeck().createDeck();
-        board.addBot();
+
         while(board.getDeck().deck.size() != 0) {
             board.dealCard();
             board.getTopCard();
