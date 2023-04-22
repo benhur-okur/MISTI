@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Human extends Player{
+
+    public int selectCard;
     public Human() {
     }
 
@@ -26,7 +28,9 @@ public class Human extends Player{
     public int play() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Please Select a Card in your hand use index between 0 - 3 [both include] !");
-        return sc.nextInt();
+        selectCard = sc.nextInt();
+        return selectCard;
+
     }
 
 

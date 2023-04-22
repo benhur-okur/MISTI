@@ -5,21 +5,15 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         Board board = new Board();
-        board.howManyPlayers();
-       // board.playForRegularB();
-
-        board.modSelect();
         board.getDeck().createDeck();
+        board.howManyPlayers();
 
-        while(board.getDeck().deck.size() != 0) {
+        while(board.getDeck().deck.size() != 0){
             board.dealCard();
             board.getTopCard();
         }
 
 
 
-        /*for (int i = 0;i<2;i++) {
-            board.playForRegularB();
-        }*/
     }
 }
