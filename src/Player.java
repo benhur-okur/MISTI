@@ -70,7 +70,6 @@ public abstract class Player {
     }
 
 
-
 //    +boolean isEmpty()
 //    +String getPisti();
 //    +void earn();

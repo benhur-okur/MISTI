@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class NoviceBot extends Player{
+
+    public int noviceSelect;
     public NoviceBot() {
     }
 
@@ -24,6 +26,7 @@ public class NoviceBot extends Player{
     @Override
     public int play() {
         Random ran = new Random();
-        return ran.nextInt(4);
+        noviceSelect = ran.nextInt(4);
+        return noviceSelect;
     }
 }
