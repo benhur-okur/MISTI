@@ -129,6 +129,7 @@ public class Board {
                     }
 
                 } else {
+                        /*
                         try{
                             System.out.println("In this game you have to choose mod numbers\n" +
                                     "1 -> On Mod (Bots play the game and human can see their hands)\n" +
@@ -146,7 +147,6 @@ public class Board {
                             String bot1 = sc.nextLine();
                             System.out.println("Please select bot 2");
                             String bot2 = sc.nextLine();
-
 
                         }
 
