@@ -7,17 +7,23 @@ public class Main {
         Board board = new Board();
         board.getDeck().createDeck();
         board.howManyPlayers();
-        while(board.getDeck().deck.size() != 0){
+        while(board.getDeck().deck.size() != 0) {
             board.dealCard();
             board.getTopCard();
-            for(int i=0;i<24;i++){
+            for (int i = 0; i < 24; i++) {
                 board.play();
             }
 
+            board.dealCard();
+
+            for (int i = 0; i < 24; i++) {
+                board.dealCard();
+                board.play();
+
+            }
+
+
         }
-
-
-
 
     }
 }
