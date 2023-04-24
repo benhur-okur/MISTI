@@ -26,7 +26,7 @@ public class NoviceBot extends Player{
     @Override
     public int play() {
         Random ran = new Random();
-        noviceSelect = ran.nextInt(4);
+        noviceSelect = ran.nextInt(getHand().size());
         return noviceSelect;
     }
 }

@@ -87,6 +87,7 @@ public class Board {
             isHuman = false; //YES cevabı vermezse false döndürüyor!!
         }
     }
+    int c = 0; //İnsan olmadığı durumlarda modu bir kere yazdırması için sınırladımız counter
     public void dealCard() throws InterruptedException {
         deck.displayDeck();
         if (noOfPlayer == 2) {
@@ -199,13 +200,17 @@ public class Board {
                     }
 
                 } else {
-                    System.out.println("mod 2 will be apply the automatically (SpectateMod)");
-                    modNo = 2;
+                    if(c == 0){
+                        c++;
+                        System.out.println("mod 2 will be apply the automatically (SpectateMod)");
+                        modNo = 2;
+                    }
                     while (counter < 6) { // counter 4
                         counter ++;
                         System.out.println("Which bot do you want to add?");
                         System.out.println("'Novice', 'Regular', 'Expert'");
                         s = sc.nextLine();
+
                     }
                     if (s.equalsIgnoreCase("NOVİCE")) {
                         chosenBotList.add('N'); // bnunu büyük harf kucuk harf sıkıntısı olabilir ileride dikkat!!
@@ -312,17 +317,17 @@ public class Board {
     private void playForHuman() {
         hPlayer.play();
     }
-    /*public void humanPlay(){
+    public void humanPlay(){
             board.add(hPlayer.getHand().get(hPlayer.play()));
-            //System.out.println(hPlayer.getHand().get(hPlayer.selectCard));
+            System.out.println(hPlayer.getHand().get(hPlayer.selectCard));
             hPlayer.getHand().remove(hPlayer.selectCard);
             System.out.println(hPlayer.getHand());
-    }*/
-    /*public void novicePlay(){
+    }
+    public void novicePlay(){
             board.add(nPlayer.getHand().get(nPlayer.play()));
             nPlayer.getHand().remove(nPlayer.noviceSelect);
             System.out.println(nPlayer.getHand());
-    }*/
+    }
 
     private void playForExpertBot() {
         board.add(ePlayer.getHand().get(ran.nextInt(4)));
@@ -363,10 +368,9 @@ public class Board {
             if ((i1 + i2) > 0 ) {
                 System.out.println("Regular bot has just played!");
                 board.add(rPlayer.getHand().get(matchingIndex));
+                rPlayer.getHand().remove(matchingIndex);
             }
         }
-
-
         return rPlayer.getHand().get(ran.nextInt(4));
     }
 
@@ -385,6 +389,7 @@ public class Board {
                     default -> System.out.println("Please enter a valid character");
                 }
             }
+
         }
 
     }
