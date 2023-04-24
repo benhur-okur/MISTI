@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
@@ -6,8 +8,10 @@ public class Board {
     Random ran = new Random();
     Scanner sc = new Scanner(System.in);
     private Point point = new Point();
-    private boolean matchingValue = false;
+    //
     private ArrayList<Character> chosenBotList = new ArrayList<>();
+    private boolean matchingValue = false;
+
 
     private ArrayList<String> board = new ArrayList<>();
     private boolean isHuman; // we will use this data for dealing the hand for human or not;
@@ -99,7 +103,7 @@ public class Board {
             if (counter >= 4) {
                 if (isHuman == true) {
                     modSelect();
-                    if(counter < 5){
+                    if(counter < 5){ // 4'te yaptıgı için bir tane bot eklemiş oluyoruz
                         counter ++;
                         System.out.println("Which bot do you want to play?");
                         System.out.println("'Novice', 'Regular', 'Expert'");
@@ -195,24 +199,52 @@ public class Board {
                     }
 
                 } else {
-
-                    
+                    System.out.println("mod 2 will be apply the automatically (SpectateMod)");
+                    modNo = 2;
+                    while (counter < 6) { // counter 4
+                        counter ++;
+                        System.out.println("Which bot do you want to add?");
+                        System.out.println("'Novice', 'Regular', 'Expert'");
+                        s = sc.nextLine();
+                    }
+                    if (s.equalsIgnoreCase("NOVİCE")) {
+                        chosenBotList.add('N'); // bnunu büyük harf kucuk harf sıkıntısı olabilir ileride dikkat!!
+                        System.out.println("Novice bot has selected!");
+                        if(nPlayer.getHand().size() == 0){
+                            for (int i = 0; i < 4; i++) {
+                                Thread.sleep(1000);
+                                nPlayer.getHand().add(deck.deck.get(i));
+                                System.out.println("novice bot's hand : " + nPlayer.getHand());
+                                deck.deck.remove(i);
+                            }
+                        }
+                    } else if (s.equalsIgnoreCase("REGULAR")) {
+                        chosenBotList.add('R');
+                        System.out.println("Regular bot has selected!");
+                        if(rPlayer.getHand().size() == 0){
+                            for (int i = 0; i < 4; i++) {
+                                Thread.sleep(1000);
+                                rPlayer.getHand().add(deck.deck.get(i));
+                                System.out.println("regular bot's hand : " + rPlayer.getHand());
+                                deck.deck.remove(i);
+                            }
+                        }
+                    } else if (s.equalsIgnoreCase("EXPERT")) {
+                        chosenBotList.add('E');
+                        System.out.println("Expert bot has selected!");
+                        if(ePlayer.getHand().size() == 0){
+                            for (int i = 0; i < 4; i++) {
+                                Thread.sleep(1000);
+                                ePlayer.getHand().add(deck.deck.get(i));
+                                System.out.println("expert bot's hand : " + ePlayer.getHand());
+                                deck.deck.remove(i);
+                            }
+                        }
+                    }
                 }
+
             }
         }
-    }
-    public String getCardForRegularB() { // regular bot'un elinden cıkardıgı kart.
-        matchingValue = false;
-        for (int i = 0; i < rPlayer.getHand().size(); i++) {
-            if (rPlayer.getHand().get(i).charAt(1) == (getTopCard().charAt(1))) {
-                matchingValue = true;
-                return rPlayer.getHand().get(i);
-            }
-        }
-        return rPlayer.getHand().get(ran.nextInt(4));
-    }
-    public String getTopCard() {
-        return board.get(board.size() - 1);
     }
 
     int modNo;
@@ -280,15 +312,80 @@ public class Board {
     private void playForHuman() {
         hPlayer.play();
     }
-    public void humanPlay(){
+    /*public void humanPlay(){
             board.add(hPlayer.getHand().get(hPlayer.play()));
             //System.out.println(hPlayer.getHand().get(hPlayer.selectCard));
             hPlayer.getHand().remove(hPlayer.selectCard);
             System.out.println(hPlayer.getHand());
-    }
-    public void novicePlay(){
+    }*/
+    /*public void novicePlay(){
             board.add(nPlayer.getHand().get(nPlayer.play()));
             nPlayer.getHand().remove(nPlayer.noviceSelect);
             System.out.println(nPlayer.getHand());
+    }*/
+
+    private void playForExpertBot() {
+        board.add(ePlayer.getHand().get(ran.nextInt(4)));
+    }
+
+    public String playForRegularBot() throws FileNotFoundException { // regular bot'un elinden cıkardıgı kart.
+        matchingValue = false;
+        String s1;
+        String s2;
+        int i1 = 0;
+        int i2 = 0;
+        int matchingIndex = 0;
+        for (int i = 0; i < rPlayer.getHand().size(); i++) {
+            if (rPlayer.getHand().get(i).charAt(1) == (getTopCard().charAt(1))) {
+                matchingValue = true;
+                matchingIndex = i; // elimizde 4 kart var hangi kartın pişti yapabilecegini söylüyor (index olarak)
+            }
+        }
+        if (matchingValue) {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("points.txt"));
+            try {
+                String line = bufferedReader.readLine();
+                while (line != null) {
+                    s1 = String.valueOf(line.charAt(0) + line.charAt(1)); // txt file'daki her satırın kartı örn: 1. satır için SA
+                    if (rPlayer.getHand().get(matchingIndex).equals(s1)) { // S6
+                        i1 = Integer.parseInt(String.valueOf(line.charAt(3) + line.charAt(4)));
+                    }
+                    if (getTopCard().equals(s1)) {
+                        i2 = Integer.parseInt(String.valueOf(line.charAt(3) + line.charAt(4)));
+                    }
+                    line = bufferedReader.readLine();
+                }
+                bufferedReader.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if ((i1 + i2) > 0 ) {
+                System.out.println("Regular bot has just played!");
+                board.add(rPlayer.getHand().get(matchingIndex));
+            }
+        }
+
+
+        return rPlayer.getHand().get(ran.nextInt(4));
+    }
+
+    public String getTopCard() {
+        return board.get(board.size() - 1);
+    }
+
+    public void play() throws FileNotFoundException {
+        //System.out.println(getTopCard());
+        if (isHuman == false) {
+            for (int i = 0;i<chosenBotList.size();i++) {
+                switch (chosenBotList.get(i)) {
+                    case 'N' -> playForNoviceBot();
+                    case 'R' -> playForRegularBot();
+                    case 'E' -> playForExpertBot();
+                    default -> System.out.println("Please enter a valid character");
+                }
+            }
+        }
+
     }
 }

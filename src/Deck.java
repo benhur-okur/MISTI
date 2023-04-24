@@ -47,6 +47,12 @@ public class Deck {
         }
     }
 
+    public void showDeckLineByLine() {
+        for (String i : deck) {
+            System.out.println(i);
+        }
+    }
+
     //Deck is cutting
     public void cutDeck(){
         ArrayList<String> temporary = new ArrayList<>();

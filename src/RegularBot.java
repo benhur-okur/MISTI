@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class RegularBot extends Player{
     public RegularBot() {
@@ -25,4 +26,6 @@ public class RegularBot extends Player{
     public int play() {
         return 0;
     }
+
+
 }
