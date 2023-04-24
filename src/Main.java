@@ -9,9 +9,10 @@ public class Main {
         board.howManyPlayers();
         board.dealCard();
 
-        while(board.getDeck().deck.size() != 0){
+        for (int i = 0;i<24;i++){
+            board.dealCard();
             board.play();
-
+            
         }
 
 

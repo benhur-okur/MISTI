@@ -43,7 +43,7 @@ public class Board {
     private int noOfPlayer;
     private int mod;
     private int counter = 0;
-    private String s;
+    public String s;
 
     public ArrayList<String> getBoard() {
         return board;
@@ -102,9 +102,11 @@ public class Board {
             }
             if (counter >= 4) {
                 if (isHuman == true) {
-                    modSelect();
+
+                    modSelect(); // bu metod birkere yazılcak çünkü bu metodun içine bir kere çalışması için counter ekledik.
                     if(counter < 5){ // 4'te yaptıgı için bir tane bot eklemiş oluyoruz
                         counter ++;
+                        chosenBotList.add('H');
                         System.out.println("Which bot do you want to play?");
                         System.out.println("'Novice', 'Regular', 'Expert'");
                         s = sc.nextLine();
@@ -113,7 +115,6 @@ public class Board {
                     if(modNo == 1){
                         if (s.equalsIgnoreCase("NOVİCE")) {
                             chosenBotList.add('N'); // bnunu büyük harf kucuk harf sıkıntısı olabilir ileride dikkat!!
-                            System.out.println("Novice bot has selected!");
                             if(hPlayer.getHand().size() == 0 && nPlayer.getHand().size() == 0){
                                 for (int i = 0; i < 4; i++) {
                                     Thread.sleep(1000);
@@ -126,7 +127,6 @@ public class Board {
                             }
                         } else if (s.equalsIgnoreCase("REGULAR")) {
                             chosenBotList.add('R');
-                            System.out.println("Regular bot has selected!");
                             if(hPlayer.getHand().size() == 0){
                                 for (int i = 0; i < 4; i++) {
                                     Thread.sleep(1000);
@@ -139,7 +139,6 @@ public class Board {
                             }
                         } else if (s.equalsIgnoreCase("EXPERT")) {
                             chosenBotList.add('E');
-                            System.out.println("Expert bot has selected!");
                             if(hPlayer.getHand().size() == 0){
                                 for (int i = 0; i < 4; i++) {
                                     Thread.sleep(1000);
@@ -154,7 +153,7 @@ public class Board {
                     }else if(modNo == 2){
                         if (s.equalsIgnoreCase("NOVİCE")) {
                             chosenBotList.add('N'); // bnunu büyük harf kucuk harf sıkıntısı olabilir ileride dikkat!!
-                            System.out.println("Novice bot has selected!");
+                            //System.out.println("Novice bot has selected!");
                             if(hPlayer.getHand().size() == 0){
                                 for (int i = 0; i < 4; i++) {
                                     Thread.sleep(1000);
@@ -168,7 +167,7 @@ public class Board {
                             }
                         } else if (s.equalsIgnoreCase("REGULAR")) {
                             chosenBotList.add('R');
-                            System.out.println("Regular bot has selected!");
+                            //System.out.println("Regular bot has selected!");
                             if(hPlayer.getHand().size() == 0){
                                 for (int i = 0; i < 4; i++) {
                                     Thread.sleep(1000);
@@ -182,7 +181,7 @@ public class Board {
                             }
                         } else if (s.equalsIgnoreCase("EXPERT")) {
                             chosenBotList.add('E');
-                            System.out.println("Expert bot has selected!");
+                            //System.out.println("Expert bot has selected!");
                             if(hPlayer.getHand().size() == 0){
                                 for (int i = 0; i < 4; i++) {
                                     Thread.sleep(1000);
@@ -305,12 +304,20 @@ public class Board {
         }
 
     }*/
-    private void playForNoviceBot() {
+    private void playForNoviceBot() { // novice bot play bitti !
         System.out.println("Novice Bot Has Played!");
+        String returnValue = nPlayer.getHand().get(nPlayer.play());
         board.add(nPlayer.getHand().get(nPlayer.play()));
+        System.out.println("Novice bot has played : " + returnValue);
+        nPlayer.getHand().remove(returnValue);
     }
-    private void playForHuman() {
-        hPlayer.play();
+    private void playForHuman() { // bitti !
+        String returnValue = hPlayer.getHand().get(hPlayer.play());
+        System.out.println("You have been played : " + returnValue);
+        board.add(returnValue);
+        hPlayer.getHand().remove(returnValue);
+
+
     }
     /*public void humanPlay(){
             board.add(hPlayer.getHand().get(hPlayer.play()));
@@ -328,7 +335,7 @@ public class Board {
         board.add(ePlayer.getHand().get(ran.nextInt(4)));
     }
 
-    public String playForRegularBot() throws FileNotFoundException { // regular bot'un elinden cıkardıgı kart.
+    public void playForRegularBot() throws FileNotFoundException { // regular bot'un oynama metodu (Bitti !).
         matchingValue = false;
         String s1;
         String s2;
@@ -363,11 +370,26 @@ public class Board {
             if ((i1 + i2) > 0 ) {
                 System.out.println("Regular bot has just played!");
                 board.add(rPlayer.getHand().get(matchingIndex));
+                System.out.println("Regular bot has just played : " + rPlayer.getHand().get(matchingIndex));
+                rPlayer.getHand().remove(rPlayer.getHand().get(matchingIndex));
             }
+            else {
+                int indexOfPlay = ran.nextInt(rPlayer.getHand().size());
+                while (indexOfPlay == matchingIndex) {
+                    indexOfPlay = ran.nextInt(rPlayer.getHand().size());
+                }
+                board.add(rPlayer.getHand().get(indexOfPlay));
+                System.out.println("Regular bot has just played : " + rPlayer.getHand().get(indexOfPlay));
+                rPlayer.getHand().remove(rPlayer.getHand().get(indexOfPlay));
+            }
+        } else {
+            int indexOfPlay = ran.nextInt(rPlayer.getHand().size()); // eğer uyuşan kart yoksa rastgele bir kart oynayacak bu degeri inte atamamızın sebebi ikinci kez rastgele seçim yapmamak için.
+            board.add(rPlayer.getHand().get(indexOfPlay));
+            System.out.println("Regular bot has just played : " + rPlayer.getHand().get(indexOfPlay));
+            rPlayer.getHand().remove(rPlayer.getHand().get(indexOfPlay));
+
         }
 
-
-        return rPlayer.getHand().get(ran.nextInt(4));
     }
 
     public String getTopCard() {
@@ -382,6 +404,7 @@ public class Board {
                     case 'N' -> playForNoviceBot();
                     case 'R' -> playForRegularBot();
                     case 'E' -> playForExpertBot();
+                    case 'H' -> playForHuman();
                     default -> System.out.println("Please enter a valid character");
                 }
             }
