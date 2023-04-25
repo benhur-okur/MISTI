@@ -13,10 +13,10 @@ public class Deck {
 
 
     private void createSuit(){
-        suit.add("♠");
-        suit.add("♣");
-        suit.add("♥");
-        suit.add("♦");
+        suit.add("S");
+        suit.add("C");
+        suit.add("H");
+        suit.add("D");
     }
 
     private void createFace(){
