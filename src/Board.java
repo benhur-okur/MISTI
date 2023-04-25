@@ -441,9 +441,44 @@ public class Board {
     }
 
     public void play() throws FileNotFoundException, InterruptedException {
-        dealCard();
         //System.out.println(getTopCard());
         //if (!isHuman) {
+        for (int i = 0;i<chosenBotList.size();i++) {
+            switch (chosenBotList.get(i)) {
+                case 'N' :
+                    if (nPlayer.getHand().isEmpty()) {
+                        for (int j = 0;j<4;j++) {
+                            nPlayer.getHand().add(deck.deck.get(0));
+                            deck.deck.remove(0);
+                        }
+
+                    }
+                case 'R' :
+                    if (rPlayer.getHand().isEmpty()) {
+                        for (int j = 0;j<4;j++) {
+                            rPlayer.getHand().add(deck.deck.get(0));
+                            deck.deck.remove(0);
+                        }
+
+                    }
+                case 'E' :
+                    if (ePlayer.getHand().isEmpty()) {
+                        for (int j = 0;j<4;j++) {
+                            ePlayer.getHand().add(deck.deck.get(0));
+                            deck.deck.remove(0);
+                        }
+
+
+                    }
+                case 'H' :
+                    if (hPlayer.getHand().isEmpty()) {
+                        for (int j = 0;j<4;j++) {
+                            hPlayer.getHand().add(deck.deck.get(0));
+                            deck.deck.remove(0);
+                        }
+                    }
+            }
+        }
         for (Character character : chosenBotList) {
             switch (character) {
                 case 'N' -> playForNoviceBot();
@@ -452,9 +487,6 @@ public class Board {
                 case 'H' -> playForHuman();
                 default -> System.out.println("Please enter a valid character");
             }
-
-
-
         }
 
 
