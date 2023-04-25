@@ -310,45 +310,6 @@ public class Board {
             }
     }
 
-    /*
-    public void displayHand() throws InterruptedException {
-
-        if (!isHuman) {
-            for (int i = 0; i < chosenBotList.size(); i++) {
-                Thread.sleep(1500);
-                if (chosenBotList.get(i).equals('N')) { //Deal'da seçiyoruz
-                    System.out.println("Novice bot's hand : " + nPlayer.getHand());
-                } else if (chosenBotList.get(i).equals('R')) {
-                    System.out.println("Regular bot's hand : " + rPlayer.getHand());
-                } else if (chosenBotList.get(i).equals('E')) {
-                    System.out.println("Expert bot's hand : " + ePlayer.getHand());
-                }
-            }
-        } else if (modNo == 1) {
-            for (int i = 0; i < chosenBotList.size(); i++) {
-                Thread.sleep(1500);
-                if (chosenBotList.get(i).equals('N')) {
-                    System.out.println("Novice bot's hand : " + nPlayer.getHand());
-                } else if (chosenBotList.get(i).equals('R')) {
-                    System.out.println("Regular bot's hand : " + rPlayer.getHand());
-                } else if (chosenBotList.get(i).equals('E')) {
-                    System.out.println("Expert bot's hand : " + ePlayer.getHand());
-                }
-            }
-        } else if (modNo == 2) {
-            for (int i = 0; i < chosenBotList.size(); i++) {
-                Thread.sleep(1500);
-                if (chosenBotList.get(i).equals('N')) {
-                    System.out.println("Novice bot's hand : " + nPlayer.getHand());
-                } else if (chosenBotList.get(i).equals('R')) {
-                    System.out.println("Regular bot's hand : " + rPlayer.getHand());
-                } else if (chosenBotList.get(i).equals('E')) {
-                    System.out.println("Expert bot's hand : " + ePlayer.getHand());
-                }
-            }
-        }
-
-    }*/
     private void playForNoviceBot() { // novice bot play bitti !
         String returnValue = nPlayer.getHand().get(nPlayer.play());
         board.add(returnValue);
@@ -455,7 +416,7 @@ public class Board {
                             nPlayer.getHand().add(deck.deck.get(0));
                             deck.deck.remove(0);
                         }
-
+                        displayHand();
                     }
                 case 'R' :
                     if (rPlayer.getHand().isEmpty()) {
@@ -463,6 +424,7 @@ public class Board {
                             rPlayer.getHand().add(deck.deck.get(0));
                             deck.deck.remove(0);
                         }
+                        displayHand();
 
                     }
                 case 'E' :
@@ -471,8 +433,7 @@ public class Board {
                             ePlayer.getHand().add(deck.deck.get(0));
                             deck.deck.remove(0);
                         }
-
-
+                        displayHand();
                     }
                 case 'H' :
                     if (hPlayer.getHand().isEmpty()) {
@@ -480,6 +441,7 @@ public class Board {
                             hPlayer.getHand().add(deck.deck.get(0));
                             deck.deck.remove(0);
                         }
+                        displayHand();
                     }
             }
         }
@@ -493,8 +455,25 @@ public class Board {
             }
         }
 
+    }
 
 
+    public void displayHand(){
+        if(modNo == 1){
+            System.out.println("Human player's hand: " + hPlayer.getHand());
+        }else if(modNo == 2){
+            for(int i=0;i<chosenBotList.size();i++){
+                if(chosenBotList.get(i).equals('N')){
+                    System.out.println("Novice player's hand: " + nPlayer.getHand());
+                }else if (chosenBotList.get(i).equals('R')){
+                    System.out.println("Regular player's hand: " + rPlayer.getHand());
+                } else if (chosenBotList.get(i).equals('E')) {
+                    System.out.println("Expert player's hand: " + ePlayer.getHand());
+                } else if (chosenBotList.get(i).equals('H')) {
+                    System.out.println("Human player's hand " + hPlayer.getHand());
+                }
+            }
+        }
     }
 
     private boolean canMakePisti() { // pişti yapabiliyor muyuz onu belirliyoruz boolean tipinde bu da piştiden kazanılan kartların earnedWithPisti array list'ine gitmesini sağlıcak şart.
