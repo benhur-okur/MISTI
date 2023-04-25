@@ -405,18 +405,16 @@ public class Board {
         dealCard();
         //System.out.println(getTopCard());
         //if (!isHuman) {
-            for (Character character : chosenBotList) {
-                switch (character) {
-                    case 'N' -> playForNoviceBot();
-                    case 'R' -> playForRegularBot();
-                    case 'E' -> playForExpertBot();
-                    case 'H' -> playForHuman();
-                    default -> System.out.println("Please enter a valid character");
-                }
+        for (Character character : chosenBotList) {
+            switch (character) {
+                case 'N' -> playForNoviceBot();
+                case 'R' -> playForRegularBot();
+                case 'E' -> playForExpertBot();
+                case 'H' -> playForHuman();
+                default -> System.out.println("Please enter a valid character");
             }
-
-
         }
+
 
     }
 }
