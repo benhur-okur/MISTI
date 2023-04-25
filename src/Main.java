@@ -10,9 +10,9 @@ public class Main {
         board.dealCard();
 
         for (int i = 0;i<24;i++){
-            board.dealCard();
+            //board.dealCard();
             board.play();
-            
+
         }
 
 

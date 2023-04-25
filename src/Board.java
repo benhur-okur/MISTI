@@ -368,14 +368,13 @@ public class Board {
                 e.printStackTrace();
             }
             if ((i1 + i2) > 0 ) {
-                System.out.println("Regular bot has just played!");
                 board.add(rPlayer.getHand().get(matchingIndex));
                 System.out.println("Regular bot has just played : " + rPlayer.getHand().get(matchingIndex));
                 rPlayer.getHand().remove(rPlayer.getHand().get(matchingIndex));
             }
             else {
-                int indexOfPlay = ran.nextInt(rPlayer.getHand().size());
-                while (indexOfPlay == matchingIndex) {
+                int indexOfPlay = ran.nextInt(rPlayer.getHand().size()); // 2
+                while (indexOfPlay == matchingIndex) {  // 2
                     indexOfPlay = ran.nextInt(rPlayer.getHand().size());
                 }
                 board.add(rPlayer.getHand().get(indexOfPlay));
@@ -396,11 +395,12 @@ public class Board {
         return board.get(board.size() - 1);
     }
 
-    public void play() throws FileNotFoundException {
+    public void play() throws FileNotFoundException, InterruptedException {
+        dealCard();
         //System.out.println(getTopCard());
-        if (isHuman == false) {
-            for (int i = 0;i<chosenBotList.size();i++) {
-                switch (chosenBotList.get(i)) {
+        //if (!isHuman) {
+            for (Character character : chosenBotList) {
+                switch (character) {
                     case 'N' -> playForNoviceBot();
                     case 'R' -> playForRegularBot();
                     case 'E' -> playForExpertBot();
@@ -408,7 +408,6 @@ public class Board {
                     default -> System.out.println("Please enter a valid character");
                 }
             }
-        }
 
     }
 }
