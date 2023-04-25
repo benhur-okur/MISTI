@@ -452,10 +452,8 @@ public class Board {
                 case 'H' -> playForHuman();
                 default -> System.out.println("Please enter a valid character");
             }
-
-
-
         }
+
 
 
     }
