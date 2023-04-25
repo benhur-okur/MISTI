@@ -6,8 +6,8 @@ public class Human extends Player{
     public Human() {
     }
 
-    public Human(String name, String type, String point, ArrayList<String> hand, ArrayList<Board> earned, int numOfPlayers) {
-        super(name, type, point, hand, earned, numOfPlayers);
+    public Human(String name, String type, String point, ArrayList<String> hand, ArrayList<String> earnedWithoutPisti, ArrayList<String> earnedWithPisti, int numOfPlayers) {
+        super(name, type, point, hand, earnedWithoutPisti, earnedWithPisti, numOfPlayers);
     }
 
     @Override

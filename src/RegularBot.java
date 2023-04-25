@@ -5,8 +5,8 @@ public class RegularBot extends Player{
     public RegularBot() {
     }
 
-    public RegularBot(String point, ArrayList<String> hand, ArrayList<Board> earned, int numOfPlayers) {
-        super("RegularBot", "Level-2", point, hand, earned, numOfPlayers);
+    public RegularBot(String name, String type, String point, ArrayList<String> hand, ArrayList<String> earnedWithoutPisti, ArrayList<String> earnedWithPisti, int numOfPlayers) {
+        super(name, type, point, hand, earnedWithoutPisti, earnedWithPisti, numOfPlayers);
     }
 
     @Override

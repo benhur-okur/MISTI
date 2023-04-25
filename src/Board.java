@@ -11,6 +11,7 @@ public class Board {
     //
     private ArrayList<Character> chosenBotList = new ArrayList<>();
     private boolean matchingValue = false;
+    private boolean isPisti = false;
 
 
     private ArrayList<String> board = new ArrayList<>();
@@ -349,9 +350,8 @@ public class Board {
 
     }*/
     private void playForNoviceBot() { // novice bot play bitti !
-        System.out.println("Novice Bot Has Played!");
         String returnValue = nPlayer.getHand().get(nPlayer.play());
-        board.add(nPlayer.getHand().get(nPlayer.play()));
+        board.add(returnValue);
         System.out.println("Novice bot has played : " + returnValue);
         nPlayer.getHand().remove(returnValue);
     }
@@ -400,9 +400,13 @@ public class Board {
                     s1 = String.valueOf(line.charAt(0) + line.charAt(1)); // txt file'daki her satırın kartı örn: 1. satır için SA
                     if (rPlayer.getHand().get(matchingIndex).equals(s1)) { // S6
                         i1 = Integer.parseInt(String.valueOf(line.charAt(3) + line.charAt(4)));
+                    } else {
+                        i1 = 1;
                     }
                     if (getTopCard().equals(s1)) {
                         i2 = Integer.parseInt(String.valueOf(line.charAt(3) + line.charAt(4)));
+                    } else {
+                        i2 = 1;
                     }
                     line = bufferedReader.readLine();
                 }
@@ -413,9 +417,9 @@ public class Board {
             }
             if ((i1 + i2) > 0 ) {
                 board.add(rPlayer.getHand().get(matchingIndex));
-                rPlayer.getHand().remove(matchingIndex);
                 System.out.println("Regular bot has just played : " + rPlayer.getHand().get(matchingIndex));
                 rPlayer.getHand().remove(rPlayer.getHand().get(matchingIndex));
+                saveEarnedCards('r');
             }
             else {
                 int indexOfPlay = ran.nextInt(rPlayer.getHand().size()); // 2
@@ -490,6 +494,68 @@ public class Board {
         }
 
 
+
+    }
+
+    private boolean canMakePisti() { // pişti yapabiliyor muyuz onu belirliyoruz boolean tipinde bu da piştiden kazanılan kartların earnedWithPisti array list'ine gitmesini sağlıcak şart.
+        if (matchingValue && board.size() == 1) {
+            isPisti = true;
+        }
+        return isPisti;
+    }
+
+    private void saveEarnedCards(Character c) {
+        switch (c) {
+            case 'N' :
+                if (canMakePisti()) {
+                    for (String b : board) {
+                        nPlayer.getEarnedWithPisti().add(b);
+                        board.remove(0);
+                    }
+                } else {
+                    for (String b : board) {
+                        nPlayer.getEarnedWithoutPisti().add(b);
+                        board.remove(0);
+                    }
+                }
+            case 'R' :
+                if (canMakePisti()) {
+                    for (String b : board) {
+                        rPlayer.getEarnedWithPisti().add(b);
+                        board.remove(0);
+                    }
+                } else {
+                    for (String b : board) {
+                        rPlayer.getEarnedWithoutPisti().add(b);
+                        board.remove(0);
+                    }
+                }
+            case 'E' :
+                if (canMakePisti()) {
+                    for (String b : board) {
+                        ePlayer.getEarnedWithPisti().add(b);
+                        board.remove(0);
+                    }
+                } else {
+                    for (String b : board) {
+                        ePlayer.getEarnedWithoutPisti().add(b);
+                        board.remove(0);
+                    }
+                }
+            case 'H' :
+                if (canMakePisti()) {
+                    for (String b : board) {
+                        hPlayer.getEarnedWithPisti().add(b);
+                        board.remove(0);
+                    }
+                } else {
+                    for (String b : board) {
+                        hPlayer.getEarnedWithoutPisti().add(b);
+                        board.remove(0);
+                    }
+                }
+
+        }
 
     }
 }

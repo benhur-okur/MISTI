@@ -5,12 +5,13 @@ public abstract class Player {
     public Player() {
     }
 
-    public Player(String name, String type, String point, ArrayList<String> hand, ArrayList<Board> earned, int numOfPlayers) {
+    public Player(String name, String type, String point, ArrayList<String> hand, ArrayList<String> earnedWithoutPisti,ArrayList<String> earnedWithPisti, int numOfPlayers) {
         this.name = name;
         this.type = type;
         this.point = point;
         this.hand = hand;
-        this.earned = earned;
+        this.earnedWithoutPisti = earnedWithoutPisti;
+        this.earnedWithPisti = earnedWithPisti;
         NumOfPlayers = numOfPlayers;
     }
 
@@ -18,7 +19,9 @@ public abstract class Player {
     private String type;
     private String point;
     private ArrayList<String> hand = new ArrayList<>();
-    private ArrayList<Board> earned = new ArrayList<>();
+    private ArrayList<String> earnedWithoutPisti = new ArrayList<>();
+    private ArrayList<String> earnedWithPisti = new ArrayList<>();
+
     private int NumOfPlayers;
 
     public String getName() {
@@ -53,12 +56,20 @@ public abstract class Player {
         this.hand = hand;
     }
 
-    public ArrayList<Board> getEarned() {
-        return earned;
+    public ArrayList<String> getEarnedWithoutPisti() {
+        return earnedWithoutPisti;
     }
 
-    public void setEarned(ArrayList<Board> earned) {
-        this.earned = earned;
+    public void setEarnedWithoutPisti(ArrayList<String> earnedWithoutPisti) {
+        this.earnedWithoutPisti = earnedWithoutPisti;
+    }
+
+    public ArrayList<String> getEarnedWithPisti() {
+        return earnedWithPisti;
+    }
+
+    public void setEarnedWithPisti(ArrayList<String> earnedWithPisti) {
+        this.earnedWithPisti = earnedWithPisti;
     }
 
     public int getNumOfPlayers() {

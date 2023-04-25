@@ -7,9 +7,11 @@ public class NoviceBot extends Player{
     public NoviceBot() {
     }
 
-    public NoviceBot(String name, String type, String point, ArrayList<String> hand, ArrayList<Board> earned, int numOfPlayers) {
-        super(name, type, point, hand, earned, numOfPlayers);
+    public NoviceBot(String name, String type, String point, ArrayList<String> hand, ArrayList<String> earnedWithoutPisti, ArrayList<String> earnedWithPisti, int numOfPlayers, int noviceSelect) {
+        super(name, type, point, hand, earnedWithoutPisti, earnedWithPisti, numOfPlayers);
+        this.noviceSelect = noviceSelect;
     }
+
     @Override
     public boolean isEmpty() {
         if (getHand().size() == 0) {
