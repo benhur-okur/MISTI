@@ -7,7 +7,6 @@ public class Main {
         Board board = new Board();
         board.getDeck().createDeck();
         board.howManyPlayers();
-        board.dealCard();
 
         for (int i = 0;i<24;i++){
             //board.dealCard();

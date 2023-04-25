@@ -43,7 +43,8 @@ public class Board {
     private int noOfPlayer;
     private int mod;
     private int counter = 0;
-    public String s;
+    public String s, t;
+
 
     public ArrayList<String> getBoard() {
         return board;
@@ -104,7 +105,7 @@ public class Board {
             if (counter >= 4) {
                 if (isHuman == true) {
 
-                    modSelect(); // bu metod birkere yazılcak çünkü bu metodun içine bir kere çalışması için counter ekledik.
+                    modSelect(); // bu metod bir kere yazılcak çünkü bu metodun içine bir kere çalışması için counter ekledik.
                     if(counter < 5){ // 4'te yaptıgı için bir tane bot eklemiş oluyoruz
                         counter ++;
                         chosenBotList.add('H');
@@ -204,12 +205,17 @@ public class Board {
                         System.out.println("mod 2 will be apply the automatically (SpectateMod)");
                         modNo = 2;
                     }
-                    while (counter < 6) { // counter 4
+                    while (counter < 5) { // counter 4
                         counter ++;
                         System.out.println("Which bot do you want to add?");
                         System.out.println("'Novice', 'Regular', 'Expert'");
                         s = sc.nextLine();
-
+                    }
+                    while(counter < 6){
+                        counter ++;
+                        System.out.println("Which bot do you want to add?");
+                        System.out.println("'Novice', 'Regular', 'Expert'");
+                        t = sc.nextLine();
                     }
                     if (s.equalsIgnoreCase("NOVİCE")) {
                         chosenBotList.add('N'); // bnunu büyük harf kucuk harf sıkıntısı olabilir ileride dikkat!!
@@ -245,12 +251,45 @@ public class Board {
                             }
                         }
                     }
+                    if (t.equalsIgnoreCase("NOVİCE")) {
+                        chosenBotList.add('N'); // bnunu büyük harf kucuk harf sıkıntısı olabilir ileride dikkat!!
+                        System.out.println("Novice bot has selected!");
+                        if(nPlayer.getHand().size() == 0){
+                            for (int i = 0; i < 4; i++) {
+                                Thread.sleep(1000);
+                                nPlayer.getHand().add(deck.deck.get(i));
+                                System.out.println("novice bot's hand : " + nPlayer.getHand());
+                                deck.deck.remove(i);
+                            }
+                        }
+                    } else if (t.equalsIgnoreCase("REGULAR")) {
+                        chosenBotList.add('R');
+                        System.out.println("Regular bot has selected!");
+                        if(rPlayer.getHand().size() == 0){
+                            for (int i = 0; i < 4; i++) {
+                                Thread.sleep(1000);
+                                rPlayer.getHand().add(deck.deck.get(i));
+                                System.out.println("regular bot's hand : " + rPlayer.getHand());
+                                deck.deck.remove(i);
+                            }
+                        }
+                    } else if (t.equalsIgnoreCase("EXPERT")) {
+                        chosenBotList.add('E');
+                        System.out.println("Expert bot has selected!");
+                        if(ePlayer.getHand().size() == 0){
+                            for (int i = 0; i < 4; i++) {
+                                Thread.sleep(1000);
+                                ePlayer.getHand().add(deck.deck.get(i));
+                                System.out.println("expert bot's hand : " + ePlayer.getHand());
+                                deck.deck.remove(i);
+                            }
+                        }
+                    }
                 }
 
             }
         }
     }
-
     int modNo;
 
     int count = 0;
@@ -413,6 +452,9 @@ public class Board {
                 case 'H' -> playForHuman();
                 default -> System.out.println("Please enter a valid character");
             }
+
+
+
         }
 
 
