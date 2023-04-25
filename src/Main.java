@@ -10,14 +10,9 @@ public class Main {
         while(board.getDeck().deck.size() != 0) {
             board.dealCard();
             board.getTopCard();
-            for (int i = 0; i < 24; i++) {
-                board.play();
-            }
 
-            board.dealCard();
+            while(board.getnPlayer().getHand().size() != 0 && board.getnPlayer().getHand().size() != 0){
 
-            for (int i = 0; i < 24; i++) {
-                board.dealCard();
                 board.play();
 
             }
