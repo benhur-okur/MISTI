@@ -4,8 +4,11 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
+
+
         Board board = new Board();
-        board.getDeck().createDeck();
+        System.out.println(board.lineToString());
+        /*board.getDeck().createDeck();
         board.howManyPlayers();
         board.dealCard();
 
@@ -13,7 +16,7 @@ public class Main {
             //board.dealCard();
             board.play();
 
-        }
+        }*/
 
     }
 }

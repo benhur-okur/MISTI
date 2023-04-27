@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Board {
@@ -536,5 +533,12 @@ public class Board {
 
         }
 
+    }
+    public String lineToString() throws IOException {
+        BufferedReader bufferedReader2 = new BufferedReader(new FileReader(new File("points.txt")));
+        String sss = null;
+        sss = String.valueOf(bufferedReader2.read());
+
+        return sss;
     }
 }
