@@ -337,12 +337,14 @@ public class Board {
         board.add(ePlayer.getHand().get(ran.nextInt(4)));
     }
 
-    public void playForRegularBot() throws FileNotFoundException { // regular bot'un oynama metodu (Bitti !).
+    public void playForRegularBot() throws FileNotFoundException { // puana
         matchingValue = false;
         String s1;
         String s2;
         int i1 = 0;
         int i2 = 0;
+        boolean f1 = true;
+        boolean f2 = true;
         int matchingIndex = 0;
         for (int i = 0; i < rPlayer.getHand().size(); i++) {
             if (rPlayer.getHand().get(i).charAt(1) == (getTopCard().charAt(1))) {
@@ -354,17 +356,24 @@ public class Board {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("points.txt"));
             try {
                 String line = bufferedReader.readLine();
-                while (line != null) {
+                while (line != null && f1 && f2) {
+                    if (line.length() == 0) {
+                        break;
+                    }
                     s1 = String.valueOf(line.charAt(0) + line.charAt(1)); // txt file'daki her satırın kartı örn: 1. satır için SA
                     if (rPlayer.getHand().get(matchingIndex).equals(s1)) { // S6
-                        i1 = Integer.parseInt(String.valueOf(line.charAt(3) + line.charAt(4)));
+                        i1 = Integer.parseInt(String.valueOf(line.charAt(3))) + Integer.parseInt(String.valueOf(line.charAt(4)));
+                        f1 = false;
                     } else {
                         i1 = 1;
+                        f2 = false;
                     }
                     if (getTopCard().equals(s1)) {
                         i2 = Integer.parseInt(String.valueOf(line.charAt(3) + line.charAt(4)));
+                        f2 = false;
                     } else {
                         i2 = 1;
+                        f2 = false;
                     }
                     line = bufferedReader.readLine();
                 }
@@ -535,9 +544,8 @@ public class Board {
 
     }
     public String lineToString() throws IOException {
-        BufferedReader bufferedReader2 = new BufferedReader(new FileReader(new File("points.txt")));
         String sss = null;
-        sss = String.valueOf(bufferedReader2.read());
+        sss = String.valueOf(sc);
 
         return sss;
     }

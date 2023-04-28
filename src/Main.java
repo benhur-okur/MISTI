@@ -7,8 +7,7 @@ public class Main {
 
 
         Board board = new Board();
-        System.out.println(board.lineToString());
-        /*board.getDeck().createDeck();
+        board.getDeck().createDeck();
         board.howManyPlayers();
         board.dealCard();
 
@@ -16,7 +15,7 @@ public class Main {
             //board.dealCard();
             board.play();
 
-        }*/
+        }
 
     }
 }
