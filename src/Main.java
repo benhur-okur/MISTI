@@ -8,10 +8,10 @@ public class Main {
 
         Board board = new Board();
         board.getDeck().createDeck();
-        board.howManyPlayers();
-        board.dealCard();
-
-        for (int i = 0;i<24;i++){
+        board.playerSelect();
+        board.createPlayers();
+        for (int i = 0;i<20;i++){
+            System.out.println(board.iN);
             //board.dealCard();
             board.play();
 
