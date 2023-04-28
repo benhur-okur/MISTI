@@ -355,17 +355,19 @@ public class Board {
             try {
                 String line = bufferedReader.readLine();
                 while (line != null) {
-                    s1 = String.valueOf(line.charAt(0) + line.charAt(1)); // txt file'daki her satırın kartı örn: 1. satır için SA
+
+                    s1 = String.valueOf(line.charAt(0)).concat(String.valueOf(line.charAt(1))); // txt file'daki her satırın kartı örn: 1. satır için SA
                     if (rPlayer.getHand().get(matchingIndex).equals(s1)) { // S6
-                        i1 = Integer.parseInt(String.valueOf(line.charAt(3) + line.charAt(4)));
+                        i1 = Integer.parseInt(String.valueOf(line.charAt(3)) + String.valueOf(line.charAt(4)));
                     } else {
                         i1 = 1;
                     }
                     if (getTopCard().equals(s1)) {
-                        i2 = Integer.parseInt(String.valueOf(line.charAt(3) + line.charAt(4)));
+                        i2 = Integer.parseInt(String.valueOf(line.charAt(3)) + String.valueOf(line.charAt(4)));
                     } else {
                         i2 = 1;
                     }
+                    
                     line = bufferedReader.readLine();
                 }
                 bufferedReader.close();
@@ -541,4 +543,6 @@ public class Board {
 
         return sss;
     }
+
+
 }
