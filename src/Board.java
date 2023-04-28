@@ -80,13 +80,13 @@ public class Board {
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
-        if (askingUser.equalsIgnoreCase("YES")) { //Kullanıcıdan aldığımız veriye göre boolean tipi değişiyor!!
+        if (askingUser.equalsIgnoreCase("YES")) { //Our boolean value will change according to the response we get from the user.
             isHuman = true;
         } else {
-            isHuman = false; //YES cevabı vermezse false döndürüyor!!
+            isHuman = false; //If user decides to not join then our boolean type will be false.
         }
     }
-    int c = 0; //İnsan olmadığı durumlarda modu bir kere yazdırması için sınırladımız counter
+    int c = 0; //We used 'counter' to make the code run only once when there are no human.
     public void dealCard() throws InterruptedException {
         deck.displayDeck();
         if (noOfPlayer == 2) {
@@ -98,18 +98,19 @@ public class Board {
                     deck.deck.remove(0);
                 }
                 System.out.println("Cards has dealt to the table");
-                System.out.println("Top card: " + board.get(3));
+                System.out.println("Top card: " + board.get(3));  //4th card will be the top card.
             }
             if (counter >= 4) {
                 if (isHuman == true) {
 
-                    modSelect(); // bu metod bir kere yazılcak çünkü bu metodun içine bir kere çalışması için counter ekledik.
-                    if(counter < 5){ // 4'te yaptıgı için bir tane bot eklemiş oluyoruz
+                    modSelect(); // This method will be written only for once because we have added counter inside this method to run once.
+                    if(counter < 5){ // We add a bot because it did it at 4.
                         counter ++;
                         chosenBotList.add('H');
                         System.out.println("Which bot do you want to play?");
                         System.out.println("'Novice', 'Regular', 'Expert'");
                         s = sc.nextLine();
+                        //In this line our user will select the difficulty of the bots.
                     }
 
                     if(modNo == 1){
@@ -118,6 +119,7 @@ public class Board {
                             if(hPlayer.getHand().size() == 0 && nPlayer.getHand().size() == 0){
                                 for (int i = 0; i < 4; i++) {
                                     Thread.sleep(1000);
+                                    //To make our code more realistic, in this part output will be come after 1000 miliseconds which is equals to 1 second.
                                     hPlayer.getHand().add(deck.deck.get(i));
                                     System.out.println("Human player's hand: " + hPlayer.getHand());
                                     deck.deck.remove(i);
@@ -191,6 +193,7 @@ public class Board {
                                     ePlayer.getHand().add(deck.deck.get(i));
                                     System.out.println("Expert Bot's hand: " + ePlayer.getHand());
                                     deck.deck.remove(i);
+                                    //We just added the same methods for our 3 different bots.
                                 }
                             }
 
@@ -287,6 +290,15 @@ public class Board {
 
             }
         }
+        //It displays the deck by calling the displayDeck() method of the Deck class.
+        //If there are two players (noOfPlayer is 2), it deals cards to the board and players.
+        //If the counter variable is less than 4, it deals 4 cards to the board by iterating over the deck and adding the first card to the board and removing it from the deck...
+        // The counter variable keeps track of how many cards have been dealt to the board.
+        //If the counter variable is greater than or equal to 4, it first checks if the human player is playing.
+        // If the human player is playing, it calls the modSelect() method to select the mode of the game, and adds a bot to the game if the counter is less than 5.
+        //It then checks the mode of the game by checking the modNo variable, and based on the mode and the difficulty of the bot selected by the player...
+        // It deals 4 cards to the human player and the selected bot by iterating over the deck and adding the first two cards to the human player's hand and the next two cards to the bot's hand.
+    //And finally, If the human player is not playing, it sets the mode of the game to 2 and adds bots automatically.
     }
     int modNo;
 
@@ -296,16 +308,19 @@ public class Board {
             try {
                 count++;
                 System.out.println("Please select game mod");
-                System.out.println("1 -> SelfMod (this mod just shows hand of human player)"); //Sadece insanın elini gösteriyotr
-                System.out.println("2 -> SpectateMod (this mod shows all hands of bots )"); // Tüm oyuncuların eli gözükecek
+                System.out.println("1 -> SelfMod (this mod just shows hand of human player)"); //It will just show the human's hand, not the others.
+                System.out.println("2 -> SpectateMod (this mod shows all hands of bots )"); // In this mode everyone's hand will be shown.
                 modNo = sc.nextInt();
                 sc.nextLine();
+                //According to user's choice selected mode will be activated.
             } catch (Exception ex) {
                 System.out.println("Please select valid number 1 or 2 "); //Değişiklikler yapıldı
                 System.out.println(ex.toString());
             }
         }
     }
+    //If an exception is thrown while reading the user's input -for example an non-integer value-
+    // Then the code will catch the exception and displays an error message asking the user to select a valid number again. It also prints the exception message.
 
     private void playForNoviceBot() { // novice bot play bitti !
         String returnValue = nPlayer.getHand().get(nPlayer.play());
@@ -349,7 +364,7 @@ public class Board {
         for (int i = 0; i < rPlayer.getHand().size(); i++) {
             if (rPlayer.getHand().get(i).charAt(1) == (getTopCard().charAt(1))) {
                 matchingValue = true;
-                matchingIndex = i; // elimizde 4 kart var hangi kartın pişti yapabilecegini söylüyor (index olarak)
+                matchingIndex = i; // We have 4 cards in our hand and it will tell which card will be make pisti out of them(as imdex)
             }
         }
         if (matchingValue) {
@@ -406,6 +421,13 @@ public class Board {
         }
 
     }
+    //The code first checks if there is a matching card in the regular bot's hand with the top card of the board.
+    // If there is a match, the corresponding point values of the card in the regular bot's hand and the top card are looked up from a text file called "points.txt".
+    // If the sum of these point values is greater than 0, then the regular bot plays the matching card, removes it from its hand, adds it to the board and saves the points earned.
+    //(Since it is a 'regular bot', it should calculate this score and play cards accordingly.)
+
+    //If there is no matching card in the regular bot's hand, a random card from its hand is played and added to the board.
+    //In both cases, the card played by the regular bot and the action taken are printed out.
 
     public String getTopCard() {
         return board.get(board.size() - 1);
@@ -414,36 +436,36 @@ public class Board {
     public void play() throws FileNotFoundException, InterruptedException {
         //System.out.println(getTopCard());
         //if (!isHuman) {
-        for (int i = 0;i<chosenBotList.size();i++) {
+        for (int i = 0; i < chosenBotList.size(); i++) {
             switch (chosenBotList.get(i)) {
-                case 'N' :
+                case 'N':
                     if (nPlayer.getHand().isEmpty()) {
-                        for (int j = 0;j<4;j++) {
+                        for (int j = 0; j < 4; j++) {
                             nPlayer.getHand().add(deck.deck.get(0));
                             deck.deck.remove(0);
                         }
                         displayHand();
                     }
-                case 'R' :
+                case 'R':
                     if (rPlayer.getHand().isEmpty()) {
-                        for (int j = 0;j<4;j++) {
+                        for (int j = 0; j < 4; j++) {
                             rPlayer.getHand().add(deck.deck.get(0));
                             deck.deck.remove(0);
                         }
                         displayHand();
 
                     }
-                case 'E' :
+                case 'E':
                     if (ePlayer.getHand().isEmpty()) {
-                        for (int j = 0;j<4;j++) {
+                        for (int j = 0; j < 4; j++) {
                             ePlayer.getHand().add(deck.deck.get(0));
                             deck.deck.remove(0);
                         }
                         displayHand();
                     }
-                case 'H' :
+                case 'H':
                     if (hPlayer.getHand().isEmpty()) {
-                        for (int j = 0;j<4;j++) {
+                        for (int j = 0; j < 4; j++) {
                             hPlayer.getHand().add(deck.deck.get(0));
                             deck.deck.remove(0);
                         }
@@ -460,9 +482,14 @@ public class Board {
                 default -> System.out.println("Please enter a valid character");
             }
         }
+//This code defines a method called play(), which is responsible for starting the game and handling the playing of each player.
+        //First, the method checks which bots are playing (based on a list of chosen bot types) and deals 4 cards to each player if their hand is empty...
+        // This is done using a switch statement for each bot type, with the isEmpty() method used to check if their hand needs cards.
 
+        //Next, a for-each loop is used to go through each character in the chosenBotList and call the corresponding play method for that bot type...
+        //The play methods for each bot type are defined elsewhere in the code.
+        //The play() method does not return anything, but it can throw a FileNotFoundException if there is an error which is about reading input.
     }
-
 
     public void displayHand(){
         if(modNo == 1){
