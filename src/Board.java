@@ -16,7 +16,12 @@ public class Board {
     private String askingUser; // in this data we are asking the user whether he or she is playing as a player;
 
     private Human hPlayer = new Human();
-    private NoviceBot nPlayer = new NoviceBot();
+    private NoviceBot nPlayer;
+    private NoviceBot nPlayer1;
+    private NoviceBot nPlayer2;
+    private NoviceBot nPlayer3;
+    private NoviceBot nPlayer4;
+
     private RegularBot rPlayer = new RegularBot();
 
     public Human gethPlayer() {
@@ -80,13 +85,16 @@ public class Board {
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
-        if (askingUser.equalsIgnoreCase("YES")) { //Kullanıcıdan aldığımız veriye göre boolean tipi değişiyor!!
+        if (askingUser.equalsIgnoreCase("YES")) { //Our boolean value will change according to the response we get from the user.
             isHuman = true;
+            chosenBotList.add('H');
         } else {
-            isHuman = false; //YES cevabı vermezse false döndürüyor!!
+            isHuman = false; //If user decides to not join then our boolean type will be false.
         }
     }
-    int c = 0; //İnsan olmadığı durumlarda modu bir kere yazdırması için sınırladımız counter
+
+    int c = 0; //We used 'counter' to make the code run only once when there are no human.
+
     public void dealCard() throws InterruptedException {
         deck.displayDeck();
         if (noOfPlayer == 2) {
@@ -98,26 +106,28 @@ public class Board {
                     deck.deck.remove(0);
                 }
                 System.out.println("Cards has dealt to the table");
-                System.out.println("Top card: " + board.get(3));
+                System.out.println("Top card: " + board.get(3));  //4th card will be the top card.
             }
             if (counter >= 4) {
                 if (isHuman == true) {
 
-                    modSelect(); // bu metod bir kere yazılcak çünkü bu metodun içine bir kere çalışması için counter ekledik.
-                    if(counter < 5){ // 4'te yaptıgı için bir tane bot eklemiş oluyoruz
-                        counter ++;
+                    modSelect(); // This method will be written only for once because we have added counter inside this method to run once.
+                    if (counter < 5) { // We add a bot because it did it at 4.
+                        counter++;
                         chosenBotList.add('H');
                         System.out.println("Which bot do you want to play?");
                         System.out.println("'Novice', 'Regular', 'Expert'");
                         s = sc.nextLine();
+                        //In this line our user will select the difficulty of the bots.
                     }
 
-                    if(modNo == 1){
+                    if (modNo == 1) {
                         if (s.equalsIgnoreCase("NOVİCE")) {
                             chosenBotList.add('N'); // bnunu büyük harf kucuk harf sıkıntısı olabilir ileride dikkat!!
-                            if(hPlayer.getHand().size() == 0 && nPlayer.getHand().size() == 0){
+                            if (hPlayer.getHand().size() == 0 && nPlayer1.getHand().size() == 0) {
                                 for (int i = 0; i < 4; i++) {
                                     Thread.sleep(1000);
+                                    //To make our code more realistic, in this part output will be come after 1000 miliseconds which is equals to 1 second.
                                     hPlayer.getHand().add(deck.deck.get(i));
                                     System.out.println("Human player's hand: " + hPlayer.getHand());
                                     deck.deck.remove(i);
@@ -127,7 +137,7 @@ public class Board {
                             }
                         } else if (s.equalsIgnoreCase("REGULAR")) {
                             chosenBotList.add('R');
-                            if(hPlayer.getHand().size() == 0){
+                            if (hPlayer.getHand().size() == 0) {
                                 for (int i = 0; i < 4; i++) {
                                     Thread.sleep(1000);
                                     hPlayer.getHand().add(deck.deck.get(i));
@@ -139,7 +149,7 @@ public class Board {
                             }
                         } else if (s.equalsIgnoreCase("EXPERT")) {
                             chosenBotList.add('E');
-                            if(hPlayer.getHand().size() == 0){
+                            if (hPlayer.getHand().size() == 0) {
                                 for (int i = 0; i < 4; i++) {
                                     Thread.sleep(1000);
                                     hPlayer.getHand().add(deck.deck.get(i));
@@ -150,25 +160,25 @@ public class Board {
                                 }
                             }
                         }
-                    }else if(modNo == 2){
+                    } else if (modNo == 2) {
                         if (s.equalsIgnoreCase("NOVİCE")) {
                             chosenBotList.add('N'); // bnunu büyük harf kucuk harf sıkıntısı olabilir ileride dikkat!!
                             //System.out.println("Novice bot has selected!");
-                            if(hPlayer.getHand().size() == 0){
+                            if (hPlayer.getHand().size() == 0) {
                                 for (int i = 0; i < 4; i++) {
                                     Thread.sleep(1000);
                                     hPlayer.getHand().add(deck.deck.get(i));
                                     System.out.println("Human player's hand: " + hPlayer.getHand());
                                     deck.deck.remove(i);
-                                    nPlayer.getHand().add(deck.deck.get(i));
-                                    System.out.println("Novice Bot's hand: " + nPlayer.getHand());
+                                    nPlayer1.getHand().add(deck.deck.get(i));
+                                    System.out.println("Novice Bot's hand: " + nPlayer1.getHand());
                                     deck.deck.remove(i);
                                 }
                             }
                         } else if (s.equalsIgnoreCase("REGULAR")) {
                             chosenBotList.add('R');
                             //System.out.println("Regular bot has selected!");
-                            if(hPlayer.getHand().size() == 0){
+                            if (hPlayer.getHand().size() == 0) {
                                 for (int i = 0; i < 4; i++) {
                                     Thread.sleep(1000);
                                     hPlayer.getHand().add(deck.deck.get(i));
@@ -182,7 +192,7 @@ public class Board {
                         } else if (s.equalsIgnoreCase("EXPERT")) {
                             chosenBotList.add('E');
                             //System.out.println("Expert bot has selected!");
-                            if(hPlayer.getHand().size() == 0){
+                            if (hPlayer.getHand().size() == 0) {
                                 for (int i = 0; i < 4; i++) {
                                     Thread.sleep(1000);
                                     hPlayer.getHand().add(deck.deck.get(i));
@@ -191,6 +201,7 @@ public class Board {
                                     ePlayer.getHand().add(deck.deck.get(i));
                                     System.out.println("Expert Bot's hand: " + ePlayer.getHand());
                                     deck.deck.remove(i);
+                                    //We just added the same methods for our 3 different bots.
                                 }
                             }
 
@@ -198,38 +209,39 @@ public class Board {
                     }
 
                 } else {
-                    if(c == 0){
+                    if (c == 0) {
                         c++;
                         System.out.println("mod 2 will be apply the automatically (SpectateMod)");
                         modNo = 2;
                     }
                     while (counter < 5) { // counter 4
-                        counter ++;
+                        counter++;
                         System.out.println("Which bot do you want to add?");
                         System.out.println("'Novice', 'Regular', 'Expert'");
                         s = sc.nextLine();
                     }
-                    while(counter < 6){
-                        counter ++;
+                    while (counter < 6) {
+                        counter++;
                         System.out.println("Which bot do you want to add?");
                         System.out.println("'Novice', 'Regular', 'Expert'");
                         t = sc.nextLine();
                     }
+                    createPlayers();
                     if (s.equalsIgnoreCase("NOVİCE")) {
                         chosenBotList.add('N'); // bnunu büyük harf kucuk harf sıkıntısı olabilir ileride dikkat!!
                         System.out.println("Novice bot has selected!");
-                        if(nPlayer.getHand().size() == 0){
+                        if (nPlayer1.getHand().size() == 0) {
                             for (int i = 0; i < 4; i++) {
                                 Thread.sleep(1000);
-                                nPlayer.getHand().add(deck.deck.get(i));
-                                System.out.println("novice bot's hand : " + nPlayer.getHand());
+                                nPlayer1.getHand().add(deck.deck.get(i));
+                                System.out.println("novice bot's hand : " + nPlayer1.getHand());
                                 deck.deck.remove(i);
                             }
                         }
                     } else if (s.equalsIgnoreCase("REGULAR")) {
                         chosenBotList.add('R');
                         System.out.println("Regular bot has selected!");
-                        if(rPlayer.getHand().size() == 0){
+                        if (rPlayer.getHand().size() == 0) {
                             for (int i = 0; i < 4; i++) {
                                 Thread.sleep(1000);
                                 rPlayer.getHand().add(deck.deck.get(i));
@@ -240,7 +252,7 @@ public class Board {
                     } else if (s.equalsIgnoreCase("EXPERT")) {
                         chosenBotList.add('E');
                         System.out.println("Expert bot has selected!");
-                        if(ePlayer.getHand().size() == 0){
+                        if (ePlayer.getHand().size() == 0) {
                             for (int i = 0; i < 4; i++) {
                                 Thread.sleep(1000);
                                 ePlayer.getHand().add(deck.deck.get(i));
@@ -252,18 +264,18 @@ public class Board {
                     if (t.equalsIgnoreCase("NOVİCE")) {
                         chosenBotList.add('N'); // bnunu büyük harf kucuk harf sıkıntısı olabilir ileride dikkat!!
                         System.out.println("Novice bot has selected!");
-                        if(nPlayer.getHand().size() == 0){
+                        if (nPlayer2.getHand().size() == 0) {
                             for (int i = 0; i < 4; i++) {
                                 Thread.sleep(1000);
-                                nPlayer.getHand().add(deck.deck.get(i));
-                                System.out.println("novice bot's hand : " + nPlayer.getHand());
+                                nPlayer2.getHand().add(deck.deck.get(i));
+                                System.out.println("novice bot's hand : " + nPlayer2.getHand());
                                 deck.deck.remove(i);
                             }
                         }
                     } else if (t.equalsIgnoreCase("REGULAR")) {
                         chosenBotList.add('R');
                         System.out.println("Regular bot has selected!");
-                        if(rPlayer.getHand().size() == 0){
+                        if (rPlayer.getHand().size() == 0) {
                             for (int i = 0; i < 4; i++) {
                                 Thread.sleep(1000);
                                 rPlayer.getHand().add(deck.deck.get(i));
@@ -274,7 +286,7 @@ public class Board {
                     } else if (t.equalsIgnoreCase("EXPERT")) {
                         chosenBotList.add('E');
                         System.out.println("Expert bot has selected!");
-                        if(ePlayer.getHand().size() == 0){
+                        if (ePlayer.getHand().size() == 0) {
                             for (int i = 0; i < 4; i++) {
                                 Thread.sleep(1000);
                                 ePlayer.getHand().add(deck.deck.get(i));
@@ -287,32 +299,50 @@ public class Board {
 
             }
         }
+        //It displays the deck by calling the displayDeck() method of the Deck class.
+        //If there are two players (noOfPlayer is 2), it deals cards to the board and players.
+        //If the counter variable is less than 4, it deals 4 cards to the board by iterating over the deck and adding the first card to the board and removing it from the deck...
+        // The counter variable keeps track of how many cards have been dealt to the board.
+        //If the counter variable is greater than or equal to 4, it first checks if the human player is playing.
+        // If the human player is playing, it calls the modSelect() method to select the mode of the game, and adds a bot to the game if the counter is less than 5.
+        //It then checks the mode of the game by checking the modNo variable, and based on the mode and the difficulty of the bot selected by the player...
+        // It deals 4 cards to the human player and the selected bot by iterating over the deck and adding the first two cards to the human player's hand and the next two cards to the bot's hand.
+        //And finally, If the human player is not playing, it sets the mode of the game to 2 and adds bots automatically.
     }
+
     int modNo;
 
     int count = 0;
+
     private void modSelect() throws InterruptedException {
-        if(count == 0){
+        if (count == 0) {
             try {
                 count++;
                 System.out.println("Please select game mod");
-                System.out.println("1 -> SelfMod (this mod just shows hand of human player)"); //Sadece insanın elini gösteriyotr
-                System.out.println("2 -> SpectateMod (this mod shows all hands of bots )"); // Tüm oyuncuların eli gözükecek
+                System.out.println("1 -> SelfMod (this mod just shows hand of human player)"); //It will just show the human's hand, not the others.
+                System.out.println("2 -> SpectateMod (this mod shows all hands of bots )"); // In this mode everyone's hand will be shown.
                 modNo = sc.nextInt();
                 sc.nextLine();
+                //According to user's choice selected mode will be activated.
             } catch (Exception ex) {
                 System.out.println("Please select valid number 1 or 2 "); //Değişiklikler yapıldı
                 System.out.println(ex.toString());
             }
         }
     }
+    //If an exception is thrown while reading the user's input -for example an non-integer value-
+    // Then the code will catch the exception and displays an error message asking the user to select a valid number again. It also prints the exception message.
 
     private void playForNoviceBot() { // novice bot play bitti !
-        String returnValue = nPlayer.getHand().get(nPlayer.play());
-        board.add(returnValue);
-        System.out.println("Novice bot has played : " + returnValue);
-        nPlayer.getHand().remove(returnValue);
+        for (int i = 0; i < iN; i++) {
+            String returnValue = nBots[i].getHand().get(nBots[i].play());
+            board.add(returnValue);
+            System.out.println("Novice" + i + 1 + " bot has played : " + returnValue);
+            nBots[i].getHand().remove(returnValue);
+        }
+
     }
+
     private void playForHuman() { // bitti !
         String returnValue = hPlayer.getHand().get(hPlayer.play());
         System.out.println("You have been played : " + returnValue);
@@ -321,17 +351,7 @@ public class Board {
 
 
     }
-    public void humanPlay(){
-        board.add(hPlayer.getHand().get(hPlayer.play()));
-        System.out.println(hPlayer.getHand().get(hPlayer.selectCard));
-        hPlayer.getHand().remove(hPlayer.selectCard);
-        System.out.println(hPlayer.getHand());
-    }
-    public void novicePlay(){
-        board.add(nPlayer.getHand().get(nPlayer.play()));
-        nPlayer.getHand().remove(nPlayer.noviceSelect);
-        System.out.println(nPlayer.getHand());
-    }
+
 
     private void playForExpertBot() {
         board.add(ePlayer.getHand().get(ran.nextInt(4)));
@@ -350,7 +370,7 @@ public class Board {
             if (rPlayer.getHand().get(i).charAt(1) == (getTopCard().charAt(1))) {
                 matchingValue = true; // pişti var demek gibi bir şey
                 matchingIndex = i; // elimizde 4 kart var hangi kartın pişti yapabilecegini söylüyor (index olarak)
-                break;
+                break; // We have 4 cards in our hand and it will tell which card will be make pisti out of them(as imdex)
             }
         }
         if (matchingValue) {
@@ -383,13 +403,12 @@ public class Board {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if ((i1 + i2) > 0 ) {
+            if ((i1 + i2) > 0) {
                 board.add(rPlayer.getHand().get(matchingIndex));
                 System.out.println("Regular bot has just played : " + rPlayer.getHand().get(matchingIndex));
                 rPlayer.getHand().remove(rPlayer.getHand().get(matchingIndex));
                 saveEarnedCards('r');
-            }
-            else {
+            } else {
                 int indexOfPlay = ran.nextInt(rPlayer.getHand().size()); // 2
                 while (indexOfPlay == matchingIndex) {  // 2
                     indexOfPlay = ran.nextInt(rPlayer.getHand().size());
@@ -407,6 +426,13 @@ public class Board {
         }
 
     }
+    //The code first checks if there is a matching card in the regular bot's hand with the top card of the board.
+    // If there is a match, the corresponding point values of the card in the regular bot's hand and the top card are looked up from a text file called "points.txt".
+    // If the sum of these point values is greater than 0, then the regular bot plays the matching card, removes it from its hand, adds it to the board and saves the points earned.
+    //(Since it is a 'regular bot', it should calculate this score and play cards accordingly.)
+
+    //If there is no matching card in the regular bot's hand, a random card from its hand is played and added to the board.
+    //In both cases, the card played by the regular bot and the action taken are printed out.
 
     public String getTopCard() {
         return board.get(board.size() - 1);
@@ -415,134 +441,193 @@ public class Board {
     public void play() throws FileNotFoundException, InterruptedException {
         //System.out.println(getTopCard());
         //if (!isHuman) {
-        for (int i = 0;i<chosenBotList.size();i++) {
+        for (int i = 0; i < chosenBotList.size(); i++) {
+
+
             switch (chosenBotList.get(i)) {
-                case 'N' :
-                    if (nPlayer.getHand().isEmpty()) {
-                        for (int j = 0;j<4;j++) {
-                            nPlayer.getHand().add(deck.deck.get(0));
-                            deck.deck.remove(0);
+                case 'N':
+                    for (int j = 0; j < iN; j++) {
+                        if (nBots[j].getHand().isEmpty()) {
+                            nBots[j].getHand().add(deck.deck.get(0));
+
+                        }
                         }
                         displayHand();
-                    }
-                case 'R' :
-                    if (rPlayer.getHand().isEmpty()) {
-                        for (int j = 0;j<4;j++) {
-                            rPlayer.getHand().add(deck.deck.get(0));
-                            deck.deck.remove(0);
-                        }
-                        displayHand();
+                        case 'R':
+                                if (rPlayer.getHand().isEmpty()) {
+                                    for (int j = 0; j < 4; j++) {
+                                        rPlayer.getHand().add(deck.deck.get(0));
+                                        deck.deck.remove(0);
+                                    }
+                                    displayHand();
+
+                                }
+                            case 'E':
+                                if (ePlayer.getHand().isEmpty()) {
+                                    for (int j = 0; j < 4; j++) {
+                                        ePlayer.getHand().add(deck.deck.get(0));
+                                        deck.deck.remove(0);
+                                    }
+                                    displayHand();
+                                }
+                            case 'H':
+                                if (hPlayer.getHand().isEmpty()) {
+                                    for (int j = 0; j < 4; j++) {
+                                        hPlayer.getHand().add(deck.deck.get(0));
+                                        deck.deck.remove(0);
+                                    }
+                                    displayHand();
+                                }
 
                     }
-                case 'E' :
-                    if (ePlayer.getHand().isEmpty()) {
-                        for (int j = 0;j<4;j++) {
-                            ePlayer.getHand().add(deck.deck.get(0));
-                            deck.deck.remove(0);
+                    for (Character character : chosenBotList) {
+                        switch (character) {
+                            case 'N' -> playForNoviceBot();
+                            case 'R' -> playForRegularBot();
+                            case 'E' -> playForExpertBot();
+                            case 'H' -> playForHuman();
+                            default -> System.out.println("Please enter a valid character");
                         }
-                        displayHand();
-                    }
-                case 'H' :
-                    if (hPlayer.getHand().isEmpty()) {
-                        for (int j = 0;j<4;j++) {
-                            hPlayer.getHand().add(deck.deck.get(0));
-                            deck.deck.remove(0);
-                        }
-                        displayHand();
                     }
             }
         }
-        for (Character character : chosenBotList) {
-            switch (character) {
-                case 'N' -> playForNoviceBot();
-                case 'R' -> playForRegularBot();
-                case 'E' -> playForExpertBot();
-                case 'H' -> playForHuman();
-                default -> System.out.println("Please enter a valid character");
-            }
-        }
 
-    }
+//This code defines a method called play(), which is responsible for starting the game and handling the playing of each player.
+                    //First, the method checks which bots are playing (based on a list of chosen bot types) and deals 4 cards to each player if their hand is empty...
+                    // This is done using a switch statement for each bot type, with the isEmpty() method used to check if their hand needs cards.
+
+                    //Next, a for-each loop is used to go through each character in the chosenBotList and call the corresponding play method for that bot type...
+                    //The play methods for each bot type are defined elsewhere in the code.
+                    //The play() method does not return anything, but it can throw a FileNotFoundException if there is an error which is about reading input.
 
 
-    public void displayHand(){
-        if(modNo == 1){
-            System.out.println("Human player's hand: " + hPlayer.getHand());
-        }else if(modNo == 2){
-            for(int i=0;i<chosenBotList.size();i++){
-                if(chosenBotList.get(i).equals('N')){
-                    System.out.println("Novice player's hand: " + nPlayer.getHand());
-                }else if (chosenBotList.get(i).equals('R')){
-                    System.out.println("Regular player's hand: " + rPlayer.getHand());
-                } else if (chosenBotList.get(i).equals('E')) {
-                    System.out.println("Expert player's hand: " + ePlayer.getHand());
-                } else if (chosenBotList.get(i).equals('H')) {
-                    System.out.println("Human player's hand " + hPlayer.getHand());
+            public void displayHand () {
+                if (modNo == 1) {
+                    System.out.println("Human player's hand: " + hPlayer.getHand());
+                } else if (modNo == 2) {
+                    for (int i = 0; i < chosenBotList.size(); i++) {
+                        if (chosenBotList.get(i).equals('N')) {
+                            System.out.println("Novice player's hand: " + nPlayer.getHand());
+                        } else if (chosenBotList.get(i).equals('R')) {
+                            System.out.println("Regular player's hand: " + rPlayer.getHand());
+                        } else if (chosenBotList.get(i).equals('E')) {
+                            System.out.println("Expert player's hand: " + ePlayer.getHand());
+                        } else if (chosenBotList.get(i).equals('H')) {
+                            System.out.println("Human player's hand " + hPlayer.getHand());
+                        }
+                    }
                 }
             }
+
+            private boolean canMakePisti ()
+            { // pişti yapabiliyor muyuz onu belirliyoruz boolean tipinde bu da piştiden kazanılan kartların earnedWithPisti array list'ine gitmesini sağlıcak şart.
+                if (matchingValue && board.size() == 1) {
+                    isPisti = true;
+                }
+                return isPisti;
+            }
+
+            private void saveEarnedCards (Character c){
+                switch (c) {
+                    case 'N':
+                        if (canMakePisti()) {
+                            for (String b : board) {
+                                nPlayer.getEarnedWithPisti().add(b);
+                                board.remove(0);
+                            }
+                        } else {
+                            for (String b : board) {
+                                nPlayer.getEarnedWithoutPisti().add(b);
+                                board.remove(0);
+                            }
+                        }
+                    case 'R':
+                        if (canMakePisti()) {
+                            for (String b : board) {
+                                rPlayer.getEarnedWithPisti().add(b);
+                                board.remove(0);
+                            }
+                        } else {
+                            for (String b : board) {
+                                rPlayer.getEarnedWithoutPisti().add(b);
+                                board.remove(0);
+                            }
+                        }
+                    case 'E':
+                        if (canMakePisti()) {
+                            for (String b : board) {
+                                ePlayer.getEarnedWithPisti().add(b);
+                                board.remove(0);
+                            }
+                        } else {
+                            for (String b : board) {
+                                ePlayer.getEarnedWithoutPisti().add(b);
+                                board.remove(0);
+                            }
+                        }
+                    case 'H':
+                        if (canMakePisti()) {
+                            for (String b : board) {
+                                hPlayer.getEarnedWithPisti().add(b);
+                                board.remove(0);
+                            }
+                        } else {
+                            for (String b : board) {
+                                hPlayer.getEarnedWithoutPisti().add(b);
+                                board.remove(0);
+                            }
+                        }
+
+                }
+
+            }
+            int iN = 0;
+
+            public void createPlayers () {
+                switch (noOfPlayer) {
+                    case 2:
+                        for (int i = 0; i < chosenBotList.size(); i++) { // N R N
+                            if (chosenBotList.get(i).equals('N')) {
+                                createNoviceBot();
+                            }
+                        }
+
+
+                        //case 4 :
+
+                }
+            }
+            int nCounter = 2;
+            NoviceBot[] nBots = {nPlayer1, nPlayer2, nPlayer3, nPlayer4};
+
+            public void createNoviceBot () {
+                for (int j = iN; j < nCounter; j++) {
+                    nBots[iN] = new NoviceBot();
+                    iN++;
+                }
+            }
+            public void playerSelect () {
+                howManyPlayers();
+                if (noOfPlayer == 2) { // ishuman gelcek !!
+
+                    for (int i = 0; i < noOfPlayer; i++) {
+
+                        System.out.println("Which bot do you want to play?");
+                        System.out.println("'Novice', 'Regular', 'Expert'");
+                        s = sc.nextLine();
+
+                        switch (s.toUpperCase()) {
+                            case "NOVİCE" -> chosenBotList.add('N');
+                            case "REGULAR" -> chosenBotList.add('R');
+                            case "EXPERT" -> chosenBotList.add('E');
+                        }
+                    }
+
+
+                }
+
+            }
+
         }
-    }
 
-    private boolean canMakePisti() { // pişti yapabiliyor muyuz onu belirliyoruz boolean tipinde bu da piştiden kazanılan kartların earnedWithPisti array list'ine gitmesini sağlıcak şart.
-        if (matchingValue && board.size() == 1) {
-            isPisti = true;
-        }
-        return isPisti;
-    }
 
-    private void saveEarnedCards(Character c) {
-        switch (c) {
-            case 'N' :
-                if (canMakePisti()) {
-                    for (String b : board) {
-                        nPlayer.getEarnedWithPisti().add(b);
-                        board.remove(0);
-                    }
-                } else {
-                    for (String b : board) {
-                        nPlayer.getEarnedWithoutPisti().add(b);
-                        board.remove(0);
-                    }
-                }
-            case 'R' :
-                if (canMakePisti()) {
-                    for (String b : board) {
-                        rPlayer.getEarnedWithPisti().add(b);
-                        board.remove(0);
-                    }
-                } else {
-                    for (String b : board) {
-                        rPlayer.getEarnedWithoutPisti().add(b);
-                        board.remove(0);
-                    }
-                }
-            case 'E' :
-                if (canMakePisti()) {
-                    for (String b : board) {
-                        ePlayer.getEarnedWithPisti().add(b);
-                        board.remove(0);
-                    }
-                } else {
-                    for (String b : board) {
-                        ePlayer.getEarnedWithoutPisti().add(b);
-                        board.remove(0);
-                    }
-                }
-            case 'H' :
-                if (canMakePisti()) {
-                    for (String b : board) {
-                        hPlayer.getEarnedWithPisti().add(b);
-                        board.remove(0);
-                    }
-                } else {
-                    for (String b : board) {
-                        hPlayer.getEarnedWithoutPisti().add(b);
-                        board.remove(0);
-                    }
-                }
-
-        }
-
-    }
-   
-}

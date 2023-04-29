@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public abstract class Player {
+    //It's our abstract class, other player classes(expert,human...) will extend this class and override it's functions.
 
     public Player() {
     }
