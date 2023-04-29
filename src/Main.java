@@ -11,11 +11,12 @@ public class Main {
         board.howManyPlayers();
         board.dealCard();
 
-        for (int i = 0;i<24;i++){
+        for (int i = 0;i<20;i++){
             //board.dealCard();
             board.play();
 
         }
+
 
     }
 }

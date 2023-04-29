@@ -348,32 +348,33 @@ public class Board {
         int matchingIndex = 0;
         for (int i = 0; i < rPlayer.getHand().size(); i++) {
             if (rPlayer.getHand().get(i).charAt(1) == (getTopCard().charAt(1))) {
-                matchingValue = true;
+                matchingValue = true; // pişti var demek gibi bir şey
                 matchingIndex = i; // elimizde 4 kart var hangi kartın pişti yapabilecegini söylüyor (index olarak)
+                break;
             }
         }
         if (matchingValue) {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("points.txt"));
             try {
                 String line = bufferedReader.readLine();
-                while (line != null && f1 && f2) {
+                while (line != null || f1 || f2) {
                     if (line.length() == 0) {
                         break;
                     }
                     s1 = String.valueOf(line.charAt(0) + line.charAt(1)); // txt file'daki her satırın kartı örn: 1. satır için SA
-                    if (rPlayer.getHand().get(matchingIndex).equals(s1)) { // S6
+                    if (rPlayer.getHand().get(matchingIndex).equals(s1) && f1) { // S6
                         i1 = Integer.parseInt(String.valueOf(line.charAt(3))) + Integer.parseInt(String.valueOf(line.charAt(4)));
                         f1 = false;
                     } else {
                         i1 = 1;
-                        f2 = false;
+                        //f1 = false;
                     }
-                    if (getTopCard().equals(s1)) {
+                    if (getTopCard().equals(s1) && f2) {
                         i2 = Integer.parseInt(String.valueOf(line.charAt(3) + line.charAt(4)));
                         f2 = false;
                     } else {
                         i2 = 1;
-                        f2 = false;
+                        //f2 = false;
                     }
                     line = bufferedReader.readLine();
                 }
