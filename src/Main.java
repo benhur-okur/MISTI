@@ -7,17 +7,18 @@ public class Main {
 
         Board board = new Board();
         board.getDeck().createDeck();
-        board.modSelect();
         board.playerSelect();
+        System.out.println(board.chosenBotList);
+        board.modSelect();
         board.createPlayers();
-        board.firstFourCard();
 
-
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < (48/(board.getNoOfPlayer()*4)); i++) {
             board.dealCard();
             board.play();
 
         }
+        System.out.println("Game has finished!!");
+
 
     }
 }
