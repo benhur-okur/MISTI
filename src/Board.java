@@ -224,9 +224,17 @@ public class Board {
                         } else if (chosenBotList.get(i).equals('R')) {
                             rBots[counterR].getHand().add(deck.deck.get(0));
                             deck.deck.remove(0);
+                            counterR++;
+                            if(counterR == iR){
+                                counterR = 0;
+                            }
                         } else if (chosenBotList.get(i).equals('E')) {
-                            eBots[counterE].getHand().add(deck.deck.get(0));
+                            eBots[counterN].getHand().add(deck.deck.get(0));
                             deck.deck.remove(0);
+                            counterE++;
+                            if(counterE == iE){
+                                counterE = 0;
+                            }
                         } else if (chosenBotList.get(i).equals('H')) {
                             hPlayer.getHand().add(deck.deck.get(0));
                             deck.deck.remove(0);
@@ -498,13 +506,11 @@ public class Board {
     private void playForNoviceBot(int cN) throws IOException { // novice bot play bitti !
         BufferedReader bR = new BufferedReader(new FileReader("iN.txt"));
         int updated_iN = Integer.parseInt(bR.readLine());
-        //for (int i = 0; i < (updated_iN*4); i++) { // iN için txt file açmamız lazım.
             String returnValue = nBots[cN].getHand().get(nBots[cN].play());
             board.add(returnValue);
             System.out.println("Novice" + (cN + 1) + " bot has played : " + returnValue);
             nBots[cN].getHand().remove(returnValue);
 
-        //}
         bR.close();
     }
 
@@ -513,8 +519,6 @@ public class Board {
         System.out.println("You have been played : " + returnValue);
         board.add(returnValue);
         hPlayer.getHand().remove(returnValue);
-
-
     }
 
 
@@ -523,18 +527,19 @@ public class Board {
         board.add(ePlayer.getHand().get(ran.nextInt(4)));
     }*/
 
-    /*
-    public void playForRegularBot() throws FileNotFoundException { // bu method için parametre ekliceez RegularBot tipinde !
+
+    public void playForRegularBot(int rN) throws FileNotFoundException { // bu method için parametre ekliceez RegularBot tipinde !
         matchingValue = false;
-        String s1;
-        String s2;
+        String cardOfLine;
+        String s1 = null;
+        String s2 = null;
         int i1 = 0;
         int i2 = 0;
         boolean f1 = true;
         boolean f2 = true;
         int matchingIndex = 0;
-        for (int i = 0; i < rPlayer.getHand().size(); i++) {
-            if (rPlayer.getHand().get(i).charAt(1) == (getTopCard().charAt(1))) {
+        for (int i = 0; i < rBots[rN].getHand().size(); i++) {
+            if (rBots[rN].getHand().get(i).charAt(1) == (getTopCard().charAt(1))) {
                 matchingValue = true; // pişti var demek gibi bir şey
                 matchingIndex = i; // elimizde 4 kart var hangi kartın pişti yapabilecegini söylüyor (index olarak)
                 break; // We have 4 cards in our hand and it will tell which card will be make pisti out of them(as imdex)
@@ -544,24 +549,30 @@ public class Board {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("points.txt"));
             try {
                 String line = bufferedReader.readLine();
-                while (line != null || f1 || f2) {
+                while (f1 || f2) {
                     if (line.length() == 0) {
                         break;
                     }
-                    s1 = String.valueOf(line.charAt(0) + line.charAt(1)); // txt file'daki her satırın kartı örn: 1. satır için SA
-                    if (rPlayer.getHand().get(matchingIndex).equals(s1) && f1) { // S6
-                        i1 = Integer.parseInt(String.valueOf(line.charAt(3))) + Integer.parseInt(String.valueOf(line.charAt(4)));
-                        f1 = false;
-                    } else {
-                        i1 = 1;
-                        //f1 = false;
+                    cardOfLine = String.valueOf(line.charAt(0) + line.charAt(1)); // txt file'daki her satırın kartı örn: 1. satır için SA
+                    if (f1) {
+                        if (line.startsWith(rBots[rN].getHand().get(matchingIndex))) { // iflere girmiyor !!!!!!
+                            i1 = Integer.parseInt(line.substring(3).trim());
+                            //System.out.println("Points from txt file : " + i1);
+                            f1 = false;
+                        } else {
+                            i1 = 1;
+                            //System.out.println("Card has not found thus point : " + i1);
+                        }
                     }
-                    if (getTopCard().equals(s1) && f2) {
-                        i2 = Integer.parseInt(String.valueOf(line.charAt(3) + line.charAt(4)));
-                        f2 = false;
-                    } else {
-                        i2 = 1;
-                        //f2 = false;
+                    if (f2) {
+                        if (line.startsWith(getTopCard())) {
+                            i2 = Integer.parseInt(line.substring(3).trim());
+                            //System.out.println("Points from top card : " + i2);
+                            f2 = false;
+                        } else {
+                            i2 = 1;
+                            //System.out.println("Card has not found thus point : " + i2);
+                        }
                     }
                     line = bufferedReader.readLine();
                 }
@@ -571,33 +582,47 @@ public class Board {
                 e.printStackTrace();
             }
             if ((i1 + i2) > 0) {
-                board.add(rPlayer.getHand().get(matchingIndex));
-                System.out.println("Regular bot has just played : " + rPlayer.getHand().get(matchingIndex));
-                rPlayer.getHand().remove(rPlayer.getHand().get(matchingIndex));
+                board.add(rBots[rN].getHand().get(matchingIndex));
+                System.out.println("Regular bot has just played : " + rBots[rN].getHand().get(matchingIndex));
+                rBots[rN].getHand().remove(rBots[rN].getHand().get(matchingIndex));
                 saveEarnedCards('r');
 
                 //Our regular player has to think about the points and it should play accordingly to points because it's advanced player than novice bot.
             }
             else {
-
-                int indexOfPlay = ran.nextInt(rPlayer.getHand().size()); // 2
+                int indexOfPlay = ran.nextInt(rBots[rN].getHand().size()); // 2
                 while (indexOfPlay == matchingIndex) {  // 2
-                    indexOfPlay = ran.nextInt(rPlayer.getHand().size());
+                    indexOfPlay = ran.nextInt(rBots[rN].getHand().size());
                     //if our random card is the same as the matching card, our random card will return to this loop until it is different from the matching card
                 }
-                board.add(rPlayer.getHand().get(indexOfPlay));
-                System.out.println("Regular bot has just played : " + rPlayer.getHand().get(indexOfPlay));
-                rPlayer.getHand().remove(rPlayer.getHand().get(indexOfPlay));
+                board.add(rBots[rN].getHand().get(indexOfPlay));
+                System.out.println("Regular bot has just played : " + rBots[rN].getHand().get(indexOfPlay));
+                rBots[rN].getHand().remove(rBots[rN].getHand().get(indexOfPlay));
             }
         } else {
-            int indexOfPlay = ran.nextInt(rPlayer.getHand().size()); // eğer uyuşan kart yoksa rastgele bir kart oynayacak bu degeri inte atamamızın sebebi ikinci kez rastgele seçim yapmamak için.
-            board.add(rPlayer.getHand().get(indexOfPlay));
-            System.out.println("Regular bot has just played : " + rPlayer.getHand().get(indexOfPlay));
-            rPlayer.getHand().remove(rPlayer.getHand().get(indexOfPlay));
+            int indexOfPlay = ran.nextInt(rBots[rN].getHand().size()); // eğer uyuşan kart yoksa rastgele bir kart oynayacak bu degeri inte atamamızın sebebi ikinci kez rastgele seçim yapmamak için.
+            board.add(rBots[rN].getHand().get(indexOfPlay));
+            System.out.println("Regular bot has just played : " + rBots[rN].getHand().get(indexOfPlay));
+            rBots[rN].getHand().remove(rBots[rN].getHand().get(indexOfPlay));
 
         }
 
-    }*/
+    }
+    /*String line;
+            while ((line = bufferedReader.readLine()) != null) {
+        if (line.startsWith("SA")) {
+            int puan = Integer.parseInt(line.substring(3).trim());
+            System.out.println("Okunan puan: " + puan);
+        }
+    }
+
+            bufferedReader.close();
+            fileReader.close();
+} catch (IOException e) {
+        System.out.println("Dosya okuma hatası: " + e.getMessage());
+        }
+        }
+        }*/
 
 
     //The code first checks if there is a matching card in the regular bot's hand with the top card of the board.
@@ -614,8 +639,9 @@ public class Board {
 
     public void play() throws IOException, InterruptedException {
         int cN = 0;
+        int rN = 0;
         for(int i =0;i<4;i++){
-            for (Character character : chosenBotList) { // N N
+            for (Character character : chosenBotList) { // R R
                 switch (character) {
                     case 'N' :
                         playForNoviceBot(cN);
@@ -624,8 +650,14 @@ public class Board {
                             cN = 0;
                         }
                         break;
-                    //case 'R' -> playForRegularBot();
-                    // case 'E' -> playForExpertBot();
+                    case 'R' :
+                        playForRegularBot(rN);
+                        rN++;
+                        if (rN == iR) {
+                            rN = 0;
+                        }
+                        break;
+                    //case 'E' -> playForExpertBot();
                     case 'H' :
                         playForHuman();
                         break;
@@ -705,10 +737,13 @@ public class Board {
                         n = 0;
                     }
                 } else if (chosenBotList.get(i).equals('R')) {
-                    System.out.println((r+1) + ".Regular player's hand: " );//ARRAY OLUŞTURDUKTAN SONRA GETHAND'LERİ ÇAĞIR
+                    System.out.println((r+1) + ".Regular player's hand: " + rBots[r].getHand() );
                     r++;
+                    if (r == iR) {
+                        r = 0;
+                    }
                 } else if (chosenBotList.get(i).equals('E')) {
-                    System.out.println((e+1) + ".Expert player's hand: " );//ARRAY OLUŞTURDUKTAN SONRA GETHAND'LERİ ÇAĞIR
+                    System.out.println((e+1) + ".Expert player's hand: "  + eBots[e].getHand());
                     e++;
                 } else if (chosenBotList.get(i).equals('H')) {
                     System.out.println("Human player's hand " + hPlayer.getHand());
@@ -891,8 +926,8 @@ public class Board {
                 System.out.println("'Novice', 'Regular', 'Expert'");
                 s = sc.nextLine();
 
-                switch (s.toUpperCase()) {
-                    case "NOVİCE" :
+                switch (s.toUpperCase()) { // bilgisayarın diline göre büyük harf kucuk harfte sıkıntı oluyor bunu if else'ten equals ile yapılması lazım !!!!
+                    case "NOVICE" :
                         chosenBotList.add('N');
                         break;
                     case "REGULAR" :
