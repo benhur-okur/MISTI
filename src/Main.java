@@ -7,14 +7,14 @@ public class Main {
 
         Board board = new Board();
         board.getDeck().createDeck();
-        board.howManyPlayers();
-        board.dealCard();
-
+        board.modSelect();
         board.playerSelect();
         board.createPlayers();
+        board.firstFourCard();
+
+
         for (int i = 0; i < 20; i++) {
-            System.out.println(board.iN);
-            //board.dealCard();
+            board.dealCard();
             board.play();
 
         }
