@@ -139,48 +139,113 @@ public class Board {
 
     int c = 0; //We used 'counter' to make the code run only once when there are no human.
 
+    /*public void displayHand() {
+        int n = 0;
+        int r = 0;
+        int e = 0;
+
+        if (modNo == 1) {
+            System.out.println("Human player's hand: " + hPlayer.getHand());
+        } else if (modNo == 2) {
+            for (int i = 0; i < chosenBotList.size(); i++) {
+                if (chosenBotList.get(i).equals('N')) {
+                    System.out.println((n+1) + ".Novice player's hand: " + nBots[n].getHand()); //
+                    n++;
+                } else if (chosenBotList.get(i).equals('R')) {
+                    System.out.println((r+1) + ".Regular player's hand: " );//ARRAY OLUŞTURDUKTAN SONRA GETHAND'LERİ ÇAĞIR
+                    r++;
+                } else if (chosenBotList.get(i).equals('E')) {
+                    System.out.println((e+1) + ".Expert player's hand: " );//ARRAY OLUŞTURDUKTAN SONRA GETHAND'LERİ ÇAĞIR
+                    e++;
+                } else if (chosenBotList.get(i).equals('H')) {
+                    System.out.println("Human player's hand " + hPlayer.getHand());
+                }
+            }
+        }
+    }*/
+
     public void dealCard() throws InterruptedException, IOException {
         deck.displayDeck();
         int counterN = 0;
+        int counterR = 0;
+        int counterE = 0;
+        boolean f1 = false;
+        boolean f2 = false;
+        boolean f3 = false;
+        boolean f4 = false;
         //System.out.println(getTopCard());
         //if (!isHuman) {
-        for (int i = 0; i < chosenBotList.size(); i++) { // N N
-            switch (chosenBotList.get(i)) {
-                case 'N':
-                    if (nBots[counterN].getHand().isEmpty()) {
-                        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < chosenBotList.size(); i++) { // N R E
+                switch (chosenBotList.get(i)) {
+                    case 'N':
+                        if (nBots[counterN].getHand().isEmpty()) {
+                            f1 = true;
+                            //nBots[counterN].getHand().add(deck.deck.get(0));
+                            //deck.deck.remove(0);
+                        }
+                        //counterN++;
+                        //displayHand();
+                    case 'R':
+                        if (rBots[counterR].getHand().isEmpty()) {
+                            f2 = true;
+                            //rBots[counterR].getHand().add(deck.deck.get(0));
+                            //deck.deck.remove(0);
+                        }
+                        //counterR++;
+                    case 'E':
+                        if (eBots[counterE].getHand().isEmpty()) {
+                            f3 = true;
+                            //eBots[counterE].getHand().add(deck.deck.get(0));
+                            //deck.deck.remove(0);
+                        }
+                        //counterE++;
+                    case 'H':
+                        if (hPlayer.getHand().isEmpty()) {
+                            f4 = true;
+                            //hPlayer.getHand().add(deck.deck.get(0));
+                            //deck.deck.remove(0);
+
+                            //displayHand();
+                        }
+
+                }
+            }
+
+            while (f1 || f2 || f3 || f4) { // elleri boş olduğu zaman dağıtmak için çalışıcak (or gelebilir)   0   1
+                for (int j = 0;j<4;j++) {
+                    for (int i = 0; i < chosenBotList.size(); i++) {
+                        if (chosenBotList.get(i).equals('N')) {
                             nBots[counterN].getHand().add(deck.deck.get(0));
-                        }
-                        counterN++;
-                    }
-                    displayHand();
-                case 'R':
-                    if (rPlayer.getHand().isEmpty()) {
-                        for (int j = 0; j < 4; j++) {
-                            rPlayer.getHand().add(deck.deck.get(0));
                             deck.deck.remove(0);
-                        }
-                        displayHand();
-                    }
-                case 'E':
-                    if (ePlayer.getHand().isEmpty()) {
-                        for (int j = 0; j < 4; j++) {
-                            ePlayer.getHand().add(deck.deck.get(0));
+                        } else if (chosenBotList.get(i).equals('R')) {
+                            rBots[counterR].getHand().add(deck.deck.get(0));
                             deck.deck.remove(0);
-                        }
-                        displayHand();
-                    }
-                case 'H':
-                    if (hPlayer.getHand().isEmpty()) {
-                        for (int j = 0; j < 4; j++) {
+                        } else if (chosenBotList.get(i).equals('E')) {
+                            eBots[counterE].getHand().add(deck.deck.get(0));
+                            deck.deck.remove(0);
+                        } else if (chosenBotList.get(i).equals('H')) {
                             hPlayer.getHand().add(deck.deck.get(0));
                             deck.deck.remove(0);
                         }
-                        displayHand();
                     }
+                }
+                f1 = false; f2 =false; f3 = false; f4 = false;
+            }
+
+
+        /*for (int i = 0;i<chosenBotList.size();i++) {
+            switch (chosenBotList.get(i)) {
+                case 'N' :
 
             }
-        }
+        }*/
+
+
+
+
+
+
+
         /*if (noOfPlayer == 2) {
             //Deal cards on board
             if (counter < 4) {
@@ -449,7 +514,7 @@ public class Board {
         board.add(ePlayer.getHand().get(ran.nextInt(4)));
     }
 
-    public void playForRegularBot() throws FileNotFoundException { // puana
+    public void playForRegularBot() throws FileNotFoundException { // bu method için parametre ekliceez RegularBot tipinde !
         matchingValue = false;
         String s1;
         String s2;
@@ -536,7 +601,18 @@ public class Board {
     }
 
     public void play() throws IOException, InterruptedException {
-        int counterN = 0;
+
+        for (Character character : chosenBotList) { // N N
+            switch (character) {
+                case 'N' -> playForNoviceBot();
+                case 'R' -> playForRegularBot();
+                case 'E' -> playForExpertBot();
+                case 'H' -> playForHuman();
+                default -> System.out.println("Please enter a valid character");
+            }
+        }
+
+        /*int counterN = 0;
         System.out.println(getTopCard());
         if (!isHuman) {
             for (int i = 0; i < chosenBotList.size(); i++) {
@@ -575,18 +651,8 @@ public class Board {
                         }
 
                 }
-            }
-            for (Character character : chosenBotList) { // N N
-                switch (character) {
-                    case 'N' -> playForNoviceBot();
-                    case 'R' -> playForRegularBot();
-                    case 'E' -> playForExpertBot();
-                    case 'H' -> playForHuman();
-                    default -> System.out.println("Please enter a valid character");
-                }
-            }
+            }*/
 
-        }
     }
 
 //This code defines a method called play(), which is responsible for starting the game and handling the playing of each player.
