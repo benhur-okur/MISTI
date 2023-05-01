@@ -6,7 +6,7 @@ public class Board {
     Scanner sc = new Scanner(System.in);
     private Point point = new Point();
     //
-    private ArrayList<Character> chosenBotList = new ArrayList<>();
+    public ArrayList<Character> chosenBotList = new ArrayList<>();
     private boolean matchingValue = false;
     private boolean isPisti = false;
 
@@ -315,7 +315,7 @@ public class Board {
     int count = 0;
 
     private void modSelect() throws InterruptedException {
-        if (count == 0) {
+        if (count == 0) {//ishuman == true olmalı!!!
             try {
                 count++;
                 System.out.println("Please select game mod");
@@ -450,8 +450,9 @@ public class Board {
                             nBots[j].getHand().add(deck.deck.get(0));
 
                         }
-                        }
                         displayHand();
+
+                    }
                         case 'R':
                                 if (rPlayer.getHand().isEmpty()) {
                                     for (int j = 0; j < 4; j++) {
@@ -607,23 +608,22 @@ public class Board {
             }
             public void playerSelect () {
                 howManyPlayers();
-                if (noOfPlayer == 2) { // ishuman gelcek !!
-
-                    for (int i = 0; i < noOfPlayer; i++) {
-
+                int x = 0;
+                if(isHuman){
+                    x = noOfPlayer-1 ;
+                }else{
+                    x = noOfPlayer;
+                }
+                    for (int i = 0; i < x; i++) {
                         System.out.println("Which bot do you want to play?");
                         System.out.println("'Novice', 'Regular', 'Expert'");
                         s = sc.nextLine();
-
                         switch (s.toUpperCase()) {
                             case "NOVİCE" -> chosenBotList.add('N');
                             case "REGULAR" -> chosenBotList.add('R');
                             case "EXPERT" -> chosenBotList.add('E');
                         }
                     }
-
-
-                }
 
             }
 
