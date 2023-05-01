@@ -456,10 +456,15 @@ public class Board {
                 System.out.println("Regular bot has just played : " + rPlayer.getHand().get(matchingIndex));
                 rPlayer.getHand().remove(rPlayer.getHand().get(matchingIndex));
                 saveEarnedCards('r');
-            } else {
+
+                //Our regular player has to think about the points and it should play accordingly to points because it's advanced player than novice bot.
+            }
+             else {
+
                 int indexOfPlay = ran.nextInt(rPlayer.getHand().size()); // 2
                 while (indexOfPlay == matchingIndex) {  // 2
                     indexOfPlay = ran.nextInt(rPlayer.getHand().size());
+                    //if our random card is the same as the matching card, our random card will return to this loop until it is different from the matching card
                 }
                 board.add(rPlayer.getHand().get(indexOfPlay));
                 System.out.println("Regular bot has just played : " + rPlayer.getHand().get(indexOfPlay));
