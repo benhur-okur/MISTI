@@ -927,7 +927,7 @@ public class Board {
                 s = sc.nextLine();
 
                 switch (s.toUpperCase()) { // bilgisayarın diline göre büyük harf kucuk harfte sıkıntı oluyor bunu if else'ten equals ile yapılması lazım !!!!
-                    case "NOVICE" :
+                    case "NOVİCE" :
                         chosenBotList.add('N');
                         break;
                     case "REGULAR" :
