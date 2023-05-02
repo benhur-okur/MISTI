@@ -18,6 +18,8 @@ public class Main {
             board.play();
 
         }
+        System.out.println(board.nBots[0].getEarnedWithoutPisti());
+        System.out.println(board.rBots[0].getEarnedWithoutPisti());
         System.out.println("Game has finished!!");
 
 
