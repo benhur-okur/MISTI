@@ -8,6 +8,10 @@ public class Main {
 
         Board board = new Board();
         board.getDeck().createDeck();
+        board.getDeck().displayDeck();
+        board.firstFourCard();
+        System.out.println(board.getBoard());
+        /*
         board.playerSelect();
         System.out.println(board.chosenBotList);
         board.modSelect();
@@ -20,7 +24,7 @@ public class Main {
         }
         System.out.println(board.nBots[0].getEarnedWithoutPisti());
         System.out.println(board.rBots[0].getEarnedWithoutPisti());
-        System.out.println("Game has finished!!");
+        System.out.println("Game has finished!!");*/
 
 
     }

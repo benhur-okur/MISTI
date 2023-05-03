@@ -142,30 +142,6 @@ public class Board {
 
     int c = 0; //We used 'counter' to make the code run only once when there are no human.
 
-    /*public void displayHand() {
-        int n = 0;
-        int r = 0;
-        int e = 0;
-
-        if (modNo == 1) {
-            System.out.println("Human player's hand: " + hPlayer.getHand());
-        } else if (modNo == 2) {
-            for (int i = 0; i < chosenBotList.size(); i++) {
-                if (chosenBotList.get(i).equals('N')) {
-                    System.out.println((n+1) + ".Novice player's hand: " + nBots[n].getHand()); //
-                    n++;
-                } else if (chosenBotList.get(i).equals('R')) {
-                    System.out.println((r+1) + ".Regular player's hand: " );//ARRAY OLUŞTURDUKTAN SONRA GETHAND'LERİ ÇAĞIR
-                    r++;
-                } else if (chosenBotList.get(i).equals('E')) {
-                    System.out.println((e+1) + ".Expert player's hand: " );//ARRAY OLUŞTURDUKTAN SONRA GETHAND'LERİ ÇAĞIR
-                    e++;
-                } else if (chosenBotList.get(i).equals('H')) {
-                    System.out.println("Human player's hand " + hPlayer.getHand());
-                }
-            }
-        }
-    }*/
 
     public void dealCard() throws InterruptedException, IOException {
         deck.displayDeck();
@@ -315,13 +291,92 @@ public class Board {
     }
 
 
-    /* AYRINTILI YAZILACAK!!!
-    private void playForExpertBot() {
-        board.add(ePlayer.getHand().get(ran.nextInt(4)));
-    }*/
+    int totalPoint = 0;
+
+    private int totalPointsOfBoard() throws IOException {
+        for (int i = 0;i<board.size();i++) {
+            pointOfBoardCards(i);
+        }
+        return totalPoint;
+
+    }
+
+    private void pointOfBoardCards(int i) throws IOException {
+        boolean b1 = true;
+        BufferedReader br = new BufferedReader(new FileReader("points.txt"));
+
+            String line = br.readLine();
+            while(line != null){
+                try {
+                    System.out.println("doga");
+                    if (line.startsWith(board.get(i))) {
+                        System.out.println("çakıl");
+                        totalPoint += Integer.parseInt(line.substring(3).trim());
+                        //System.out.println("Points from txt file : " + i1);
+                        b1 = false;
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                line = br.readLine();
+            }
+            if (b1) {
+                totalPoint += 1;
+            }
+        }
+
+    private void playForExpertBot(int eN) throws IOException {
+
+        int p1 = 0;
+        matchingValue = false;
+        boolean f1 = true;
+        int matchingIndex = 0;
+        for (int i = 0; i < eBots[eN].getHand().size(); i++) {
+            if (getTopCard() != null) { // top card null ise hemen aşağıdaki if error vericektir o yuzden bu if eklenmiştir.
+                if (eBots[eN].getHand().get(i).charAt(1) == (getTopCard().charAt(1))) {
+                    matchingValue = true; // pişti var demek gibi bir şey
+                    matchingIndex = i; // elimizde 4 kart var hangi kartın pişti yapabilecegini söylüyor (index olarak)
+                    break; // We have 4 cards in our hand and it will tell which card will be make pisti out of them(as imdex)
+                }
+            }
+        }
+        if(matchingValue){
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("points.txt"));
+            try {
+                String line = bufferedReader.readLine();
+                while (f1) {
+                    if (line.length() == 0) {
+                        break;
+                    }
+                    if (f1) {
+                        if (line.startsWith(eBots[eN].getHand().get(matchingIndex))) {
+                            p1 = Integer.parseInt(line.substring(3).trim());
+                            //System.out.println("Points from txt file : " + i1);
+                            f1 = false;
+                        } else {
+                           p1 = 1;
+                            //System.out.println("Card has not found thus point : " + i1);
+                        }
+                    }
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            if(totalPointsOfBoard() + p1 > 0){
+                board.add(eBots[eN].getHand().get(matchingIndex));
+                System.out.println("Expert bot" + (eN+1) + " has just played : " + eBots[eN].getHand().get(matchingIndex));
+                eBots[eN].getHand().remove(eBots[eN].getHand().get(matchingIndex));
+                saveEarnedCards('E'); // kazanma durumunda bu method çağrılıyor ve içindeki parametreye de regular bot oldugunu belli etmemiz lazım
+            }else{
+                
+            }
+
+        }
+
+    }
 
 
-    public void playForRegularBot(int rN) throws FileNotFoundException { // bu method için parametre ekliceez RegularBot tipinde !
+    private void playForRegularBot(int rN) throws FileNotFoundException { // bu method için parametre ekliceez RegularBot tipinde !
         matchingValue = false;
         String cardOfLine;
         String s1 = null;
@@ -350,7 +405,7 @@ public class Board {
                     }
                     cardOfLine = String.valueOf(line.charAt(0) + line.charAt(1)); // txt file'daki her satırın kartı örn: 1. satır için SA
                     if (f1) {
-                        if (line.startsWith(rBots[rN].getHand().get(matchingIndex))) { // iflere girmiyor !!!!!!
+                        if (line.startsWith(rBots[rN].getHand().get(matchingIndex))) {
                             i1 = Integer.parseInt(line.substring(3).trim());
                             //System.out.println("Points from txt file : " + i1);
                             f1 = false;
@@ -385,11 +440,6 @@ public class Board {
                 //Our regular player has to think about the points and it should play accordingly to points because it's advanced player than novice bot.
             }
             else {
-                // else durumu için şöyle kafa karıştırıcı bir durum var: else girdiğinde kartların puan toplamları - çıkıyor ve bu durumda o kartı atmıyacağını biliyoruz +++
-                // Ancak farklı bir kart attığında attığı kartın sayısal degerı topCard'a eşit olabilir örnek vermek gerekirse ; +++
-                // topCard SA olsun elimizde de CA, DA ve S7 var ancak CA'yı puanı 0'dan küçük oldugu için atmıyoruz bu durumda atabileceğimiz kartlar DA ve S7 olarak kalıyor +++
-                // eğer ki S7'yi atarsak kartları kazanmış olmuyoruz ve bundan dolayı saveEarnedCards methodunu çağırmıyacağız lakin diğer durum denk gelirse ve +++
-                // S7'yi atmayıp DA'yı atarsa bot bu durumda da yüzleri aynı oldugu içi save earned Cards'ı çağırmamız gerekicek bunu ifle halledilir gibi duruyor ama şu an çok yorgunum.
                 int indexOfPlay = ran.nextInt(rBots[rN].getHand().size()); // 2
                 if (rBots[rN].getHand().size() != 1) { // elimizde tek kart kaldıysa mecbur o kartı atmak zorunda kalıcak o yüzden bu if şartı eklenmiştir (yoksa sonsuza kadar aşağıdaki döngüde kalıcaktır)
                     while (indexOfPlay == matchingIndex) {  // 2
@@ -399,7 +449,7 @@ public class Board {
                     board.add(rBots[rN].getHand().get(indexOfPlay));
                     System.out.println("Regular bot" + (rN+1) + " has just played : " + rBots[rN].getHand().get(indexOfPlay));
                     rBots[rN].getHand().remove(rBots[rN].getHand().get(indexOfPlay));
-                } else {
+                } else {//Elimizde 1 kart varken ortadaki karta eşit olma durumunda saveEarnedCards metodunun çağırılıp çağırılmayacağını inceler
                     if (rBots[rN].getHand().get(indexOfPlay).charAt(1) == getTopCard().charAt(1)) {
                         board.add(rBots[rN].getHand().get(indexOfPlay));
                         saveEarnedCards('R');
@@ -424,22 +474,6 @@ public class Board {
         }
 
     }
-    /*String line;
-            while ((line = bufferedReader.readLine()) != null) {
-        if (line.startsWith("SA")) {
-            int puan = Integer.parseInt(line.substring(3).trim());
-            System.out.println("Okunan puan: " + puan);
-        }
-    }
-
-            bufferedReader.close();
-            fileReader.close();
-} catch (IOException e) {
-        System.out.println("Dosya okuma hatası: " + e.getMessage());
-        }
-        }
-        }*/
-
 
     //The code first checks if there is a matching card in the regular bot's hand with the top card of the board.
     // If there is a match, the corresponding point values of the card in the regular bot's hand and the top card are looked up from a text file called "points.txt".
