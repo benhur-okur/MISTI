@@ -5,11 +5,31 @@ public class Board {
     Random ran = new Random();
     Scanner sc = new Scanner(System.in);
     private Point point = new Point();
-    //
+
     public ArrayList<Character> chosenBotList = new ArrayList<>();
     private boolean matchingValue = false;
     private boolean isPisti = false;
 
+    char[][] countersOfFaces = {
+            {'A', '2', '3', '4', '5', '6', '7', '8', '9', '1', 'J', 'Q', 'K'},
+            {'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'}
+    };
+
+    private int findCardsCount(int cE) {
+        ArrayList<Integer> count = new ArrayList<>();
+        for (int i = 0;i<eBots[cE].getHand().size();i++) {
+            for (int j = 0;j<13;j++) {
+                if (eBots[cE].getHand().get(i).charAt(1) == countersOfFaces[0][j]) {
+                    count.add(Integer.parseInt(String.valueOf(countersOfFaces[1][j])));
+
+                }
+
+            }
+        }
+        Collections.sort(count);
+        return count.get(0);
+
+    }
     public int getNoOfPlayer() {
         return noOfPlayer;
     }
@@ -368,7 +388,7 @@ public class Board {
                 eBots[eN].getHand().remove(eBots[eN].getHand().get(matchingIndex));
                 saveEarnedCards('E'); // kazanma durumunda bu method çağrılıyor ve içindeki parametreye de regular bot oldugunu belli etmemiz lazım
             }else{
-                
+
             }
 
         }
