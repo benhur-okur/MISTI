@@ -144,7 +144,6 @@ public class Board {
 
 
     public void dealCard() throws InterruptedException, IOException {
-        deck.displayDeck();
         firstFourCard();
         int counterN = 0;
         int counterR = 0;
@@ -285,11 +284,22 @@ public class Board {
     }
 
     private void playForHuman() { // bu metodun içine sadece saveEarnedCards eklenmeli ondan sonra bitti !! ***
+        boolean control = false;
         String returnValue = hPlayer.getHand().get(hPlayer.play());
-        System.out.println("You have been played : " + returnValue);
+        if(getTopCard() != null){
+            if(returnValue.charAt(1) == getTopCard().charAt(1)){
+                control = true;
+            }
+        }
         increaseCounter(returnValue);
         board.add(returnValue);
+        System.out.println("You have been played : " + returnValue);
         hPlayer.getHand().remove(returnValue);
+
+        if(control){
+            saveEarnedCards('H');
+        }
+
     }
 
 
@@ -298,6 +308,9 @@ public class Board {
     private int totalPointsOfBoard() throws IOException {
         for (int i = 0;i<board.size();i++) {
             pointOfBoardCards(i);
+        }
+        if(board.size() == 0){//board'daki kartlar sıfırlandığında totalPoint 0'a eşitlenir!!!
+            totalPoint = 0;
         }
         return totalPoint;
 
@@ -322,6 +335,7 @@ public class Board {
             if (b1) {
                 totalPoint += 1;
             }
+
     }
 
     String[][] countersOfFaces = {
@@ -439,12 +453,21 @@ public class Board {
                 // board'da biriken -'li kartları karşıya kazandırması kolay olsun çünkü karşıda expert dışında bir bot varsa board'da biriken bütün kartlrın puanını hesap edemicek
                 System.out.println("her yere sout");
                 String card = findCardsCountMin(eN); // burada karşımızda regular varken countMin atmak degil de + puanlı bir kart atmak daha iyi olabilir mi acaba ?
-                if (card.charAt(1) == eBots[eN].getHand().get(matchingIndex).charAt(1)) {
-                    card = eBots[eN].getHand().get(ran.nextInt(eBots[eN].getHand().size()));
+                if(eBots[eN].getHand().size() != 1){//Face'lerin farklı olmasını istiyoruz o yüzden saveEarnedC çağrılmadı!!!
+                    while (card.charAt(1) == eBots[eN].getHand().get(matchingIndex).charAt(1)) {
+                        card = eBots[eN].getHand().get(ran.nextInt(eBots[eN].getHand().size()));
+
+                    }
+                    board.add(card);
+                    System.out.println("Expert bot" + (eN+1) + " has just played : " + card);
+                    eBots[eN].getHand().remove(card);
+                }else {//Mecburen aynı face atılabilir o yüzden saveEarnedC çağırıldı!!!
+                    board.add(card);
+                    System.out.println("Expert bot" + (eN+1) + " has just played : " + card);
+                    eBots[eN].getHand().remove(card);
+                    saveEarnedCards('E');
                 }
-                board.add(card);
-                System.out.println("Expert bot" + (eN+1) + " has just played : " + card);
-                eBots[eN].getHand().remove(card);
+
             }
         } else {
             if (totalPointsOfBoard() > 0) { // ortadaki kartların toplam puanı 0'dan büyükse counterı en büyük olanı atıcak
@@ -859,7 +882,7 @@ public class Board {
                 s = sc.nextLine();
 
                 switch (s.toUpperCase()) { // bilgisayarın diline göre büyük harf kucuk harfte sıkıntı oluyor bunu if else'ten equals ile yapılması lazım !!!!
-                    case "NOVICE" :
+                    case "NOVİCE" :
                         chosenBotList.add('N');
                         break;
                     case "REGULAR" :
@@ -874,6 +897,7 @@ public class Board {
 
     }
     public void firstFourCard() { // oyun başında ortaya atılcak ilk dört kart bu metod tarafından sağlanır.
+        deck.displayDeck();
         if(counter < 4){
             for (int i = 0; i < 4; i++) {
                 board.add(deck.deck.get(0));

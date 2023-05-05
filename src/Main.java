@@ -10,21 +10,20 @@ public class Main {
 
         Board board = new Board();
         board.getDeck().createDeck();
-        board.firstFourCard();
         board.playerSelect();
         board.modSelect();
         board.createPlayers();
-        board.dealCard();
 
         for (int i = 0; i < (48/(board.getNoOfPlayer()*4)); i++) {
             board.dealCard();
+            System.out.println(board.getBoard());
             board.play(); // S6 C7 H9 DK
 
         }
-        System.out.println(board.nBots[0].getEarnedWithoutPisti());
-        System.out.println(board.nBots[0].getEarnedWithPisti());
-        System.out.println(board.eBots[0].getEarnedWithoutPisti());
-        System.out.println(board.eBots[0].getEarnedWithPisti());
+        System.out.println("Pİştisiz: " + board.gethPlayer().getEarnedWithoutPisti());
+        System.out.println("Pİştili:" + board.gethPlayer().getEarnedWithPisti());
+        System.out.println("Pİştisiz: " + board.rBots[0].getEarnedWithoutPisti());
+        System.out.println("Pİştili: " + board.rBots[0].getEarnedWithPisti());
         System.out.println("Game has finished!!");
 
 
