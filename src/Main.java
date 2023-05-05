@@ -7,12 +7,14 @@ import java.util.Collections;
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
+
         Board board = new Board();
         board.getDeck().createDeck();
         board.firstFourCard();
         board.playerSelect();
         board.modSelect();
         board.createPlayers();
+        board.dealCard();
 
         for (int i = 0; i < (48/(board.getNoOfPlayer()*4)); i++) {
             board.dealCard();
@@ -20,7 +22,9 @@ public class Main {
 
         }
         System.out.println(board.nBots[0].getEarnedWithoutPisti());
-        System.out.println(board.rBots[0].getEarnedWithoutPisti());
+        System.out.println(board.nBots[0].getEarnedWithPisti());
+        System.out.println(board.eBots[0].getEarnedWithoutPisti());
+        System.out.println(board.eBots[0].getEarnedWithPisti());
         System.out.println("Game has finished!!");
 
 

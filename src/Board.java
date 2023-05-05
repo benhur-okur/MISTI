@@ -10,26 +10,6 @@ public class Board {
     private boolean matchingValue = false;
     private boolean isPisti = false;
 
-    char[][] countersOfFaces = {
-            {'A', '2', '3', '4', '5', '6', '7', '8', '9', '1', 'J', 'Q', 'K'},
-            {'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'}
-    };
-
-    private int findCardsCount(int cE) {
-        ArrayList<Integer> count = new ArrayList<>();
-        for (int i = 0;i<eBots[cE].getHand().size();i++) {
-            for (int j = 0;j<13;j++) {
-                if (eBots[cE].getHand().get(i).charAt(1) == countersOfFaces[0][j]) {
-                    count.add(Integer.parseInt(String.valueOf(countersOfFaces[1][j])));
-
-                }
-
-            }
-        }
-        Collections.sort(count);
-        return count.get(0);
-
-    }
     public int getNoOfPlayer() {
         return noOfPlayer;
     }
@@ -225,7 +205,7 @@ public class Board {
                                 counterR = 0;
                             }
                         } else if (chosenBotList.get(i).equals('E')) {
-                            eBots[counterN].getHand().add(deck.deck.get(0));
+                            eBots[counterE].getHand().add(deck.deck.get(0));
                             deck.deck.remove(0);
                             counterE++;
                             if(counterE == iE){
@@ -294,6 +274,7 @@ public class Board {
                 matchingValue = true;
             }
         }
+        increaseCounter(returnValue);
         board.add(returnValue);
         System.out.println("Novice" + (cN + 1) + " bot has played : " + returnValue);
         nBots[cN].getHand().remove(returnValue);
@@ -306,6 +287,7 @@ public class Board {
     private void playForHuman() { // bu metodun içine sadece saveEarnedCards eklenmeli ondan sonra bitti !! ***
         String returnValue = hPlayer.getHand().get(hPlayer.play());
         System.out.println("You have been played : " + returnValue);
+        increaseCounter(returnValue);
         board.add(returnValue);
         hPlayer.getHand().remove(returnValue);
     }
@@ -328,11 +310,8 @@ public class Board {
             String line = br.readLine();
             while(line != null){
                 try {
-                    System.out.println("doga");
                     if (line.startsWith(board.get(i))) {
-                        System.out.println("çakıl");
                         totalPoint += Integer.parseInt(line.substring(3).trim());
-                        //System.out.println("Points from txt file : " + i1);
                         b1 = false;
                     }
                 }catch(Exception e){
@@ -343,7 +322,72 @@ public class Board {
             if (b1) {
                 totalPoint += 1;
             }
+    }
+
+    String[][] countersOfFaces = {
+            {"A", "2", "3", "4", "5", "6", "7", "8", "9", "1", "J", "Q", "K"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"}
+    };
+
+    private String findCardsCountMin(int cE) {
+        ArrayList<ArrayList<String>> count = new ArrayList<ArrayList<String>>();
+        count.add(new ArrayList<String>());
+        count.add(new ArrayList<String>());
+        for (int i = 0;i<eBots[cE].getHand().size();i++) {
+            for (int j = 0;j<13;j++) {
+                if (String.valueOf(eBots[cE].getHand().get(i).charAt(1)).equals(countersOfFaces[0][j])) {
+                    count.get(0).add(countersOfFaces[0][j]); // A 2 6 J
+                    count.get(1).add(countersOfFaces[1][j]); // 1 0 3 4
+                }
+
+            }
         }
+        int indexOfMinCount = 0;
+        for (int i = 0;i<count.get(1).size()-1;i++) { // 1 3 0 2
+            for (int j = i + 1;j<count.get(1).size();j++) {
+                if (Integer.parseInt(String.valueOf(count.get(1).get(j))) < Integer.parseInt(String.valueOf(count.get(1).get(i)))) {
+                    indexOfMinCount = j;
+                }
+            }
+        }
+        return eBots[cE].getHand().get(indexOfMinCount);
+    }
+
+    private String findCardsCountMax(int cE) {
+        ArrayList<ArrayList<String>> count = new ArrayList<ArrayList<String>>();
+        count.add(new ArrayList<String>());
+        count.add(new ArrayList<String>());
+        for (int i = 0;i<eBots[cE].getHand().size();i++) {
+            for (int j = 0;j<13;j++) {
+                if (String.valueOf(eBots[cE].getHand().get(i).charAt(1)).equals(countersOfFaces[0][j])) {
+                    count.get(0).add(countersOfFaces[0][j]); // A 2 6 J
+                    count.get(1).add(countersOfFaces[1][j]); // 1 0 3 4
+                }
+
+            }
+        }
+        int indexOfMaxCount = 0;
+        for (int i = 0;i<count.get(1).size()-1;i++) { // 1 3 0 2
+            for (int j = i + 1;j<count.get(1).size();j++) {
+                if (Integer.parseInt(String.valueOf(count.get(1).get(j))) > Integer.parseInt(String.valueOf(count.get(1).get(i)))) {
+                    indexOfMaxCount = j;
+                }
+            }
+        }
+        return eBots[cE].getHand().get(indexOfMaxCount);
+    }
+
+    private void increaseCounter(String card) { // paraetredeki kart oyuncunu oynyacağı kart olucaktır.
+        int newCount = 0;
+        String faceOfCard = String.valueOf(card.charAt(1));
+        for (int i = 0;i<13;i++) {
+            if (faceOfCard.equals(countersOfFaces[0][i])) {
+                newCount = Integer.parseInt(String.valueOf(countersOfFaces[1][i]));
+                newCount++;
+                countersOfFaces[1][i] = String.valueOf(newCount);
+            }
+        }
+    }
 
     private void playForExpertBot(int eN) throws IOException {
 
@@ -360,11 +404,12 @@ public class Board {
                 }
             }
         }
-        if(matchingValue){
+        if(matchingValue){ // eğer expertin elindeki kartın face'i top cardın face'i ile uyuşuyorsa bu if şartına giricek
+            System.out.println("matching value giriyo mu");
             BufferedReader bufferedReader = new BufferedReader(new FileReader("points.txt"));
             try {
                 String line = bufferedReader.readLine();
-                while (f1) {
+                while (line != null && f1) { // bu döngüde elimizdeki uyuşan kartın txt file'dan puanını buluyoruz
                     if (line.length() == 0) {
                         break;
                     }
@@ -374,23 +419,44 @@ public class Board {
                             //System.out.println("Points from txt file : " + i1);
                             f1 = false;
                         } else {
-                           p1 = 1;
+                            p1 = 1;
                             //System.out.println("Card has not found thus point : " + i1);
                         }
                     }
+                    line = bufferedReader.readLine();
                 }
             }catch(Exception e){
                 e.printStackTrace();
             }
-            if(totalPointsOfBoard() + p1 > 0){
+            System.out.println("matching value sonu");
+            if(totalPointsOfBoard() + p1 > 0){ // eğer ki olası kazanılcak kartların toplam puanı pozitif ise matching index'li kartı oynuyor ve boarddaki bütün kartları kaznmış oluyor
+                System.out.println("giriyo mu buraya?");
                 board.add(eBots[eN].getHand().get(matchingIndex));
                 System.out.println("Expert bot" + (eN+1) + " has just played : " + eBots[eN].getHand().get(matchingIndex));
                 eBots[eN].getHand().remove(eBots[eN].getHand().get(matchingIndex));
                 saveEarnedCards('E'); // kazanma durumunda bu method çağrılıyor ve içindeki parametreye de regular bot oldugunu belli etmemiz lazım
-            }else{
-
+            }else{ // eğer ki olası kazanaılcak kartların toplam puanı 0 veya negatif ise elindeki matching index'li karttan vazgeçiyor ve elindeki counter'ı en düşük kartı oynuyor +++
+                // board'da biriken -'li kartları karşıya kazandırması kolay olsun çünkü karşıda expert dışında bir bot varsa board'da biriken bütün kartlrın puanını hesap edemicek
+                System.out.println("her yere sout");
+                String card = findCardsCountMin(eN); // burada karşımızda regular varken countMin atmak degil de + puanlı bir kart atmak daha iyi olabilir mi acaba ?
+                if (card.charAt(1) == eBots[eN].getHand().get(matchingIndex).charAt(1)) {
+                    card = eBots[eN].getHand().get(ran.nextInt(eBots[eN].getHand().size()));
+                }
+                board.add(card);
+                System.out.println("Expert bot" + (eN+1) + " has just played : " + card);
+                eBots[eN].getHand().remove(card);
             }
-
+        } else {
+            if (totalPointsOfBoard() > 0) { // ortadaki kartların toplam puanı 0'dan büyükse counterı en büyük olanı atıcak
+                board.add(findCardsCountMax(eN));
+                System.out.println("Expert bot" + (eN+1) + " has just played : " + findCardsCountMax(eN));
+                eBots[eN].getHand().remove(findCardsCountMax(eN));
+            }
+            else {
+                board.add(findCardsCountMin(eN));
+                System.out.println("Expert bot" + (eN+1) + " has just played : " + findCardsCountMin(eN));
+                eBots[eN].getHand().remove(findCardsCountMin(eN));
+            }
         }
 
     }
@@ -452,11 +518,11 @@ public class Board {
                 e.printStackTrace();
             }
             if ((i1 + i2) > 0) {
+                increaseCounter(rBots[rN].getHand().get(matchingIndex));
                 board.add(rBots[rN].getHand().get(matchingIndex));
                 System.out.println("Regular bot" + (rN+1) + " has just played : " + rBots[rN].getHand().get(matchingIndex));
                 rBots[rN].getHand().remove(rBots[rN].getHand().get(matchingIndex));
                 saveEarnedCards('R'); // kazanma durumunda bu method çağrılıyor ve içindeki parametreye de regular bot oldugunu belli etmemiz lazım
-
                 //Our regular player has to think about the points and it should play accordingly to points because it's advanced player than novice bot.
             }
             else {
@@ -466,17 +532,20 @@ public class Board {
                         indexOfPlay = ran.nextInt(rBots[rN].getHand().size());
                         //if our random card is the same as the matching card, our random card will return to this loop until it is different from the matching card
                     }
+                    increaseCounter(rBots[rN].getHand().get(indexOfPlay));
                     board.add(rBots[rN].getHand().get(indexOfPlay));
                     System.out.println("Regular bot" + (rN+1) + " has just played : " + rBots[rN].getHand().get(indexOfPlay));
                     rBots[rN].getHand().remove(rBots[rN].getHand().get(indexOfPlay));
                 } else {//Elimizde 1 kart varken ortadaki karta eşit olma durumunda saveEarnedCards metodunun çağırılıp çağırılmayacağını inceler
                     if (rBots[rN].getHand().get(indexOfPlay).charAt(1) == getTopCard().charAt(1)) {
+                        increaseCounter(rBots[rN].getHand().get(indexOfPlay));
                         board.add(rBots[rN].getHand().get(indexOfPlay));
                         saveEarnedCards('R');
                         System.out.println("Regular bot" + (rN+1) + " has just played : " + rBots[rN].getHand().get(indexOfPlay));
                         rBots[rN].getHand().remove(rBots[rN].getHand().get(indexOfPlay));
                     }
                     else {
+                        increaseCounter(rBots[rN].getHand().get(indexOfPlay));
                         board.add(rBots[rN].getHand().get(indexOfPlay));
                         System.out.println("Regular bot" + (rN+1) + " has just played : " + rBots[rN].getHand().get(indexOfPlay));
                         rBots[rN].getHand().remove(rBots[rN].getHand().get(indexOfPlay));
@@ -487,6 +556,7 @@ public class Board {
             }
         } else {
             int indexOfPlay = ran.nextInt(rBots[rN].getHand().size()); // eğer uyuşan kart yoksa rastgele bir kart oynayacak bu degeri inte atamamızın sebebi ikinci kez rastgele seçim yapmamak için.
+            increaseCounter(rBots[rN].getHand().get(indexOfPlay));
             board.add(rBots[rN].getHand().get(indexOfPlay));
             System.out.println("Regular bot " + (rN+1) + "has just played : " + rBots[rN].getHand().get(indexOfPlay));
             rBots[rN].getHand().remove(rBots[rN].getHand().get(indexOfPlay));
@@ -513,6 +583,7 @@ public class Board {
     public void play() throws IOException, InterruptedException {
         int cN = 0;
         int rN = 0;
+        int eN = 0;
         for(int i =0;i<4;i++){
             for (Character character : chosenBotList) { // R R
                 switch (character) {
@@ -530,7 +601,13 @@ public class Board {
                             rN = 0;
                         }
                         break;
-                    //case 'E' -> playForExpertBot();
+                    case 'E' :
+                        playForExpertBot(eN);
+                        eN++;
+                        if (eN == iE) {
+                            eN = 0;
+                        }
+                        break;
                     case 'H' :
                         playForHuman();
                         break;
@@ -782,7 +859,7 @@ public class Board {
                 s = sc.nextLine();
 
                 switch (s.toUpperCase()) { // bilgisayarın diline göre büyük harf kucuk harfte sıkıntı oluyor bunu if else'ten equals ile yapılması lazım !!!!
-                    case "NOVİCE" :
+                    case "NOVICE" :
                         chosenBotList.add('N');
                         break;
                     case "REGULAR" :
