@@ -284,11 +284,11 @@ public class Board {
     }
 
     private void playForHuman() { // bu metodun içine sadece saveEarnedCards eklenmeli ondan sonra bitti !! ***
-        boolean control = false;
+         matchingValue = false;
         String returnValue = hPlayer.getHand().get(hPlayer.play());
         if(getTopCard() != null){
             if(returnValue.charAt(1) == getTopCard().charAt(1)){
-                control = true;
+                matchingValue = true;
             }
         }
         increaseCounter(returnValue);
@@ -296,7 +296,7 @@ public class Board {
         System.out.println("You have been played : " + returnValue);
         hPlayer.getHand().remove(returnValue);
 
-        if(control){
+        if(matchingValue){
             saveEarnedCards('H');
         }
 
@@ -306,12 +306,15 @@ public class Board {
     int totalPoint = 0;
 
     private int totalPointsOfBoard() throws IOException {
-        for (int i = 0;i<board.size();i++) {
-            pointOfBoardCards(i);
-        }
+
         if(board.size() == 0){//board'daki kartlar sıfırlandığında totalPoint 0'a eşitlenir!!!
             totalPoint = 0;
         }
+
+        for (int i = 0;i<board.size();i++) {
+            pointOfBoardCards(i);
+        }
+
         return totalPoint;
 
     }
@@ -444,6 +447,8 @@ public class Board {
             }
             System.out.println("matching value sonu");
             if(totalPointsOfBoard() + p1 > 0){ // eğer ki olası kazanılcak kartların toplam puanı pozitif ise matching index'li kartı oynuyor ve boarddaki bütün kartları kaznmış oluyor
+                System.out.println(totalPointsOfBoard());
+                System.out.println(p1);
                 System.out.println("giriyo mu buraya?");
                 board.add(eBots[eN].getHand().get(matchingIndex));
                 System.out.println("Expert bot" + (eN+1) + " has just played : " + eBots[eN].getHand().get(matchingIndex));
@@ -683,7 +688,7 @@ public class Board {
     }
 
     private boolean canMakePisti() { // pişti yapabiliyor muyuz onu belirliyoruz boolean tipinde bu da piştiden kazanılan kartların earnedWithPisti array list'ine gitmesini sağlıcak şart.
-        if (matchingValue && board.size() == 1) {
+        if (matchingValue && (board.size() == 2) ){
             isPisti = true;
         }
         return isPisti;

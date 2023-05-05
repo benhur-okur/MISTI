@@ -22,8 +22,8 @@ public class Main {
         }
         System.out.println("Pİştisiz: " + board.gethPlayer().getEarnedWithoutPisti());
         System.out.println("Pİştili:" + board.gethPlayer().getEarnedWithPisti());
-        System.out.println("Pİştisiz: " + board.rBots[0].getEarnedWithoutPisti());
-        System.out.println("Pİştili: " + board.rBots[0].getEarnedWithPisti());
+        System.out.println("Pİştisiz: " + board.eBots[0].getEarnedWithoutPisti());
+        System.out.println("Pİştili: " + board.eBots[0].getEarnedWithPisti());
         System.out.println("Game has finished!!");
 
 
