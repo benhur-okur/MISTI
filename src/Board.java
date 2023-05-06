@@ -115,6 +115,49 @@ public class Board {
     public Board() throws FileNotFoundException {
     }
 
+    public boolean getCardsWithJoker(Character c, int counter){
+        boolean b = false;
+        if(c.equals('N')){
+            for(int i=0;i<nBots[counter].getHand().size();i++){
+                if(nBots[counter].getHand().get(i).charAt(1) == 'J'){
+                    board.add(nBots[counter].getHand().get(i));
+                    nBots[counter].getHand().remove(nBots[counter].getHand().get(i));
+                    b = true;
+                    break;
+                }
+            }
+        } else if (c.equals('R')) {
+            for(int i=0;i<rBots[counter].getHand().size();i++){
+                if(rBots[counter].getHand().get(i).charAt(1) == 'J'){
+                    board.add(String.valueOf(rBots[counter].getHand().get(i).charAt(1)));
+                    rBots[counter].getHand().remove(rBots[counter].getHand().get(i));
+                    b = true;
+                    break;
+                }
+            }
+        } else if (c.equals('E')) {
+            for(int i=0;i<eBots[counter].getHand().size();i++){
+                if(eBots[counter].getHand().get(i).charAt(1) == 'J'){
+                    board.add(String.valueOf((eBots[counter].getHand().get(i).charAt(1))));
+                    eBots[counter].getHand().remove(eBots[counter].getHand().get(i));
+                    b = true;
+                    break;
+                }
+            }
+        }
+
+        return b;
+    }
+
+    public void getCardsWithJokerForH(){
+            for(int i=0;i<hPlayer.getHand().size();i++){
+                if(hPlayer.getHand().get(i).charAt(1) == 'J'){
+                    board.add(String.valueOf((hPlayer.getHand().get(i).charAt(1))));
+                    hPlayer.getHand().remove(hPlayer.getHand().get(i));
+                    break;
+                }
+            }
+    }
     public void howManyPlayers() {
         while (noOfPlayer != 2 && noOfPlayer != 4) {
             System.out.println("How many players will be in the board '2 or 4' ?");
@@ -154,71 +197,71 @@ public class Board {
         boolean f4 = false;
         //System.out.println(getTopCard());
         //if (!isHuman) {
-            for (int i = 0; i < chosenBotList.size(); i++) { // N R E
-                switch (chosenBotList.get(i)) {
-                    case 'N':
-                        if (nBots[counterN].getHand().isEmpty()) {
-                            f1 = true;
-                            //nBots[counterN].getHand().add(deck.deck.get(0));
-                            //deck.deck.remove(0);
-                        }
-                        break;
-
-                    case 'R':
-                        if (rBots[counterR].getHand().isEmpty()) {
-                            f2 = true;
-                        }
-                        break;
-                        //counterR++;
-                    case 'E':
-                        if (eBots[counterE].getHand().isEmpty()) {
-                            f3 = true;
-
-                        }
-                        break;
-
-                    case 'H':
-                        if (hPlayer.getHand().isEmpty()) {
-                            f4 = true;
-
-                        }
-                        break;
-
-                }
-            }
-            while (f1 || f2 || f3 || f4) { // elleri boş olduğu zaman dağıtmak için çalışıcak (or gelebilir)   0   1
-                for (int j = 0;j<4;j++) {
-                    for (int i = 0; i < chosenBotList.size(); i++) {
-                        if (chosenBotList.get(i).equals('N')) {
-                            nBots[counterN].getHand().add(deck.deck.get(0));
-                            deck.deck.remove(0);
-                            counterN++;
-                            if(counterN == iN){
-                                counterN = 0;
-                            }
-                        } else if (chosenBotList.get(i).equals('R')) {
-                            rBots[counterR].getHand().add(deck.deck.get(0));
-                            deck.deck.remove(0);
-                            counterR++;
-                            if(counterR == iR){
-                                counterR = 0;
-                            }
-                        } else if (chosenBotList.get(i).equals('E')) {
-                            eBots[counterE].getHand().add(deck.deck.get(0));
-                            deck.deck.remove(0);
-                            counterE++;
-                            if(counterE == iE){
-                                counterE = 0;
-                            }
-                        } else if (chosenBotList.get(i).equals('H')) {
-                            hPlayer.getHand().add(deck.deck.get(0));
-                            deck.deck.remove(0);
-                        }
+        for (int i = 0; i < chosenBotList.size(); i++) { // N R E
+            switch (chosenBotList.get(i)) {
+                case 'N':
+                    if (nBots[counterN].getHand().isEmpty()) {
+                        f1 = true;
+                        //nBots[counterN].getHand().add(deck.deck.get(0));
+                        //deck.deck.remove(0);
                     }
-                    displayHand();
-                }
-                f1 = false; f2 =false; f3 = false; f4 = false;
+                    break;
+
+                case 'R':
+                    if (rBots[counterR].getHand().isEmpty()) {
+                        f2 = true;
+                    }
+                    break;
+                //counterR++;
+                case 'E':
+                    if (eBots[counterE].getHand().isEmpty()) {
+                        f3 = true;
+
+                    }
+                    break;
+
+                case 'H':
+                    if (hPlayer.getHand().isEmpty()) {
+                        f4 = true;
+
+                    }
+                    break;
+
             }
+        }
+        while (f1 || f2 || f3 || f4) { // elleri boş olduğu zaman dağıtmak için çalışıcak (or gelebilir)   0   1
+            for (int j = 0;j<4;j++) {
+                for (int i = 0; i < chosenBotList.size(); i++) {
+                    if (chosenBotList.get(i).equals('N')) {
+                        nBots[counterN].getHand().add(deck.deck.get(0));
+                        deck.deck.remove(0);
+                        counterN++;
+                        if(counterN == iN){
+                            counterN = 0;
+                        }
+                    } else if (chosenBotList.get(i).equals('R')) {
+                        rBots[counterR].getHand().add(deck.deck.get(0));
+                        deck.deck.remove(0);
+                        counterR++;
+                        if(counterR == iR){
+                            counterR = 0;
+                        }
+                    } else if (chosenBotList.get(i).equals('E')) {
+                        eBots[counterE].getHand().add(deck.deck.get(0));
+                        deck.deck.remove(0);
+                        counterE++;
+                        if(counterE == iE){
+                            counterE = 0;
+                        }
+                    } else if (chosenBotList.get(i).equals('H')) {
+                        hPlayer.getHand().add(deck.deck.get(0));
+                        deck.deck.remove(0);
+                    }
+                }
+                displayHand();
+            }
+            f1 = false; f2 =false; f3 = false; f4 = false;
+        }
 
 
 
@@ -279,12 +322,15 @@ public class Board {
         nBots[cN].getHand().remove(returnValue);
         if (matchingValue) {
             saveEarnedCards('N');
+        }else {
+            getCardsWithJoker('N', cN);
+            saveEarnedCards('N');
         }
         bR.close();
     }
 
     private void playForHuman() { // bu metodun içine sadece saveEarnedCards eklenmeli ondan sonra bitti !! ***
-         matchingValue = false;
+        matchingValue = false;
         String returnValue = hPlayer.getHand().get(hPlayer.play());
         if(getTopCard() != null){
             if(returnValue.charAt(1) == getTopCard().charAt(1)){
@@ -297,6 +343,9 @@ public class Board {
         hPlayer.getHand().remove(returnValue);
 
         if(matchingValue){
+            saveEarnedCards('H');
+        }else {
+            getCardsWithJokerForH();
             saveEarnedCards('H');
         }
 
@@ -323,21 +372,21 @@ public class Board {
         boolean b1 = true;
         BufferedReader br = new BufferedReader(new FileReader("points.txt"));
 
-            String line = br.readLine();
-            while(line != null){
-                try {
-                    if (line.startsWith(board.get(i))) {
-                        totalPoint += Integer.parseInt(line.substring(3).trim());
-                        b1 = false;
-                    }
-                }catch(Exception e){
-                    e.printStackTrace();
+        String line = br.readLine();
+        while(line != null){
+            try {
+                if (line.startsWith(board.get(i))) {
+                    totalPoint += Integer.parseInt(line.substring(3).trim());
+                    b1 = false;
                 }
-                line = br.readLine();
+            }catch(Exception e){
+                e.printStackTrace();
             }
-            if (b1) {
-                totalPoint += 1;
-            }
+            line = br.readLine();
+        }
+        if (b1) {
+            totalPoint += 1;
+        }
 
     }
 
@@ -476,9 +525,14 @@ public class Board {
             }
         } else {
             if (totalPointsOfBoard() > 0) { // ortadaki kartların toplam puanı 0'dan büyükse counterı en büyük olanı atıcak
-                board.add(findCardsCountMax(eN));
-                System.out.println("Expert bot" + (eN+1) + " has just played : " + findCardsCountMax(eN));
-                eBots[eN].getHand().remove(findCardsCountMax(eN));
+                if(getCardsWithJoker('E', eN)){
+                    saveEarnedCards('E');
+                } else {
+                    board.add(findCardsCountMax(eN));
+                    System.out.println("Expert bot" + (eN + 1) + " has just played : " + findCardsCountMax(eN));
+                    eBots[eN].getHand().remove(findCardsCountMax(eN));
+                }
+
             }
             else {
                 board.add(findCardsCountMin(eN));
@@ -688,6 +742,7 @@ public class Board {
     }
 
     private boolean canMakePisti() { // pişti yapabiliyor muyuz onu belirliyoruz boolean tipinde bu da piştiden kazanılan kartların earnedWithPisti array list'ine gitmesini sağlıcak şart.
+        isPisti = false;
         if (matchingValue && (board.size() == 2) ){
             isPisti = true;
         }
@@ -880,24 +935,24 @@ public class Board {
         }else{
             x = noOfPlayer;
         }
-            for (int i = 0; i < x; i++) {
+        for (int i = 0; i < x; i++) {
 
-                System.out.println("Which bot do you want to play?");
-                System.out.println("'Novice', 'Regular', 'Expert'");
-                s = sc.nextLine();
+            System.out.println("Which bot do you want to play?");
+            System.out.println("'Novice', 'Regular', 'Expert'");
+            s = sc.nextLine();
 
-                switch (s.toUpperCase()) { // bilgisayarın diline göre büyük harf kucuk harfte sıkıntı oluyor bunu if else'ten equals ile yapılması lazım !!!!
-                    case "NOVİCE" :
-                        chosenBotList.add('N');
-                        break;
-                    case "REGULAR" :
-                        chosenBotList.add('R');
-                        break;
-                    case "EXPERT" :
-                        chosenBotList.add('E');
-                        break;
-                }
+            switch (s.toUpperCase()) { // bilgisayarın diline göre büyük harf kucuk harfte sıkıntı oluyor bunu if else'ten equals ile yapılması lazım !!!!
+                case "NOViCE" :
+                    chosenBotList.add('N');
+                    break;
+                case "REGULAR" :
+                    chosenBotList.add('R');
+                    break;
+                case "EXPERT" :
+                    chosenBotList.add('E');
+                    break;
             }
+        }
 
 
     }
@@ -908,6 +963,7 @@ public class Board {
                 board.add(deck.deck.get(0));
                 deck.deck.remove(0);
                 counter++;
+                increaseCounter(board.get(i));
             }
             System.out.println("Cards has dealt to the table");
             System.out.println("Top card: " + board.get(3));  //4th card will be the top card.
