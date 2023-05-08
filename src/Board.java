@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Board {
@@ -265,8 +266,6 @@ public class Board {
 
     private void playForNoviceBot(int cN) throws IOException { // novice bot play bitti !
         matchingValue = false;
-        BufferedReader bR = new BufferedReader(new FileReader("iN.txt"));
-        int updated_iN = Integer.parseInt(bR.readLine());
         String returnValue = nBots[cN].getHand().get(nBots[cN].play());
         if (getTopCard() != null) { // bu if şartı top card null olursa alttaki if'in çalımadığı gözlendiği için konulmuştur.
             if (returnValue.charAt(1) == getTopCard().charAt(1)) {
@@ -280,7 +279,6 @@ public class Board {
         if (matchingValue) {
             saveEarnedCards('N');
         }
-        bR.close();
     }
 
     private void playForHuman() { // bu metodun içine sadece saveEarnedCards eklenmeli ondan sonra bitti !! ***
@@ -810,21 +808,6 @@ public class Board {
 
         nBots[iN] = new NoviceBot(); // nplayer1
         iN++; // 1
-        File fileN = new File("iN.txt");
-        try {
-            if (!fileN.exists()) {
-                fileN.createNewFile();
-            } else {
-                System.out.println(fileN.getName() + " dosyası zaten var!");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        BufferedWriter bW = new BufferedWriter(new FileWriter(fileN)); // iN'i kaydetmemiz gerekiyor ileriki oyunlar için
-        String str_iN = String.valueOf(iN);
-        bW.write(str_iN); // bu Writerlar onun için.
-        bW.close();
 
     }
 
@@ -832,21 +815,6 @@ public class Board {
 
         rBots[iR] = new RegularBot(); // nplayer1
         iR++; // 1
-        File fileN = new File("iR.txt");
-        try {
-            if (!fileN.exists()) {
-                fileN.createNewFile();
-            } else {
-                System.out.println(fileN.getName() + " dosyası zaten var!");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        BufferedWriter bW = new BufferedWriter(new FileWriter(fileN)); // iN'i kaydetmemiz gerekiyor ileriki oyunlar için
-        String str_iR = String.valueOf(iR);
-        bW.write(str_iR); // bu Writerlar onun için.
-        bW.close();
 
     }
 
@@ -854,21 +822,6 @@ public class Board {
 
         eBots[iE] = new ExpertBot(); // nplayer1
         iE++; // 1
-        File fileN = new File("iE.txt");
-        try {
-            if (!fileN.exists()) {
-                fileN.createNewFile();
-            } else {
-                System.out.println(fileN.getName() + " dosyası zaten var!");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        BufferedWriter bW = new BufferedWriter(new FileWriter(fileN)); // iN'i kaydetmemiz gerekiyor ileriki oyunlar için
-        String str_iE = String.valueOf(iE);
-        bW.write(str_iE); // bu Writerlar onun için.
-        bW.close();
 
     }
 
@@ -887,7 +840,7 @@ public class Board {
                 s = sc.nextLine();
 
                 switch (s.toUpperCase()) { // bilgisayarın diline göre büyük harf kucuk harfte sıkıntı oluyor bunu if else'ten equals ile yapılması lazım !!!!
-                    case "NOVİCE" :
+                    case "NOVICE" :
                         chosenBotList.add('N');
                         break;
                     case "REGULAR" :
@@ -916,6 +869,10 @@ public class Board {
     /*public boolean conditionOfWin(char c) {
         if ()
     }*/
+
+    public String playJack(ArrayList<>) {
+        for (int i = 0;i<)
+    }
 
 }
 
