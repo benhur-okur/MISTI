@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Deck {
@@ -12,6 +13,7 @@ public class Deck {
     private PointFileReader pointFileReader;
 
 
+    Random r = new Random();
     Scanner sc = new Scanner(System.in);
     ArrayList<String> suits = new ArrayList<>();
     ArrayList<String> faces = new ArrayList<>();
@@ -99,11 +101,10 @@ public class Deck {
     //Deck is cutting
     public void cutDeck() {
         ArrayList<Card> temporary = new ArrayList<>();
-        System.out.println("Please choose where you want to cut: ");
 
         ////Player will make a decision and give a number to cut then the deck will be cut from this number.
-        // Todo : rand int üret
-        int  cutDeckFrom = 30;
+        // random nokta belirlendi!!!
+        int  cutDeckFrom = r.nextInt(53)+1; //Todo : 0 olabilir mi?;
         for (int i = 0; i < cutDeckFrom; i++) {
             temporary.add(deck.get(i));
         }
@@ -111,7 +112,7 @@ public class Deck {
             temporary.add(deck.get(i));
         }
         deck = temporary;
-        System.out.println("Deck has just cut..");
+        System.out.println("Deck has just cut randomly..");
 
         //We defined a method called cutDeck() that allows the player to cut the deck.
         //User will enter a number to indicate where to cut the deck.

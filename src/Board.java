@@ -195,6 +195,8 @@ public class Board {
 
             Card topCard = getTopCard();
 
+            //Todo : buraya displayHand gelebilir ama iki oyuncu da oynadıktan sonra gözükmesi lazım!!!
+            //displayHand metodunu maine yaptım be doğru bir şekilde çalıştı!!!
             cardsOnTheBoard.add(playedCard);
 
             if (playedCard.isJack() || (topCard != null && playedCard.getFace().equals(topCard.getFace()))) {
@@ -219,12 +221,16 @@ public class Board {
 
     public void displayHand() {
         if (modNo == 1) { // Human player mode, can only see his own hand
-
-            System.out.println("Human player's hand: " + hPlayer.getHand());
+            System.out.println(hPlayer.getName() + "'s hand: " + hPlayer.getHand());
         } else if (modNo == 2) {  // Human spectator mode, can see everyone's hand
             for (int i = 0; i < players.size(); i++) {
                 Player player = players.get(i);
-                System.out.printf("%d player's hand: %s \n", i, player.getHand());
+                if(chosenPlayerList.get(i) == 'H'){
+                    System.out.println(hPlayer.getName() + "'s hand: " + hPlayer.getHand());//İnsanın adının da gözükmesini istiyoruz
+                }else{
+                    System.out.printf("%d player's hand: %s \n", i, player.getHand());//hangi botun eli olduğunu bilmemiz gerekiyor!!
+
+                }
             }
         }
     }
@@ -240,6 +246,7 @@ public class Board {
                 this.players.add(new ExpertBot("Expert Bot"));
             } else if (chosenPlayerList.get(i).equals('H')) {
                 // ToDo : Print user-friendly messages to enter name, and etc
+                System.out.println("Please enter your name: ");
                 String name = sc.nextLine();
 
                 this.hPlayer = new Human(name);
