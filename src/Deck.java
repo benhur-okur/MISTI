@@ -51,6 +51,7 @@ public class Deck {
         }
     }
 
+    //Todo : BU metod araştırılacak!!
     private ArrayList<PointValueRule> getPointValueRules() throws IOException {
         System.out.println("Please enter points file path [points.txt]");
         String path = sc.nextLine();
@@ -104,7 +105,7 @@ public class Deck {
 
         ////Player will make a decision and give a number to cut then the deck will be cut from this number.
         // random nokta belirlendi!!!
-        int  cutDeckFrom = r.nextInt(53)+1; //Todo : 0 olabilir mi?;
+        int  cutDeckFrom = r.nextInt(52)+1; //Todo : 0 olabilir mi?;
         for (int i = 0; i < cutDeckFrom; i++) {
             temporary.add(deck.get(i));
         }

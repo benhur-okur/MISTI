@@ -35,11 +35,8 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "face='" + face + '\'' +
-                ", suit='" + suit + '\'' +
-                ", pointValue=" + pointValue +
-                '}';
+        return
+                suit + face  + " -> point: " + pointValue;
     }
 
     public boolean isJack(){

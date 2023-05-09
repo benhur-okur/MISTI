@@ -11,7 +11,7 @@ public class RegularBot extends Player {
     @Override
     protected int decidePlayCardIndex(Board board) {
         // bu method için parametre ekliceez RegularBot tipinde !
-        // Bot hangi kartı oynayacağına karar verecek ver Card nesnesi return edecek.
+        // Bot hangi kartı oynayacağına karar verecek ve Card nesnesi return edecek.
         Card topCard = board.getTopCard();
         ArrayList<Card> cardsOnTheBoard = board.getKnownCardsOnTheBoard();
 
@@ -40,6 +40,7 @@ public class RegularBot extends Player {
                 maxPointValue = nthCardPointValue;
                 maxPointValueCardIndex = i;
             }
+            break;
         }
         return maxPointValueCardIndex;
     }

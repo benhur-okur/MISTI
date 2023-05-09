@@ -12,7 +12,7 @@ public class Human extends Player{
         // seçtikten sonra da  index kullanarak Card return et
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Please Select a Card in your hand use index between 0 - %d [both include] !");
+        System.out.printf("Please Select a Card in your hand use index between 0 - %d [both include] !%n", getHand().size()-1);
         int selectCard = sc.nextInt();
 
         return selectCard;

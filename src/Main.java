@@ -16,13 +16,12 @@ public class Main {
         while(true){
             for(int i = 0;i < 4; i++ ){
                 board.play(); // S6 C7 H9 DK
-                board.displayHand();
             }
             if( deck.deck.size() == 0){
                 break;
             }
             board.dealCard();
-            System.out.println(board.getCardsOnTheBoard());
+            System.out.println("Top card: " + board.getTopCard());
         }
 
         System.out.println(board.getPlayers());

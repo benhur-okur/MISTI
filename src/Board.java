@@ -34,8 +34,7 @@ public class Board {
 
     public ArrayList<Card> getKnownCardsOnTheBoard() {
         if (firstThreeCardInvisible) {
-            this.cardsOnTheBoard.subList(3, this.cardsOnTheBoard.size() - 1);
-            // ToDo make sure -1 is correct
+            this.cardsOnTheBoard.subList(3, this.cardsOnTheBoard.size());
         }
         return cardsOnTheBoard;
     }
@@ -189,6 +188,7 @@ public class Board {
 
     public void play() throws IOException, InterruptedException {
         for (Player player : this.players) {
+            System.out.println(player.getName() + "'s hand: " + player.getHand());
             Card playedCard = player.play(this);
 
             // ToDo: Increase here, to count how many faces are already played out
@@ -199,7 +199,7 @@ public class Board {
             //displayHand metodunu maine yaptım be doğru bir şekilde çalıştı!!!
             cardsOnTheBoard.add(playedCard);
 
-            if (playedCard.isJack() || (topCard != null && playedCard.getFace().equals(topCard.getFace()))) {
+            if ((playedCard.isJack() && topCard != null) || (topCard != null && playedCard.getFace().equals(topCard.getFace()))) {
                 System.out.printf("Player %s won", player.getName());
                 System.out.println(cardsOnTheBoard);
 
@@ -207,6 +207,7 @@ public class Board {
                 cardsOnTheBoard.clear();
                 firstThreeCardInvisible = false;
             }
+            System.out.println(getTopCard());
         }
     }
 
@@ -225,12 +226,7 @@ public class Board {
         } else if (modNo == 2) {  // Human spectator mode, can see everyone's hand
             for (int i = 0; i < players.size(); i++) {
                 Player player = players.get(i);
-                if(chosenPlayerList.get(i) == 'H'){
-                    System.out.println(hPlayer.getName() + "'s hand: " + hPlayer.getHand());//İnsanın adının da gözükmesini istiyoruz
-                }else{
-                    System.out.printf("%d player's hand: %s \n", i, player.getHand());//hangi botun eli olduğunu bilmemiz gerekiyor!!
-
-                }
+                System.out.println("Player " + (i+1) + ". " + player.getName() + "'s hand: " + player.getHand());
             }
         }
     }
