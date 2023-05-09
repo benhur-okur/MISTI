@@ -1,37 +1,20 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Human extends Player{
-    public int selectCard;
-    public Human() {
-    }
-
-    public Human(String name, String type, String point, ArrayList<String> hand, ArrayList<String> earnedWithoutPisti, ArrayList<String> earnedWithPisti, int numOfPlayers) {
-        super(name, type, point, hand, earnedWithoutPisti, earnedWithPisti, numOfPlayers);
+    public Human(String name) {
+        super(name);
     }
 
     @Override
-    public boolean isEmpty() {
-        if (getHand().size() == 0) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void earn() {
-
-    }
-
-    @Override
-    public int play() {
-
+    protected int decidePlayCardIndex(Board board){
+        // ToDo: Please select a card using index between 0 - ???
+        // for( Card card: hand ){ print'te hand.getFace, hand.getSuit vs } )
+        // seçtikten sonra da  index kullanarak Card return et
         Scanner sc = new Scanner(System.in);
-        System.out.println("Please Select a Card in your hand use index between 0 - 3 [both include] !");
-        selectCard = sc.nextInt();
+
+        System.out.println("Please Select a Card in your hand use index between 0 - %d [both include] !");
+        int selectCard = sc.nextInt();
+
         return selectCard;
-
     }
-
-
 }

@@ -3,27 +3,14 @@ import java.util.ArrayList;
 public abstract class Player {
     //It's our abstract class, other player classes(expert,human...) will extend this class and override it's functions.
 
-    public Player() {
-    }
-
-    public Player(String name, String type, String point, ArrayList<String> hand, ArrayList<String> earnedWithoutPisti,ArrayList<String> earnedWithPisti, int numOfPlayers) {
+    public Player(String name) {
         this.name = name;
-        this.type = type;
-        this.point = point;
-        this.hand = hand;
-        this.earnedWithoutPisti = earnedWithoutPisti;
-        this.earnedWithPisti = earnedWithPisti;
-        NumOfPlayers = numOfPlayers;
     }
 
     private String name;
     private String type;
-    private String point;
-    private ArrayList<String> hand = new ArrayList<>();
-    private ArrayList<String> earnedWithoutPisti = new ArrayList<>();
-    private ArrayList<String> earnedWithPisti = new ArrayList<>();
-
-    private int NumOfPlayers;
+    private ArrayList<WonCardCollection> wonStacks = new ArrayList<>();
+    private ArrayList<Card> hand = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -41,56 +28,64 @@ public abstract class Player {
         this.type = type;
     }
 
-    public String getPoint() {
-        return point;
+    public int getPoint() {
+        int total = 0;
+        for (WonCardCollection wonStack: wonStacks){
+            total += wonStack.getPoints();
+        }
+        return total;
     }
 
-    public void setPoint(String point) {
-        this.point = point;
-    }
-
-    public ArrayList<String> getHand() {
+    public ArrayList<Card> getHand() {
         return hand;
     }
 
-    public void setHand(ArrayList<String> hand) {
-        this.hand = hand;
+    public void addWonStack(ArrayList<Card> wonCards){
+        this.wonStacks.add(new WonCardCollection(wonCards));
     }
 
-    public ArrayList<String> getEarnedWithoutPisti() {
-        return earnedWithoutPisti;
+    public void addCard(Card card) {
+        this.hand.add(card);
     }
 
-    public void setEarnedWithoutPisti(ArrayList<String> earnedWithoutPisti) {
-        this.earnedWithoutPisti = earnedWithoutPisti;
+    public boolean hasJoker() {
+        for (Card card : hand) {
+            if (card.getFace().equals('J')) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public ArrayList<String> getEarnedWithPisti() {
-        return earnedWithPisti;
+    public boolean hasCardWithSameFace(Card card) {
+        for (Card playerCard : hand) {
+            if (playerCard.getFace().equals(card.getFace())) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void setEarnedWithPisti(ArrayList<String> earnedWithPisti) {
-        this.earnedWithPisti = earnedWithPisti;
+    public boolean isEmpty() {
+        return this.hand.size() == 0;
     }
 
-    public int getNumOfPlayers() {
-        return NumOfPlayers;
+    protected abstract int decidePlayCardIndex(Board board);
+
+    public final Card play(Board board){
+        int playingCardIndex = this.decidePlayCardIndex(board);
+        Card card = this.hand.get(playingCardIndex);
+        this.hand.remove(playingCardIndex);
+
+        return card;
     }
 
-    public void setNumOfPlayers(int numOfPlayers) {
-        NumOfPlayers = numOfPlayers;
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                "points='" + String.valueOf(this.getPoint()) + '\'' +
+                ", wonStacks=" + wonStacks +
+                '}';
     }
-
-
-//    +boolean isEmpty()
-//    +String getPisti();
-//    +void earn();
-//    +void play();
-    public abstract boolean isEmpty();
-    public abstract void earn();
-    public abstract int play();
-
-
-
-
 }
