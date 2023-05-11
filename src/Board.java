@@ -274,10 +274,11 @@ public class Board {
         ArrayList<ArrayList<String>> count = new ArrayList<ArrayList<String>>();
         count.add(new ArrayList<String>());
         count.add(new ArrayList<String>());
+        int realIndex = 0;
         for (int i = 0;i<indexesOfNegativeCards.size();i++) {
-            int realIndex = indexesOfNegativeCards.get(i); // 1 3
+            realIndex = indexesOfNegativeCards.get(i); // 1 3
             for (int j = 0;j<13;j++) {
-                if ((hand.get(realIndex).getFace().equals(countersOfFaces[0][j]))) {
+                if ((hand.get(realIndex).getFace().equals(countersOfFaces[0][j]))) { // S6
                     count.get(0).add(countersOfFaces[0][j]); // A 2 6 J
                     count.get(1).add(countersOfFaces[1][j]); // 1 0 3 4
                 }
@@ -292,7 +293,7 @@ public class Board {
                 }
             }
         }
-        return indexOfMinCount;
+        return indexesOfNegativeCards.get(indexOfMinCount);
     }
 
      public int findCardsCountMax(ArrayList<Card> hand) {
