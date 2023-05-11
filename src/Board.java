@@ -308,27 +308,27 @@ public class Board {
         return indexesOfNegativeCards.get(indexOfMinCount);
     }
 
-     public int findCardsCountMax(ArrayList<Card> hand) {
+    public int findCardsCountMax(ArrayList<Card> hand) {
         ArrayList<ArrayList<String>> count = new ArrayList<ArrayList<String>>();
         count.add(new ArrayList<String>());
         count.add(new ArrayList<String>());
-            for (int i = 0; i < hand.size(); i++) {
-                for (int j = 0; j < 13; j++) {
-                    if ((hand.get(i).getFace().equals(countersOfFaces[0][j]))) {
-                        count.get(0).add(countersOfFaces[0][j]); // A 2 6 J
-                        count.get(1).add(countersOfFaces[1][j]); // 1 0 3 4
-                    }
+        for (int i = 0; i < hand.size(); i++) {
+            for (int j = 0; j < 13; j++) {
+                if ((hand.get(i).getFace().equals(countersOfFaces[0][j]))) {
+                    count.get(0).add(countersOfFaces[0][j]); // A 2 6 J
+                    count.get(1).add(countersOfFaces[1][j]); // 1 0 3 4
+                }
 
+            }
+        }
+        int indexOfMaxCount = 0;
+        for (int i = 0; i < count.get(1).size() - 1; i++) { // 1 3 0 2
+            for (int j = i + 1; j < count.get(1).size(); j++) {
+                if (Integer.parseInt(String.valueOf(count.get(1).get(j))) > Integer.parseInt(String.valueOf(count.get(1).get(i)))) {
+                    indexOfMaxCount = j;
                 }
             }
-            int indexOfMaxCount = 0;
-            for (int i = 0; i < count.get(1).size() - 1; i++) { // 1 3 0 2
-                for (int j = i + 1; j < count.get(1).size(); j++) {
-                    if (Integer.parseInt(String.valueOf(count.get(1).get(j))) > Integer.parseInt(String.valueOf(count.get(1).get(i)))) {
-                        indexOfMaxCount = j;
-                    }
-                }
-            }
+        }
         return indexOfMaxCount;
     }
 
