@@ -172,8 +172,9 @@ public class Board {
     public void play() throws IOException, InterruptedException {
 
 
-        for (Player player : this.players) { // N E
+        for (Player player : this.players) {
             System.out.println("Top card: " + getTopCard());
+
             if(modNo == 1 && player == hPlayer){
                 System.out.println(hPlayer.getName() + "'s hand: " + hPlayer.getHand());
 
@@ -234,7 +235,6 @@ public class Board {
             } else if (chosenPlayerList.get(i).equals('E')) {
                 this.players.add(new ExpertBot("Expert Bot"));
             } else if (chosenPlayerList.get(i).equals('H')) {
-                // ToDo : Print user-friendly messages to enter name, and etc
                 System.out.println("Please enter your name: ");
                 String name = sc.nextLine();
 
