@@ -6,11 +6,15 @@ public abstract class Player {
     public Player(String name) {
         this.name = name;
     }
-
+    private Card card = new Card();
     private String name;
     private String type;
-    private ArrayList<WonCardCollection> wonStacks = new ArrayList<>();
+    private final ArrayList<WonCardCollection> wonStacks = new ArrayList<>();
     private ArrayList<Card> hand = new ArrayList<>();
+
+    public Card getCard() {
+        return card;
+    }
 
     public String getName() {
         return name;

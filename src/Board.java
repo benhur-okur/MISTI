@@ -10,7 +10,7 @@ public class Board {
 
     private boolean firstThreeCardInvisible = false;
 
-    public ArrayList<Character> chosenPlayerList = new ArrayList<>();
+    public ArrayList<Character> chosenPlayerList = new ArrayList<>(); // N E R
     private boolean matchingValue = false;
     private boolean isPisti = false;
 
@@ -152,23 +152,6 @@ public class Board {
         return totalPoint;
     }
 
-    String[][] countersOfFaces = {
-            {"A", "2", "3", "4", "5", "6", "7", "8", "9", "1", "J", "Q", "K"},
-            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"}
-    };
-
-
-    private void increaseCounter(String card) { // paraetredeki kart oyuncunu oynyacağı kart olucaktır.
-        int newCount = 0;
-        String faceOfCard = String.valueOf(card.charAt(1));
-        for (int i = 0; i < 13; i++) {
-            if (faceOfCard.equals(countersOfFaces[0][i])) {
-                newCount = Integer.parseInt(String.valueOf(countersOfFaces[1][i]));
-                newCount++;
-                countersOfFaces[1][i] = String.valueOf(newCount);
-            }
-        }
-    }
 
     //The code first checks if there is a matching card in the regular bot's hand with the top card of the cardsOnTheBoard.
     // If there is a match, the corresponding point values of the card in the regular bot's hand and the top card are looked up from a text file called "points.txt".
@@ -187,7 +170,7 @@ public class Board {
     }
 
     public void play() throws IOException, InterruptedException {
-        for (Player player : this.players) {
+        for (Player player : this.players) { // N E
             System.out.println(player.getName() + "'s hand: " + player.getHand());
             Card playedCard = player.play(this);
 
@@ -195,9 +178,8 @@ public class Board {
 
             Card topCard = getTopCard();
 
-            //Todo : buraya displayHand gelebilir ama iki oyuncu da oynadıktan sonra gözükmesi lazım!!!
-            //displayHand metodunu maine yaptım be doğru bir şekilde çalıştı!!!
-            cardsOnTheBoard.add(playedCard);
+
+            cardsOnTheBoard.add(playedCard); // oynayacağımız kartı board'a ekliyoruz
 
             if ((playedCard.isJack() && topCard != null) || (topCard != null && playedCard.getFace().equals(topCard.getFace()))) {
                 System.out.printf("Player %s won", player.getName());
@@ -265,7 +247,7 @@ public class Board {
             System.out.println("'Novice', 'Regular', 'Expert'");
             s = sc.nextLine();
 
-            switch (s.toUpperCase(Locale.ENGLISH)) { // bilgisayarın diline göre büyük harf kucuk harfte sıkıntı oluyor bunu if else'ten equals ile yapılması lazım !!!!
+            switch (s.toUpperCase(Locale.ENGLISH)) { // bilgisayarın diline göre büyük harf kucuk harfte sıkıntı oluyor!!!!
                 case "NOVICE":
                     chosenPlayerList.add('N');
                     break;
@@ -287,5 +269,73 @@ public class Board {
         System.out.println("Cards has dealt to the table");
         System.out.println("Top card: " + cardsOnTheBoard.get(3));  //4th card will be the top card.
     }
+
+    public int findCardsCountMin(ArrayList<Card> hand, ArrayList<Integer> indexesOfNegativeCards) {
+        ArrayList<ArrayList<String>> count = new ArrayList<ArrayList<String>>();
+        count.add(new ArrayList<String>());
+        count.add(new ArrayList<String>());
+        for (int i = 0;i<indexesOfNegativeCards.size();i++) {
+            for (int j = 0;j<13;j++) {
+                if ((hand.get(i).getFace().equals(countersOfFaces[0][j]))) {
+                    count.get(0).add(countersOfFaces[0][j]); // A 2 6 J
+                    count.get(1).add(countersOfFaces[1][j]); // 1 0 3 4
+                }
+
+            }
+        }
+        int indexOfMinCount = 0;
+        for (int i = 0;i<count.get(1).size()-1;i++) { // 1 3 0 2
+            for (int j = i + 1;j<count.get(1).size();j++) {
+                if (Integer.parseInt(String.valueOf(count.get(1).get(j))) < Integer.parseInt(String.valueOf(count.get(1).get(i)))) {
+                    indexOfMinCount = j;
+                }
+            }
+        }
+        return indexOfMinCount;
+    }
+
+     public int findCardsCountMax(ArrayList<Card> hand) {
+        ArrayList<ArrayList<String>> count = new ArrayList<ArrayList<String>>();
+        count.add(new ArrayList<String>());
+        count.add(new ArrayList<String>());
+            for (int i = 0; i < hand.size(); i++) {
+                for (int j = 0; j < 13; j++) {
+                    if ((hand.get(i).getFace().equals(countersOfFaces[0][j]))) {
+                        count.get(0).add(countersOfFaces[0][j]); // A 2 6 J
+                        count.get(1).add(countersOfFaces[1][j]); // 1 0 3 4
+                    }
+
+                }
+            }
+            int indexOfMaxCount = 0;
+            for (int i = 0; i < count.get(1).size() - 1; i++) { // 1 3 0 2
+                for (int j = i + 1; j < count.get(1).size(); j++) {
+                    if (Integer.parseInt(String.valueOf(count.get(1).get(j))) > Integer.parseInt(String.valueOf(count.get(1).get(i)))) {
+                        indexOfMaxCount = j;
+                    }
+                }
+            }
+        return indexOfMaxCount;
+    }
+
+    String[][] countersOfFaces = {
+            {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"}
+    };
+
+
+    private void increaseCounter(String card) { // paraetredeki kart oyuncunu oynyacağı kart olucaktır.
+        int newCount = 0;
+        String faceOfCard = String.valueOf(card.charAt(1));
+        for (int i = 0; i < 13; i++) {
+            if (faceOfCard.equals(countersOfFaces[0][i])) {
+                newCount = Integer.parseInt(String.valueOf(countersOfFaces[1][i]));
+                newCount++;
+                countersOfFaces[1][i] = String.valueOf(newCount);
+            }
+        }
+    }
+
+
 }
 

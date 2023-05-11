@@ -9,6 +9,9 @@ public class Card {
         this.pointValue = pointValue;
     }
 
+    public Card() {
+    }
+
     public String getFace() {
         return face;
     }
@@ -43,4 +46,6 @@ public class Card {
         return this.getFace().equals("J");
     }
     // ToDo: add toString method
+
+
 }
