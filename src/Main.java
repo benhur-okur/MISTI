@@ -16,6 +16,7 @@ public class Main {
         while(true){
             for(int i = 0;i < 4; i++ ){
                 board.play(); // S6 C7 H9 DK
+
             }
             if( deck.deck.size() == 0){
                 break;

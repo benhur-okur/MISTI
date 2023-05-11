@@ -40,9 +40,9 @@ public class ExpertBot extends Player{
         int negativeCardsIndex = 0;
         if (topCard == null) {      // orta null ise
             if(isThereNegativeCardInHand()) {
-                board.findCardsCountMin(getHand(), whichCardsAreNegative()); // return statement
+                return board.findCardsCountMin(getHand(), whichCardsAreNegative()); // return statement
             } else {
-                board.findCardsCountMax(getHand()); // return statement
+                return board.findCardsCountMax(getHand()); // return statement
             }
             // Atacağım pozitif kart pişti yapılamasın. If ( count == 3 && pointValue > 0, sakla bunu, atma  )
             // Atacağım negatif kart pişti yapılabilsin, ya da alınabilsin. If ( count < 3 && pointValue < 0, kartı at, negatife pişti yapsınlar  )

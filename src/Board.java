@@ -325,9 +325,9 @@ public class Board {
     };
 
 
-    private void increaseCounter(String card) { // paraetredeki kart oyuncunu oynyacağı kart olucaktır.
+    public void increaseCounter(Card card) { // paraetredeki kart oyuncunu oynyacağı kart olucaktır.
         int newCount = 0;
-        String faceOfCard = String.valueOf(card.charAt(1));
+        String faceOfCard = String.valueOf(card.getFace());
         for (int i = 0; i < 13; i++) {
             if (faceOfCard.equals(countersOfFaces[0][i])) {
                 newCount = Integer.parseInt(String.valueOf(countersOfFaces[1][i]));
@@ -336,6 +336,7 @@ public class Board {
             }
         }
     }
+
 
 
 }

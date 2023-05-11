@@ -80,7 +80,7 @@ public abstract class Player {
         int playingCardIndex = this.decidePlayCardIndex(board);
         Card card = this.hand.get(playingCardIndex);
         this.hand.remove(playingCardIndex);
-
+        board.increaseCounter(card);
         return card;
     }
 
