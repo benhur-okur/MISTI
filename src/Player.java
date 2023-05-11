@@ -9,7 +9,7 @@ public abstract class Player {
     private Card card = new Card();
     private String name;
     private String type;
-    private final ArrayList<WonCardCollection> wonStacks = new ArrayList<>();
+    private ArrayList<WonCardCollection> wonStacks = new ArrayList<>();
     private ArrayList<Card> hand = new ArrayList<>();
 
     public Card getCard() {
@@ -32,7 +32,7 @@ public abstract class Player {
         this.type = type;
     }
 
-    public int getPoint() {
+    public int getPoint() { //
         int total = 0;
         for (WonCardCollection wonStack: wonStacks){
             total += wonStack.getPoints();
@@ -86,10 +86,6 @@ public abstract class Player {
 
     @Override
     public String toString() {
-        return "Player{" +
-                "name='" + name + '\'' +
-                "points='" + String.valueOf(this.getPoint()) + '\'' +
-                ", wonStacks=" + wonStacks +
-                '}';
+        return "Name: " + getName() + "Point = " + getPoint();
     }
 }
