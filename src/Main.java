@@ -25,12 +25,12 @@ public class Main {
             System.out.println("Top card: " + board.getTopCard());
         }
 
-        System.out.println(board.getPlayers());
-//        System.out.println("Pİştisiz: " + board.gethPlayer().getEarnedWithoutPisti());
-//        System.out.println("Pİştili:" + board.gethPlayer().getEarnedWithPisti());
-//        System.out.println("Pİştisiz: " + board.eBots[0].getEarnedWithoutPisti());
-//        System.out.println("Pİştili: " + board.eBots[0].getEarnedWithPisti());
         System.out.println("Game has finished!!");
+        System.out.println("Points are coming");
+        Thread.sleep(2000);
+        for (Player player : board.getPlayers()) {
+            System.out.println(player.getName() + "Earned " + player.getPoint() + " Point");
+        }
 
 
     }

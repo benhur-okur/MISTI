@@ -230,11 +230,11 @@ public class Board {
         for (int i = 0; i < chosenPlayerList.size(); i++) { // N R N
             // Todo: Provide proper naming for the bots
             if (chosenPlayerList.get(i).equals('N')) {
-                this.players.add(new NoviceBot("Novice Bot"));
+                this.players.add(new NoviceBot("Novice Bot "  ));
             } else if (chosenPlayerList.get(i).equals('R')) {
-                this.players.add(new RegularBot("Regular Bot"));
+                this.players.add(new RegularBot("Regular Bot " ));
             } else if (chosenPlayerList.get(i).equals('E')) {
-                this.players.add(new ExpertBot("Expert Bot"));
+                this.players.add(new ExpertBot("Expert Bot " ));
             } else if (chosenPlayerList.get(i).equals('H')) {
                 // ToDo : Print user-friendly messages to enter name, and etc
                 System.out.println("Please enter your name: ");
