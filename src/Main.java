@@ -17,75 +17,28 @@ public class Main {
         deck.cutDeck();
 
         board.firstFourCard();
-        board.dealCard();
-        while (true) {
+        while (deck.deck.size() > 0) {
+            board.dealCard();
             for (int i = 0; i < 4; i++) {
                 board.play(); // S6 C7 H9 DK
-
             }
-            if (deck.deck.size() == 0) {
-                break;
-            }
-            board.dealCard();
             System.out.println("Top card: " + board.getTopCard());
         }
 
-        int maxPoint = MIN_VALUE;
         System.out.println("Game has finished!!");
         System.out.println("Points are coming");
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
         for (Player player : board.getPlayers()) {
             //System.out.println(player.;);
             System.out.println(player.getName() + "Earned " + player.getPoint() + " Point");
-
         }
-        for (int i = 0; i < board.getPlayers().size(); i++) {
-            if (maxPoint < board.getPlayers().get(i).getPoint()) {
-                maxPoint = board.getPlayers().get(i).getPoint();
-                topPlayersPoint.add(maxPoint);
-                topPlayerName.add(board.getPlayers().get(i).getName());
-                for (int j = 0; j < topPlayersPoint.size(); j++) {
-                    if (topPlayersPoint.get(j) != maxPoint) {
-                        topPlayersPoint.remove(topPlayersPoint.get(j));
-                        topPlayerName.remove(topPlayerName.get(j));
-                    }
-                }
+        Player winner = board.getWinner();
 
-            }
-        }
-        System.out.println(topPlayerName.get(0) + "has won with: " + topPlayersPoint.get(0) + " point");
+        System.out.println(winner.getName() + "has won with: " + winner.getPoint() + " point");
 
-
-        int maxHighScore = MIN_VALUE;
-        Player maxPlayer = null;
-        try {
-            String currentLine;
-            File highScore = new File("highscore.txt");
-            if (!highScore.exists()) {
-                highScore.createNewFile();
-            } else {
-                System.out.println(highScore.getName() + " Already has created! ");
-            }
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(highScore));
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(highScore));
-            currentLine = bufferedReader.readLine();
-            for (Player player : board.getPlayers()) {
-                if (player.getPoint() > maxHighScore) {
-                    maxHighScore = player.getPoint();;
-                    maxPlayer = player;
-                }
-            }
-            bufferedWriter.newLine();
-            bufferedWriter.write(maxPlayer.toString());
-
-            bufferedWriter.close();
-            bufferedReader.close();
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        
-
-
+        ScoreBoard scoreBoard = new ScoreBoard();
+        scoreBoard.apply(winner);
+        scoreBoard.export();
+        scoreBoard.show();
     }
 }
