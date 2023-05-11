@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -32,6 +32,8 @@ public class Main {
             //System.out.println(player.;);
             System.out.println(player.getName() + "Earned " + player.getPoint() + " Point");
         }
+
+        
 
 
     }
