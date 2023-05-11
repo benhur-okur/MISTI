@@ -4,6 +4,9 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
+import static java.lang.Integer.MIN_VALUE;
+import static java.lang.Integer.max;
+
 public class Board {
     Random ran = new Random();
     Scanner sc = new Scanner(System.in);
@@ -138,6 +141,18 @@ public class Board {
     //If an exception is thrown while reading the user's input -for example an non-integer value-
     // Then the code will catch the exception and displays an error message asking the user to select a valid number again. It also prints the exception message.
 
+    public Player getWinner(){
+        int maxPoint = MIN_VALUE;
+        Player winner = null;
+        for (Player player: players) {
+
+            if (player.getPoint() > maxPoint) {
+                maxPoint = player.getPoint();
+                winner = player;
+            }
+        }
+        return winner;
+    }
 
     public ArrayList<Player> getPlayers() {
         return players;
