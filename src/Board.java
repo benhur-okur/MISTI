@@ -170,9 +170,21 @@ public class Board {
     }
 
     public void play() throws IOException, InterruptedException {
+
+
         for (Player player : this.players) { // N E
-            System.out.println(player.getName() + "'s hand: " + player.getHand());
+            System.out.println("Top card: " + getTopCard());
+            if(modNo == 1 && player == hPlayer){
+                System.out.println(hPlayer.getName() + "'s hand: " + hPlayer.getHand());
+
+
+            }else if(modNo == 2){
+                System.out.println(player.getName() + "'s hand: " + player.getHand());
+
+            }
             Card playedCard = player.play(this);
+
+            System.out.println(player.getName() + " has played: " + playedCard);
 
             // ToDo: Increase here, to count how many faces are already played out
 
@@ -189,7 +201,6 @@ public class Board {
                 cardsOnTheBoard.clear();
                 firstThreeCardInvisible = false;
             }
-            System.out.println(getTopCard());
         }
     }
 
@@ -267,7 +278,6 @@ public class Board {
             cardsOnTheBoard.add(deck.pop());
         }
         System.out.println("Cards has dealt to the table");
-        System.out.println("Top card: " + cardsOnTheBoard.get(3));  //4th card will be the top card.
     }
 
     public int findCardsCountMin(ArrayList<Card> hand, ArrayList<Integer> indexesOfNegativeCards) { // + - + -
