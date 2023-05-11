@@ -172,6 +172,7 @@ public class Board {
     public void play() throws IOException, InterruptedException {
 
 
+        int nthPlayer = 1;
         for (Player player : this.players) { // N E
             System.out.println("Top card: " + getTopCard());
             if(modNo == 1 && player == hPlayer){
@@ -179,12 +180,12 @@ public class Board {
 
 
             }else if(modNo == 2){
-                System.out.println(player.getName() + "'s hand: " + player.getHand());
+                System.out.println("Player "+ nthPlayer + "." + player.getName() + "'s hand: " + player.getHand());
 
             }
             Card playedCard = player.play(this);
 
-            System.out.println(player.getName() + " has played: " + playedCard);
+            System.out.println("Player "+ nthPlayer + "." + player.getName() + " has played: " + playedCard);
 
             // ToDo: Increase here, to count how many faces are already played out
 
@@ -201,6 +202,7 @@ public class Board {
                 cardsOnTheBoard.clear();
                 firstThreeCardInvisible = false;
             }
+            nthPlayer++;
         }
     }
 
