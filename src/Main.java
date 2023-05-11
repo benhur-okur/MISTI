@@ -29,6 +29,7 @@ public class Main {
         System.out.println("Points are coming");
         Thread.sleep(2000);
         for (Player player : board.getPlayers()) {
+            //System.out.println(player.;);
             System.out.println(player.getName() + "Earned " + player.getPoint() + " Point");
         }
 

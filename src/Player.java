@@ -84,8 +84,9 @@ public abstract class Player {
         return card;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Name: " + getName() + "Point = " + getPoint();
-    }
+    }*/
+
 }

@@ -6,7 +6,10 @@ public class WonCardCollection {
     private boolean isPisti;
 
     public WonCardCollection(ArrayList<Card> cards) {
-        this.cards = cards;
+        this.cards = new ArrayList<>();
+        for (Card card : cards) {
+            this.cards.add(card);
+        }
         this.isPisti = cards.size() == 2 && cards.get(0).getFace().equals(cards.get(1).getFace());
         //Todo: clarify Eğer Jack + Jack pişti olmaz ise, yukarıya ekse &&  ( !cards.get(0).isJack() )
     }
