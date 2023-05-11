@@ -270,13 +270,14 @@ public class Board {
         System.out.println("Top card: " + cardsOnTheBoard.get(3));  //4th card will be the top card.
     }
 
-    public int findCardsCountMin(ArrayList<Card> hand, ArrayList<Integer> indexesOfNegativeCards) {
+    public int findCardsCountMin(ArrayList<Card> hand, ArrayList<Integer> indexesOfNegativeCards) { // + - + -
         ArrayList<ArrayList<String>> count = new ArrayList<ArrayList<String>>();
         count.add(new ArrayList<String>());
         count.add(new ArrayList<String>());
         for (int i = 0;i<indexesOfNegativeCards.size();i++) {
+            int realIndex = indexesOfNegativeCards.get(i); // 1 3
             for (int j = 0;j<13;j++) {
-                if ((hand.get(i).getFace().equals(countersOfFaces[0][j]))) {
+                if ((hand.get(realIndex).getFace().equals(countersOfFaces[0][j]))) {
                     count.get(0).add(countersOfFaces[0][j]); // A 2 6 J
                     count.get(1).add(countersOfFaces[1][j]); // 1 0 3 4
                 }
