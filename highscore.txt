@@ -1,4 +1,5 @@
 478,Expert Bot
+466,Expert Bot 
+388,Expert Bot 
+360,Novice Bot 
 282,Regular Bot
-257,Novice Bot
-198,Regular Bot 

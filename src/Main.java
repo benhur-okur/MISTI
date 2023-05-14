@@ -25,9 +25,10 @@ public class Main {
             System.out.println("Top card: " + board.getTopCard());
         }
 
-        System.out.println("Game has finished!!");
-        System.out.println("Points are coming");
-        //Thread.sleep(2000);
+        System.out.println("--------GAME HAS FINISHED--------");
+        Thread.sleep(1000);
+        System.out.println("--------POINTS ARE COMING--------");
+        Thread.sleep(1500);
         for (Player player : board.getPlayers()) {
             //System.out.println(player.;);
             System.out.println(player.getName() + "Earned " + player.getPoint() + " Point");
