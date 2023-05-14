@@ -10,6 +10,7 @@ import static java.lang.Integer.max;
 public class Board {
     Random ran = new Random();
     Scanner sc = new Scanner(System.in);
+    private static int countOfGame = 0;
 
     private boolean firstThreeCardInvisible = false;
 
@@ -93,12 +94,20 @@ public class Board {
         }
 
         if (!atLeastOnePlayerHasCards) { // elleri boş olduğu zaman dağıtmak için çalışıcak (or gelebilir)   0   1
+            countOfGame++;
+            System.out.println("--------ROUND " + countOfGame + " IS STARTING--------");
+
             for (int dealingCardIndex = 0; dealingCardIndex < 4; dealingCardIndex++) {
                 for (Player player : players) {
                     player.addCard(deck.pop());
+
                 }
+                Thread.sleep(1000);
                 displayHand();
+
             }
+
+
         }
     }
 
@@ -200,7 +209,15 @@ public class Board {
             }
             Card playedCard = player.play(this);
 
-            System.out.println("Player "+ nthPlayer + "." + player.getName() + " has played: " + playedCard);
+            if(player != hPlayer){
+                Thread.sleep(1500);
+                System.out.println("Player "+ nthPlayer + "." + player.getName() + " has played: " + playedCard);
+            }else{
+                System.out.println("Player "+ nthPlayer + "." + player.getName() + " has played: " + playedCard);
+
+            }
+
+            Thread.sleep(1500);
 
             // ToDo: Increase here, to count how many faces are already played out
 
