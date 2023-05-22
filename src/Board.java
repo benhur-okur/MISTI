@@ -186,13 +186,13 @@ public class Board {
     //If there is no matching card in the regular bot's hand, a random card from its hand is played and added to the cardsOnTheBoard.
     //In both cases, the card played by the regular bot and the action taken are printed out.
 
-    public Card getTopCard() { // eğer ki topCard null olur ise 2. return sağlanamayacağı için if şartı eklenmiştir.
+//    public Card getTopCard() { // eğer ki topCard null olur ise 2. return sağlanamayacağı için if şartı eklenmiştir.
         if (cardsOnTheBoard.size() == 0) {
             return null;
         }
 
         return cardsOnTheBoard.get(cardsOnTheBoard.size() - 1);
-    }
+
 
     public void play() throws IOException, InterruptedException {
 

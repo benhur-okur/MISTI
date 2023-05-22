@@ -7,11 +7,13 @@ public class Human extends Player{
 
     @Override
     protected int decidePlayCardIndex(Board board){
+
         int selectCard = -1;
         boolean trueIndex = false;
         // ToDo: Please select a card using index between 0 - ???
         // for( Card card: hand ){ print'te hand.getFace, hand.getSuit vs } )
         // seçtikten sonra da  index kullanarak Card return et
+
         Scanner sc = new Scanner(System.in);
 
         do {

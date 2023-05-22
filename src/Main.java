@@ -6,8 +6,7 @@ import static java.lang.Integer.max;
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        ArrayList<Integer> topPlayersPoint = new ArrayList<>();
-        ArrayList<String> topPlayerName = new ArrayList<>();
+
         Deck deck = new Deck();
         Board board = new Board(deck);
         board.playerSelect();
