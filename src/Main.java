@@ -27,7 +27,8 @@ public class Main {
 
         System.out.println("--------GAME HAS FINISHED--------");
         Thread.sleep(1000);
-        System.out.println("--------POINTS ARE COMING--------");
+        System.out.println("--------POINTS ARE COMING--------" +
+                "");
         Thread.sleep(1500);
         for (Player player : board.getPlayers()) {
             //System.out.println(player.;);

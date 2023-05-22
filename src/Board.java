@@ -103,7 +103,6 @@ public class Board {
                     player.addCard(deck.pop());
 
                 }
-                Thread.sleep(1000);
                 displayHand();
 
             }
@@ -212,14 +211,12 @@ public class Board {
             Card playedCard = player.play(this);
 
             if(player != hPlayer){
-                Thread.sleep(1500);
                 System.out.println("Player "+ nthPlayer + "." + player.getName() + " has played: " + playedCard);
             }else{
                 System.out.println("Player "+ nthPlayer + "." + player.getName() + " has played: " + playedCard);
 
             }
 
-            Thread.sleep(1500);
 
             // ToDo: Increase here, to count how many faces are already played out
 
@@ -387,8 +384,6 @@ public class Board {
             }
         }
     }
-
-
 
 }
 
