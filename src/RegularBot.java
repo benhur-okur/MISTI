@@ -10,8 +10,6 @@ public class RegularBot extends Player {
 
     @Override
     protected int decidePlayCardIndex(Board board) {
-        // bu method için parametre ekliceez RegularBot tipinde !
-        // Bot hangi kartı oynayacağına karar verecek ve Card nesnesi return edecek.
         Card topCard = board.getTopCard();
         ArrayList<Card> cardsOnTheBoard = board.getKnownCardsOnTheBoard();
 
@@ -30,18 +28,12 @@ public class RegularBot extends Player {
                 WonCardCollection hypoteticalWonStack = new WonCardCollection(hypoteticalWonStackCards);
 
                 nthCardPointValue = hypoteticalWonStack.getPoints();
-                // map yap: cardIndex'den atarsam kazanacağım puana
-                // Key: cardIndex( at hand), value: collection.getPoints
             } else {
-                nthCardPointValue = 0;
-            }
+                nthCardPointValue = 0;}
 
             if (maxPointValue < nthCardPointValue) {
                 maxPointValue = nthCardPointValue;
-                maxPointValueCardIndex = i;
-            }
-            break;
-        }
-        return maxPointValueCardIndex;
-    }
+                maxPointValueCardIndex = i;}
+            break;}
+        return maxPointValueCardIndex;}
 }

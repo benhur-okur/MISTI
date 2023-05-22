@@ -3,7 +3,8 @@ import java.util.ArrayList;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
 
-public class ExpertBot extends Player{
+public class
+ExpertBot extends Player{
     public ExpertBot(String name) {
         super(name);
     }
@@ -31,8 +32,6 @@ public class ExpertBot extends Player{
     }
 
     protected int decidePlayCardIndex(Board board){
-        // bu method için parametre ekliceez RegularBot tipinde !
-        // Bot hangi kartı oynayacağına karar verecek ver Card nesnesi return edecek.
         Card topCard = board.getTopCard();
         ArrayList<Card> cardsOnTheBoard = board.getKnownCardsOnTheBoard();
 

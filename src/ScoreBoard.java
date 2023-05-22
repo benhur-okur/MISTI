@@ -3,7 +3,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class ScoreBoard {
+public class
+ScoreBoard {
     private static final int limit = 5;
     private static String filename = "highscore.txt";
     private ArrayList<HighScoreEntry> list = new ArrayList<>();

@@ -7,9 +7,6 @@ public class Human extends Player{
 
     @Override
     protected int decidePlayCardIndex(Board board){
-        // ToDo: Please select a card using index between 0 - ???
-        // for( Card card: hand ){ print'te hand.getFace, hand.getSuit vs } )
-        // seçtikten sonra da  index kullanarak Card return et
         Scanner sc = new Scanner(System.in);
 
         System.out.printf("Please Select a Card in your hand use index between 0 - %d [both include] !%n", getHand().size()-1);
