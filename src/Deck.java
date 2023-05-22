@@ -1,4 +1,6 @@
+import javax.swing.plaf.TableHeaderUI;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,10 +56,25 @@ public class Deck {
     //Todo : BU metod araştırılacak!!
     private ArrayList<PointValueRule> getPointValueRules() throws IOException {
         System.out.println("Please enter points file path [points.txt]");
-        String path = sc.nextLine();
-        if (path.equals("")) {
-            path = "points.txt";
+        System.out.println("If you do not have a file just click enter!!");
+
+        String pathName = sc.nextLine();
+        File path = new File(pathName);
+
+        if(pathName.equals("")){
+            pathName = "points.txt";
         }
+        while(!path.exists()){
+            System.out.println("File does not exist. Please try again");
+            pathName = sc.nextLine();
+            if(pathName.equals("")){
+                pathName = "points.txt";
+            }
+            path = new File(pathName);
+
+        }
+
+
 
         BufferedReader fileReader = new BufferedReader(new FileReader(path));
 
@@ -100,7 +117,7 @@ public class Deck {
     }
 
     //Deck is cutting
-    public void cutDeck() {
+    public void cutDeck() throws InterruptedException {
         ArrayList<Card> temporary = new ArrayList<>();
 
         ////Player will make a decision and give a number to cut then the deck will be cut from this number.
@@ -113,7 +130,9 @@ public class Deck {
             temporary.add(deck.get(i));
         }
         deck = temporary;
+        Thread.sleep(1000);
         System.out.println("Deck has just cut randomly..");
+        Thread.sleep(1000);
 
         //We defined a method called cutDeck() that allows the player to cut the deck.
         //User will enter a number to indicate where to cut the deck.
@@ -123,13 +142,14 @@ public class Deck {
 
 
     //Deck is shuffling
-    public void shuffleDeck() {
+    public void shuffleDeck() throws InterruptedException {
         Collections.shuffle(deck);
+        Thread.sleep(1000);
         System.out.println("Deck has just shuffled..");
     }
 
     //Show the deck
-    public void displayDeck() {
+    public void displayDeck() throws InterruptedException {
         if (counter < 1) {
             cutDeck();
             shuffleDeck();

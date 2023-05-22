@@ -6,8 +6,7 @@ import static java.lang.Integer.max;
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        ArrayList<Integer> topPlayersPoint = new ArrayList<>();
-        ArrayList<String> topPlayerName = new ArrayList<>();
+
         Deck deck = new Deck();
         Board board = new Board(deck);
         board.playerSelect();
@@ -25,9 +24,10 @@ public class Main {
             System.out.println("Top card: " + board.getTopCard());
         }
 
-        System.out.println("Game has finished!!");
-        System.out.println("Points are coming");
-        //Thread.sleep(2000);
+        System.out.println("--------GAME HAS FINISHED--------");
+        Thread.sleep(1000);
+        System.out.println("--------POINTS ARE COMING--------");
+        Thread.sleep(1500);
         for (Player player : board.getPlayers()) {
             //System.out.println(player.;);
             System.out.println(player.getName() + "Earned " + player.getPoint() + " Point");

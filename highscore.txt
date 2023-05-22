@@ -1,4 +1,0 @@
-478,Expert Bot
-282,Regular Bot
-257,Novice Bot
-198,Regular Bot 

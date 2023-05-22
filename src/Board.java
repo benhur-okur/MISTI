@@ -10,6 +10,7 @@ import static java.lang.Integer.max;
 public class Board {
     Random ran = new Random();
     Scanner sc = new Scanner(System.in);
+    private static int countOfGame = 0;
 
     private boolean firstThreeCardInvisible = false;
 
@@ -23,7 +24,7 @@ public class Board {
 
     private ArrayList<Card> cardsOnTheBoard = new ArrayList<>();
     private boolean isHuman; // we will use this data for dealing the hand for human or not;
-    private String askingUser; // in this data we are asking the user whether he or she is playing as a player;
+    private String askingUser = ""; // in this data we are asking the user whether he or she is playing as a player;
 
     private Deck deck;
     private ArrayList<Player> players = new ArrayList<>();
@@ -33,7 +34,7 @@ public class Board {
     //private Mod mod;
     private int noOfPlayer;
     private int mod;
-    public String s, t;
+    public String botName = "";
 
     public ArrayList<Card> getKnownCardsOnTheBoard() {
         if (firstThreeCardInvisible) {
@@ -63,23 +64,24 @@ public class Board {
         while (noOfPlayer != 2 && noOfPlayer != 4) {
             System.out.println("How many players will be in the cardsOnTheBoard '2 or 4' ?");
             try {
-                noOfPlayer = sc.nextInt();
+                noOfPlayer = Integer.parseInt(sc.nextLine());
             } catch (Exception ex) {
-                System.out.println(ex);
+                System.out.println(ex.toString());
             }
         }
-        System.out.println("Do you want to be a part of this game as a player? (yes / no) ");
-        try {
-            sc.nextLine();
-            askingUser = sc.nextLine();
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
-        if (askingUser.equalsIgnoreCase("YES")) { //Our boolean value will change according to the response we get from the user.
-            isHuman = true;
-            chosenPlayerList.add('H');
-        } else {
-            isHuman = false; //If user decides to not join then our boolean type will be false.
+        while (!askingUser.equalsIgnoreCase("YES") && !askingUser.equalsIgnoreCase("NO")){
+            System.out.println("Do you want to be a part of this game as a player? (yes / no) ");
+            try {
+                askingUser = sc.nextLine();
+            } catch (Exception ex) {
+                System.out.println(ex.toString());
+            }
+            if (askingUser.equalsIgnoreCase("YES")) { //Our boolean value will change according to the response we get from the user.
+                isHuman = true;
+                chosenPlayerList.add('H');
+            } else if (askingUser.equalsIgnoreCase("NO")) {
+                isHuman = false; //If user decides to not join then our boolean type will be false.
+            }
         }
     }
 
@@ -93,12 +95,20 @@ public class Board {
         }
 
         if (!atLeastOnePlayerHasCards) { // elleri boş olduğu zaman dağıtmak için çalışıcak (or gelebilir)   0   1
+            countOfGame++;
+            System.out.println("--------ROUND " + countOfGame + " IS STARTING--------");
+
             for (int dealingCardIndex = 0; dealingCardIndex < 4; dealingCardIndex++) {
                 for (Player player : players) {
                     player.addCard(deck.pop());
+
                 }
+                Thread.sleep(1000);
                 displayHand();
+
             }
+
+
         }
     }
 
@@ -120,18 +130,19 @@ public class Board {
     public void modSelect() throws InterruptedException {
         if (count == 0) {
             if (isHuman) {
-                try {
-                    count++;
-                    System.out.println("Please select game mod");
-                    System.out.println("1 -> SelfMod (this mod just shows hand of human player)"); //It will just show the human's hand, not the others.
-                    System.out.println("2 -> SpectateMod (this mod shows all hands of bots )"); // In this mode everyone's hand will be shown.
-                    modNo = sc.nextInt();
-                    // ToDo: Add validation
-                    sc.nextLine();
-                    //According to user's choice selected mode will be activated.
-                } catch (Exception ex) {
-                    System.out.println("Please select valid number 1 or 2 "); //Değişiklikler yapıldı
-                    System.out.println(ex.toString());
+                while (modNo != 1 && modNo != 2) {
+                    try {
+                        count++;
+                        System.out.println("Please select game mod");
+                        System.out.println("1 -> SelfMod (this mod just shows hand of human player)"); //It will just show the human's hand, not the others.
+                        System.out.println("2 -> SpectateMod (this mod shows all hands of bots )"); // In this mode everyone's hand will be shown.
+                        modNo = Integer.parseInt(sc.nextLine());
+                        // ToDo: Add validation
+                        //According to user's choice selected mode will be activated.
+                    } catch (Exception ex) {
+                        System.out.println("Please select valid number 1 or 2 "); //Değişiklikler yapıldı
+                        System.out.println(ex.toString());
+                    }
                 }
             } else {
                 modNo = 2;
@@ -200,7 +211,15 @@ public class Board {
             }
             Card playedCard = player.play(this);
 
-            System.out.println("Player "+ nthPlayer + "." + player.getName() + " has played: " + playedCard);
+            if(player != hPlayer){
+                Thread.sleep(1500);
+                System.out.println("Player "+ nthPlayer + "." + player.getName() + " has played: " + playedCard);
+            }else{
+                System.out.println("Player "+ nthPlayer + "." + player.getName() + " has played: " + playedCard);
+
+            }
+
+            Thread.sleep(1500);
 
             // ToDo: Increase here, to count how many faces are already played out
 
@@ -271,11 +290,14 @@ public class Board {
         }
         for (int i = 0; i < numberOfBots; i++) {
 
-            System.out.println("Which bot do you want to play?");
-            System.out.println("'Novice', 'Regular', 'Expert'");
-            s = sc.nextLine();
+            while (!botName.equalsIgnoreCase("novice") && !botName.equalsIgnoreCase("regular") && !botName.equalsIgnoreCase("expert")) {
 
-            switch (s.toUpperCase(Locale.ENGLISH)) { // bilgisayarın diline göre büyük harf kucuk harfte sıkıntı oluyor!!!!
+                System.out.println("Which bot do you want to play?");
+                System.out.println("'Novice', 'Regular', 'Expert'");
+                botName = sc.nextLine();
+            }
+
+            switch (botName.toUpperCase(Locale.ENGLISH)) { // bilgisayarın diline göre büyük harf kucuk harfte sıkıntı oluyor!!!!
                 case "NOVICE":
                     chosenPlayerList.add('N');
                     break;
@@ -286,6 +308,7 @@ public class Board {
                     chosenPlayerList.add('E');
                     break;
             }
+            botName = "";
         }
     }
 
